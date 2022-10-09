@@ -42,21 +42,29 @@ This includes the last implementations of FastNoiseLite 2D and 3D (OpenSimplex, 
 
 - **Loading preset is buggy, you sometimes have to click multiple times to load custom parameters properly**
 - Parameter order can be a bit erratic when you change order in your declarations, so be aware of that.
-- [TD Limitation] Panels are not resized properly as long as you visualize it directly in node UI. But you can right-click and select “View…” then everything in UI is updating properly
+- On dropping node, init state don't show you code panels, you have to refresh it by opening viewer and click tabs to display it properly
+- [TD Limitation] Panels are not resized properly as long as you visualize it directly in node UI. But you can open viewer then everything in UI is updating properly
 - [TD Limitation] Parameter pane don’t always display updates when you load preset, you may have to reload the viewer
+- [TD Limitation] Execute code by pressing [CTRL] + Enter will lose text cursor position
 
 ### Keyboard Shortcuts :
 
-**Everywhere in the Viewer** →
+**On OP is current in Network** →
 
-- [CTRL] + P : Toggle display of Parameter pane
-- [CTRL] + 0 : Toggle display of Viewer pane tabs in Parameter pane
-- [CTRL] + 9 : Toggle display of [READ-ONLY] Full code output 
+- [CTRL] + Enter : Open Viewer
+
+**Everywhere in the OP Viewer** →
+
+- [CTRL] + Enter : Execute
+- Escape         : Close viewer
+- [CTRL] + P     : Toggle display of Parameter pane
+- [CTRL] + 0     : Toggle display of Viewer pane tabs (in Parameter pane)
+- [CTRL] + 9     : Toggle display of [READ-ONLY] Full code output 
 
 **On Main Panel only** →
 
-- [CTRL] + 1 : Toggle display of IO Panel
-- [CTRL] + 2 : Toggle display of Functions Panel
+- [CTRL] + 1     : Toggle display of IO Panel
+- [CTRL] + 2     : Toggle display of Functions Panel
 - And all the same builtins interaction than regular TOPs and DATs (OP Viewer)
 
 ### Syntax specifics :
@@ -99,4 +107,6 @@ I will do my best to answer it.
 - Update your palette
 <img width="226" alt="palette" src="https://user-images.githubusercontent.com/97438154/194753342-c1614d33-9f1c-4987-b012-63685e6b49cd.png">
 
+- Drop node in network, press [CTRL] + Enter to open viewer
+- <img width="240" alt="image" src="https://user-images.githubusercontent.com/97438154/194758085-8eb29a36-5fc5-4d85-980b-9e0183806831.png">
 
