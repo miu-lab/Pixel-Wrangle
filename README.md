@@ -97,7 +97,7 @@ I will do my best to answer it.
 - A preset browser with metadata( eg: category, tags ) callable with tab-like menu
 - A basic form of inline snippet loader to load most used functions
 
-## **Quick installation**
+## **Quick start**
 
 Clone the repository or download and extract zip content in your User palette, located in Documents/Derivative/Palette
 
