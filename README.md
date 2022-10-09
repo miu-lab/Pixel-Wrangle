@@ -1,4 +1,4 @@
-<img width="1920" alt="image" src="https://user-images.githubusercontent.com/45342222/194131571-94a0a9de-4e85-4b8b-93f9-a6a76e45435f.png">
+<img width="1920" alt="image" src="https://user-images.githubusercontent.com/97438154/194752652-c05127ac-6bf9-4197-bc13-9e4326845634.png">
 
 # Pixel Wrangle
 
@@ -90,3 +90,13 @@ I will do my best to answer it.
 - A wider list of presets
 - A preset browser with metadata( eg: category, tags ) callable with tab-like menu
 - A basic form of inline snippet loader to load most used functions
+
+## Quick Installation
+
+- Clone or dowmload and extract zip content in your User palette, located in Documents/Derivative/Palette
+<img width="383" alt="image" src="https://user-images.githubusercontent.com/97438154/194753006-2f26c8cd-5474-4177-a52c-9f57373f76f8.png">
+
+- Update your palette
+<img width="226" alt="palette" src="https://user-images.githubusercontent.com/97438154/194753342-c1614d33-9f1c-4987-b012-63685e6b49cd.png">
+
+
