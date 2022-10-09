@@ -48,20 +48,19 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 ## **Keyboard shortcuts**
 
 ### If OP is "current" in network view →
-[CTRL] + Enter : Open Viewer
-
+- [CTRL] + Enter : Open Viewer
 
 ### In the OP viewer →
-[CTRL] + Enter : Execute
-Escape : Close viewer
-[CTRL] + P : Toggle display of Parameter pane
-[CTRL] + 0 : Toggle display of Viewer pane tabs (in Parameter pane)
-[CTRL] + 9 : Toggle display of [READ-ONLY] Full code output
+- [CTRL] + Enter : Execute
+- Escape : Close viewer
+- [CTRL] + P : Toggle display of Parameter pane
+- [CTRL] + 0 : Toggle display of Viewer pane tabs (in Parameter pane)
+- [CTRL] + 9 : Toggle display of [READ-ONLY] Full code output
 
 ### On main panel only →
-[CTRL] + 1 : Toggle display of IO Panel
-[CTRL] + 2 : Toggle display of Functions Panel
-And all the same builtins interaction than regular TOPs and DATs (OP Viewer)
+- [CTRL] + 1 : Toggle display of IO Panel
+- [CTRL] + 2 : Toggle display of Functions Panel
+- All the same builtins interaction than regular TOPs and DATs (OP Viewer)
 
 ## **Syntax specifics**
 
