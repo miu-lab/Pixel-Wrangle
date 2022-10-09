@@ -10,7 +10,6 @@ This project is widely inspired by the VEX Wranglers in the Houdini eco-system.
 It provides auto-parameter generation for uniforms, as standard Touchdesigner parms, and more...
 You can save and reload presets on demand.
 
-
 Some 'starter' presets are provided as proof of concept.
 
 This includes the last implementations of FastNoiseLite 2D and 3D (OpenSimplex, Perlin, Cellular…) in GLSL that are really good quality and reasonably fast in comparison with regular Noise TOP.
@@ -33,6 +32,7 @@ This includes the last implementations of FastNoiseLite 2D and 3D (OpenSimplex, 
 - All parameters are generated as float or vector of float, you can cast it to int in your code, and/or change parameter type to int in component editors. Changes are saved with preset.
 - Outputs are generated and activated by declaration in your code but you can modify it manually in Outputs Tab
 - Inputs as texture buffer are manually settable via Inputs Tab and referenced by integer as GLSL TOP do it.
+- Ability to activate Auto-focus in parameter pane, to display parm of any 'Current' node. Easy tweak other OPs parameters, keeping main viewer active.
 
 ### Current Limitations :
 
@@ -47,7 +47,13 @@ This includes the last implementations of FastNoiseLite 2D and 3D (OpenSimplex, 
 
 ### Keyboard Shortcuts :
 
-On Main Panel only →
+**Everywhere in the Viewer** →
+
+- [CTRL] + P : Toggle display of Parameter pane
+- [CTRL] + 0 : Toggle display of Viewer pane tabs in Parameter pane
+- [CTRL] + 9 : Toggle display of [READ-ONLY] Full code output 
+
+**On Main Panel only** →
 
 - [CTRL] + 1 : Toggle display of IO Panel
 - [CTRL] + 2 : Toggle display of Functions Panel
