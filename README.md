@@ -28,6 +28,7 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 - Inputs as texture buffer are manually settable via Inputs Tab and referenced by integer as GLSL TOP do it.
 - Ability to activate Auto-focus in parameter pane, to display parm of any 'Current' node. For easy tweaking other OPs parameters, keeping main viewer active.
 - Screen resolution is the only pre-declared 2D uniform, called 'uRes'
+- Built-in feedback system
 
 ## **Current limitations**
 
@@ -49,10 +50,12 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 
 ### If OP is "current" in network view →
 - [CTRL] + Enter : Open Viewer
+- [CTRL] + E : Open VS Code
 
 ### In the OP viewer →
 - [CTRL] + Enter : Execute
 - Escape : Close viewer
+- [CTRL] + E : Open VS Code
 - [CTRL] + P : Toggle display of Parameter pane
 - [CTRL] + 0 : Toggle display of Viewer pane tabs (in Parameter pane)
 - [CTRL] + 9 : Toggle display of [READ-ONLY] Full code output
@@ -91,7 +94,7 @@ I will do my best to answer it.
 ### Future versions would have
 
 - Full parity with GLSL TOP (compute shaders, all parameter types, 3D)
-- Internal feedbacks, better buffer management
+- Better buffer management
 - A wider list of presets
 - A preset browser with metadata( eg: category, tags ) callable with tab-like menu
 - A basic form of inline snippet loader to load most used functions
