@@ -48,21 +48,24 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 
 ## **Keyboard shortcuts**
 
-### If OP is "current" in network view →
-- [CTRL] + Enter : Open Viewer
-- [CTRL] + E : Open VS Code
+### **If OP is "current" in network view** →
 
-### In the OP viewer →
-- [CTRL] + Enter : Execute
-- Escape : Close viewer
-- [CTRL] + E : Open VS Code
-- [CTRL] + P : Toggle display of Parameter pane
-- [CTRL] + 0 : Toggle display of Viewer pane tabs (in Parameter pane)
-- [CTRL] + 9 : Toggle display of [READ-ONLY] Full code output
+- **[CTRL]** + **Enter** : Open Viewer
+- **[CTRL]** + **E** : Open VS Code
 
-### On main panel only →
-- [CTRL] + 1 : Toggle display of IO Panel
-- [CTRL] + 2 : Toggle display of Functions Panel
+### **In the OP viewer** →
+
+- **[CTRL]** + **Enter** : Execute
+- **Escape** : Close viewer
+- **[CTRL]** + **E** : Open VS Code
+- **[CTRL]** + **P** : Toggle display of Parameter pane
+- **[CTRL]** + **0** : Toggle display of Viewer pane tabs (in Parameter pane)
+- **[CTRL]** + **9** : Toggle display of [READ-ONLY] Full code output
+
+### **On main panel only** →
+
+- **[CTRL]** + **1** : Toggle display of IO Panel
+- **[CTRL]** + **2** : Toggle display of Functions Panel
 - All the same builtins interaction than regular TOPs and DATs (OP Viewer)
 
 ## **Syntax specifics**
@@ -101,16 +104,46 @@ I will do my best to answer it.
 
 ## **Quick start**
 
-Clone the repository or download and extract zip content in your User palette, located in Documents/Derivative/Palette
+- Clone the repository or download and extract zip content in your User palette, located in Documents/Derivative/Palette\
+<img width="33%" alt="image" src="https://user-images.githubusercontent.com/97438154/194753006-2f26c8cd-5474-4177-a52c-9f57373f76f8.png">
 
-<img width="383" alt="image" src="https://user-images.githubusercontent.com/97438154/194753006-2f26c8cd-5474-4177-a52c-9f57373f76f8.png">
+- Update your palette\
+<img width="33%" alt="palette" src="https://user-images.githubusercontent.com/97438154/194753342-c1614d33-9f1c-4987-b012-63685e6b49cd.png">
 
+- Drop node in network, press [CTRL] + Enter to open viewer\
+<img width="33%" alt="image" src="https://user-images.githubusercontent.com/97438154/194758085-8eb29a36-5fc5-4d85-980b-9e0183806831.png">
 
-Update your palette
+## **Working with VS Code**
 
-<img width="226" alt="palette" src="https://user-images.githubusercontent.com/97438154/194753342-c1614d33-9f1c-4987-b012-63685e6b49cd.png">
+There is a keyboard shortcut [CTRL] + E to edit current shader in VS Code.
 
+It will open a new instance of VS Code in a folder that contains all panels in 4 separate files.
 
-Drop node in network, press [CTRL] + Enter to open viewer
+Each of these folders are stored in the default 'touchtmp' folder.
 
-<img width="240" alt="image" src="https://user-images.githubusercontent.com/97438154/194758085-8eb29a36-5fc5-4d85-980b-9e0183806831.png">
+The naming scheme is **\<TOUCHTMP\>**/**\<PROJECTNAME\>**/**\<OPID\>** with :
+
+- **TOUCHTMP** = Touchdesigner temp folder path. Run 'var('TEMP')' in a python console to see yours
+- **PROJECTNAME** = current project name without digits
+- **OPID** = the unique ID of the current PixelWrangle OP
+
+### **Prerequisites**
+
+- [Download](https://code.visualstudio.com/download) and install VS Code on your machine
+- Update path if necessary
+
+### **Environment**
+
+When you open VS Code editor for the first time, a brand new environment is created in your home folder -> C:/Users/\<**YourUserProfile**\>/.vscode-td/glsl
+
+You will start with a clean environment.\
+Default settings, no extensions.\
+You can add your favorites.
+
+Now, each time you will open VS Code on this 'OP type', it will load this specific environment.
+
+For a quick start, you will find a very minimal code profile that you can import in your custom environment.\
+It will download some usefull extensions to write glsl, and import TD specifics variables/functions for auto-completion engine.
+
+You can just hit [CTRL] + P, run this commands and choose 'glsl.code-profile' provided at root of this repo.\
+<img width="33%" alt="image" src="https://user-images.githubusercontent.com/97438154/197342847-dadb3698-e839-46b7-83eb-dc028688ac2e.png">
