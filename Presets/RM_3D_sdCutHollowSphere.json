@@ -1,49 +1,4 @@
 {
-	"Time": {
-		"name": "Time",
-		"label": "Time",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			0.5
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": null,
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"EXPRESSION"
-		],
-		"val": [
-			0.5
-		],
-		"expr": [
-			"absTime.seconds"
-		],
-		"bindExpr": [
-			null
-		]
-	},
 	"Radius": {
 		"name": "Radius",
 		"label": "Radius",
@@ -51,7 +6,7 @@
 		"style": "Float",
 		"size": 1,
 		"default": [
-			0.5
+			1.5
 		],
 		"enable": true,
 		"startSection": false,
@@ -68,7 +23,7 @@
 			0.0
 		],
 		"normMax": [
-			1.0
+			2.0
 		],
 		"clampMin": [
 			false
@@ -80,7 +35,7 @@
 			"CONSTANT"
 		],
 		"val": [
-			2.0
+			1.5
 		],
 		"expr": [
 			null
@@ -141,7 +96,7 @@
 		"style": "Float",
 		"size": 1,
 		"default": [
-			0.5
+			64.0
 		],
 		"enable": true,
 		"startSection": false,
@@ -155,10 +110,10 @@
 			1.0
 		],
 		"normMin": [
-			0.0
+			16.0
 		],
 		"normMax": [
-			4096.0
+			512.0
 		],
 		"clampMin": [
 			false
@@ -170,7 +125,7 @@
 			"CONSTANT"
 		],
 		"val": [
-			100.0
+			64.0
 		],
 		"expr": [
 			null
@@ -178,6 +133,165 @@
 		"bindExpr": [
 			null
 		]
+	},
+	"Inputsglobalh": {
+		"name": "Inputsglobalh",
+		"label": "Global",
+		"page": "Inputs",
+		"style": "Header",
+		"default": "",
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsresetall": {
+		"name": "Inputsresetall",
+		"label": "Reset all",
+		"page": "Inputs",
+		"style": "Toggle",
+		"default": false,
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputstimeh": {
+		"name": "Inputstimeh",
+		"label": "Time",
+		"page": "Inputs",
+		"style": "Header",
+		"default": "",
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsplay": {
+		"name": "Inputsplay",
+		"label": "Play",
+		"page": "Inputs",
+		"style": "Toggle",
+		"default": true,
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsreverse": {
+		"name": "Inputsreverse",
+		"label": "Reverse",
+		"page": "Inputs",
+		"style": "Toggle",
+		"default": false,
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsspeed": {
+		"name": "Inputsspeed",
+		"label": "Speed",
+		"page": "Inputs",
+		"style": "Float",
+		"size": 1,
+		"default": 1.0,
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": 0.0,
+		"max": 1.0,
+		"normMin": 0.0,
+		"normMax": 10.0,
+		"clampMin": false,
+		"clampMax": false,
+		"mode": "CONSTANT",
+		"val": 1.0,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputspanelh": {
+		"name": "Inputspanelh",
+		"label": "Panel Source",
+		"page": "Inputs",
+		"style": "Header",
+		"default": "",
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputspanelsource": {
+		"name": "Inputspanelsource",
+		"label": "Panel Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "internal",
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"menuNames": [
+			"internal",
+			"external"
+		],
+		"menuLabels": [
+			"Internal",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "internal",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputspanel": {
+		"name": "Inputspanel",
+		"label": "Panel",
+		"page": "Inputs",
+		"style": "PanelCOMP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputspanelsource == 'external'",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
 	},
 	"Inputsinput1": {
 		"name": "Inputsinput1",
@@ -210,6 +324,90 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype1": {
+		"name": "Inputsinputtype1",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive1 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource1": {
+		"name": "Inputsinputfeedbacksource1",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "Image",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype1=='feedback' and me.par.Inputsactive1 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Position",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom1": {
+		"name": "Inputsinputcustom1",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype1=='custom' and me.par.Inputsactive1 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "text1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset1": {
+		"name": "Inputsinputfeedbackreset1",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype1=='feedback' and me.par.Inputsactive1 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname1": {
 		"name": "Inputsinputname1",
@@ -289,6 +487,90 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype2": {
+		"name": "Inputsinputtype2",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive2 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource2": {
+		"name": "Inputsinputfeedbacksource2",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype2=='feedback' and me.par.Inputsactive2 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Position",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom2": {
+		"name": "Inputsinputcustom2",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype2=='custom' and me.par.Inputsactive2 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "TEST_NODE",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype2=='feedback' and me.par.Inputsactive2 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname2": {
 		"name": "Inputsinputname2",
 		"label": "Name",
@@ -366,6 +648,90 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype3": {
+		"name": "Inputsinputtype3",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive3 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource3": {
+		"name": "Inputsinputfeedbacksource3",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype3=='feedback' and me.par.Inputsactive3 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom3": {
+		"name": "Inputsinputcustom3",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype3=='custom' and me.par.Inputsactive3 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "noise1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset3": {
+		"name": "Inputsinputfeedbackreset3",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype3=='feedback' and me.par.Inputsactive3 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname3": {
 		"name": "Inputsinputname3",
@@ -445,6 +811,90 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype4": {
+		"name": "Inputsinputtype4",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive4 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource4": {
+		"name": "Inputsinputfeedbacksource4",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype4=='feedback' and me.par.Inputsactive4 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom4": {
+		"name": "Inputsinputcustom4",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype4=='custom' and me.par.Inputsactive4 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype4=='feedback' and me.par.Inputsactive4 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname4": {
 		"name": "Inputsinputname4",
 		"label": "Name",
@@ -522,6 +972,90 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype5": {
+		"name": "Inputsinputtype5",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive5 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource5": {
+		"name": "Inputsinputfeedbacksource5",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype5=='feedback' and me.par.Inputsactive5 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom5": {
+		"name": "Inputsinputcustom5",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype5=='custom' and me.par.Inputsactive5 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype5=='feedback' and me.par.Inputsactive5 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname5": {
 		"name": "Inputsinputname5",
@@ -601,6 +1135,90 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype6": {
+		"name": "Inputsinputtype6",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive6 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource6": {
+		"name": "Inputsinputfeedbacksource6",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype6=='feedback' and me.par.Inputsactive6 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom6": {
+		"name": "Inputsinputcustom6",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype6=='custom' and me.par.Inputsactive6 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype6=='feedback' and me.par.Inputsactive6 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname6": {
 		"name": "Inputsinputname6",
 		"label": "Name",
@@ -679,6 +1297,90 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype7": {
+		"name": "Inputsinputtype7",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive7 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource7": {
+		"name": "Inputsinputfeedbacksource7",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype7=='feedback' and me.par.Inputsactive7 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"menuLabels": [
+			"Color",
+			"Position",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom7": {
+		"name": "Inputsinputcustom7",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype7=='custom' and me.par.Inputsactive7 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype7=='feedback' and me.par.Inputsactive7 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname7": {
 		"name": "Inputsinputname7",
 		"label": "Name",
@@ -756,6 +1458,90 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype8": {
+		"name": "Inputsinputtype8",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive8 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource8": {
+		"name": "Inputsinputfeedbacksource8",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype8=='feedback' and me.par.Inputsactive8 == 1",
+		"help": "",
+		"menuNames": [
+			"name1",
+			"name2",
+			"name3"
+		],
+		"menuLabels": [
+			"Label 1",
+			"Label 2",
+			"Label 3"
+		],
+		"mode": "CONSTANT",
+		"val": "name1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom8": {
+		"name": "Inputsinputcustom8",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype8=='custom' and me.par.Inputsactive8 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype8=='feedback' and me.par.Inputsactive8 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname8": {
 		"name": "Inputsinputname8",
@@ -1427,8 +2213,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"UNIFORMS_CODE": "float Time;\nfloat Radius; // default=0.5\nfloat Thickness; // default=0.02\nfloat Iterations; // max=4096",
-	"FUNCTIONS_CODE": "float sdCutHollowSphere( vec3 p, float r, float h, float t )\n{\n    vec2 q = vec2( length(p.xz), p.y );\n    \n    float w = sqrt(r*r-h*h);\n    \n    return ((h*q.x<w*q.y) ? length(q-vec2(w,h)) : \n                            abs(length(q)-r) ) - t;\n}\n\nfloat map( in vec3 pos )\n{\n    pos.xy = (mat2(3,4,-4,3)/5.0)*pos.xy;\n    float r = Radius;\n    float h = sin(Time);\n    float t = Thickness;\n    return sdCutHollowSphere(pos, r, h, t );\n}\n\n// https://iquilezles.org/articles/rmshadows\nfloat calcSoftshadow( in vec3 ro, in vec3 rd, float tmin, float tmax, const float k )\n{\n\tfloat res = 1.0;\n    float t = tmin;\n    for( int i=0; i<20; i++ )\n    {\n\t\tfloat h = map( ro + rd*t );\n        res = min( res, k*h/t );\n        t += clamp( h, 0.01, 0.10 );\n        if( res<0.000002 || t>tmax ) break;\n    }\n    return clamp( res, 0.0, 1.0 );\n}\n\n// https://iquilezles.org/articles/normalsSDF\nvec3 calcNormal( in vec3 pos )\n{\n    vec2 e = vec2(1.0,-1.0)*0.5773;\n    const float eps = 0.0005;\n    return normalize( e.xyy*map( pos + e.xyy*eps ) + \n\t\t\t\t\t  e.yyx*map( pos + e.yyx*eps ) + \n\t\t\t\t\t  e.yxy*map( pos + e.yxy*eps ) + \n\t\t\t\t\t  e.xxx*map( pos + e.xxx*eps ) );\n}",
+	"UNIFORMS_CODE": "float Radius; // max=2 default=1.5\nfloat Thickness; // default=0.02\nfloat Iterations; // default=64 min=16 max=512",
+	"FUNCTIONS_CODE": "float sdCutHollowSphere( vec3 p, float r, float h, float t )\n{\n    vec2 q = vec2( length(p.xz), p.y );\n    \n    float w = sqrt(r*r-h*h);\n    \n    return ((h*q.x<w*q.y) ? length(q-vec2(w,h)) : \n                            abs(length(q)-r) ) - t;\n}\n\nfloat map(vec3 pos)\n{\n    pos.xy = (mat2(3,4,-4,3)/5.0)*pos.xy;\n    float r = Radius;\n    float h = sin(Time.x);\n    float t = Thickness;\n    return sdCutHollowSphere(pos, r, h, t );\n}\n\n// https://iquilezles.org/articles/rmshadows\nfloat calcSoftshadow( in vec3 ro, in vec3 rd, float tmin, float tmax, const float k )\n{\n\tfloat res = 1.0;\n    float t = tmin;\n    for( int i=0; i<20; i++ )\n    {\n\t\tfloat h = map( ro + rd*t );\n        res = min( res, k*h/t );\n        t += clamp( h, 0.01, 0.10 );\n        if( res<0.000002 || t>tmax ) break;\n    }\n    return clamp( res, 0.0, 1.0 );\n}\n\n// https://iquilezles.org/articles/normalsSDF\nvec3 calcNormal( in vec3 pos )\n{\n    vec2 e = vec2(1.0,-1.0)*0.5773;\n    const float eps = 0.0005;\n    return normalize( e.xyy*map( pos + e.xyy*eps ) + \n\t\t\t\t\t  e.yyx*map( pos + e.yyx*eps ) + \n\t\t\t\t\t  e.yxy*map( pos + e.yxy*eps ) + \n\t\t\t\t\t  e.xxx*map( pos + e.xxx*eps ) );\n}",
 	"OUTPUTS_CODE": "vec4 Color;\nvec4 Position;\nvec4 Normals;",
-	"MAIN_CODE": "// Init\nvec3 position;\nvec3 normals;\nfloat alpha;\nvec3 tot = vec3(0.0);\n\n// Origin\nvec3 ro = vec3( 7, 3, 5);\nvec3 ta = vec3( 0.0, 0.0, 0.0 );\n\n// Camera Model\nvec3 ww = normalize( ta - ro );\nvec3 uu = normalize( cross(ww,vec3(0.0,1.0,0.0) ) );\nvec3 vv = normalize( cross(uu,ww));\n\n// Coordinates\nvec2 o = vec2(1,1 - 0.5);\nvec2 p = vUV.st-.5;\np.s *= (uRes.x/uRes.y); \n\n// Camera View\nvec3 rd = normalize( p.x*uu + p.y*vv + 1.5*ww );\n\n// Ray-march\nconst float tmax = 15.0;\nfloat t = 0.0;\nfor( int i=0; i<Iterations; i++ )\n{\n    vec3 pos = ro + t*rd;\n    float h = map(pos);\n    if( h<0.00001) {\n    \talpha = 1.0;\n    \tbreak;\n    }\n    else if (t>tmax){\n    \tt=-1;\n    \tbreak;\n    }\n    t += h;\n}\n\n// Lighting\nvec3 col = vec3(0.0);\nif( t<tmax )\n{\n    vec3 pos = ro+t*rd;\n    position = pos;\n    vec3 nor = calcNormal(pos);\n    normals = nor;\n    vec3 lig = vec3(0.57703);\n    float dif = clamp( dot(nor,lig), 0.0, 1.0 );\n    if( dif>0.001 ) dif *= calcSoftshadow( pos+nor*.01, lig, 0.02, 2.0, 2.0 );\n    float amb = 0.5 + 0.5*dot(nor,vec3(0.0,1.0,0.0));\n    col = vec3(0.2,0.3,0.4)*amb + vec3(0.8,0.7,0.5)*dif;\n}\n\n// Gamma       \ncol = sqrt( col );\ntot += col;\n\n// Outputs\nColor = TDOutputSwizzle(vec4(tot*alpha, alpha));\nPosition = TDOutputSwizzle(vec4(position*alpha,alpha));\nNormals = TDOutputSwizzle(vec4(normals*alpha,alpha));"
+	"MAIN_CODE": "// Init\nvec3 position;\nvec3 normals;\nfloat alpha;\nvec3 tot = vec3(0.0);\n\n// Origin\nvec3 ro = vec3( 7, 3, 5);\nvec3 ta = vec3( 0.0, 0.0, 0.0 );\n\n// Camera Model\nvec3 ww = normalize( ta - ro );\nvec3 uu = normalize( cross(ww,vec3(0.0,1.0,0.0) ) );\nvec3 vv = normalize( cross(uu,ww));\n\n// Coordinates\nvec2 o = vec2(1,1 - 0.5);\nvec2 p = vUV.st-.5;\np.s *= (uTDOutputInfo.res.z/uTDOutputInfo.res.w); \n\n// Camera View\nvec3 rd = normalize( p.x*uu + p.y*vv + 1.5*ww );\n\n// Ray-march\nconst float tmax = 15.0;\nfloat t = 0.0;\nfor( int i=0; i<Iterations; i++ )\n{\n    vec3 pos = ro + t*rd;\n    float h = map(pos);\n    if( h<0.00001) {\n    \talpha = 1.0;\n    \tbreak;\n    }\n    else if (t>tmax){\n    \tt=-1;\n    \tbreak;\n    }\n    t += h;\n}\n\n// Lighting\nvec3 col = vec3(0.0);\nif( t<tmax )\n{\n    vec3 pos = ro+t*rd;\n    position = pos;\n    vec3 nor = calcNormal(pos);\n    normals = nor;\n    vec3 lig = vec3(0.57703);\n    float dif = clamp( dot(nor,lig), 0.0, 1.0 );\n    if( dif>0.001 ) dif *= calcSoftshadow( pos+nor*.01, lig, 0.02, 2.0, 2.0 );\n    float amb = 0.5 + 0.5*dot(nor,vec3(0.0,1.0,0.0));\n    col = vec3(0.2,0.3,0.4)*amb + vec3(0.8,0.7,0.5)*dif;\n}\n\n// Gamma       \ncol = sqrt( col );\ntot += col;\n\n// Outputs\nColor = TDOutputSwizzle(vec4(tot*alpha, alpha));\nPosition = TDOutputSwizzle(vec4(position*alpha,alpha));\nNormals = TDOutputSwizzle(vec4(normals*alpha,alpha));"
 }

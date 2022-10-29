@@ -447,6 +447,165 @@
 			null
 		]
 	},
+	"Inputsglobalh": {
+		"name": "Inputsglobalh",
+		"label": "Global",
+		"page": "Inputs",
+		"style": "Header",
+		"default": "",
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsresetall": {
+		"name": "Inputsresetall",
+		"label": "Reset all",
+		"page": "Inputs",
+		"style": "Toggle",
+		"default": false,
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputstimeh": {
+		"name": "Inputstimeh",
+		"label": "Time",
+		"page": "Inputs",
+		"style": "Header",
+		"default": "",
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsplay": {
+		"name": "Inputsplay",
+		"label": "Play",
+		"page": "Inputs",
+		"style": "Toggle",
+		"default": true,
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsreverse": {
+		"name": "Inputsreverse",
+		"label": "Reverse",
+		"page": "Inputs",
+		"style": "Toggle",
+		"default": false,
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsspeed": {
+		"name": "Inputsspeed",
+		"label": "Speed",
+		"page": "Inputs",
+		"style": "Float",
+		"size": 1,
+		"default": 1.0,
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": 0.0,
+		"max": 1.0,
+		"normMin": 0.0,
+		"normMax": 10.0,
+		"clampMin": false,
+		"clampMax": false,
+		"mode": "CONSTANT",
+		"val": 1.0,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputspanelh": {
+		"name": "Inputspanelh",
+		"label": "Panel Source",
+		"page": "Inputs",
+		"style": "Header",
+		"default": "",
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputspanelsource": {
+		"name": "Inputspanelsource",
+		"label": "Panel Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "internal",
+		"enable": true,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"menuNames": [
+			"internal",
+			"external"
+		],
+		"menuLabels": [
+			"Internal",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "internal",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputspanel": {
+		"name": "Inputspanel",
+		"label": "Panel",
+		"page": "Inputs",
+		"style": "PanelCOMP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputspanelsource == 'external'",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
 	"Inputsinput1": {
 		"name": "Inputsinput1",
 		"label": "Input 1",
@@ -478,6 +637,88 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype1": {
+		"name": "Inputsinputtype1",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive1 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource1": {
+		"name": "Inputsinputfeedbacksource1",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "Image",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype1=='feedback' and me.par.Inputsactive1 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Test",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom1": {
+		"name": "Inputsinputcustom1",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype1=='custom' and me.par.Inputsactive1 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "text1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset1": {
+		"name": "Inputsinputfeedbackreset1",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype1=='feedback' and me.par.Inputsactive1 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname1": {
 		"name": "Inputsinputname1",
@@ -557,6 +798,88 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype2": {
+		"name": "Inputsinputtype2",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive2 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource2": {
+		"name": "Inputsinputfeedbacksource2",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype2=='feedback' and me.par.Inputsactive2 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Test",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom2": {
+		"name": "Inputsinputcustom2",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype2=='custom' and me.par.Inputsactive2 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "TEST_NODE",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype2=='feedback' and me.par.Inputsactive2 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname2": {
 		"name": "Inputsinputname2",
 		"label": "Name",
@@ -634,6 +957,88 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype3": {
+		"name": "Inputsinputtype3",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive3 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource3": {
+		"name": "Inputsinputfeedbacksource3",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype3=='feedback' and me.par.Inputsactive3 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom3": {
+		"name": "Inputsinputcustom3",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype3=='custom' and me.par.Inputsactive3 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "noise1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset3": {
+		"name": "Inputsinputfeedbackreset3",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype3=='feedback' and me.par.Inputsactive3 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname3": {
 		"name": "Inputsinputname3",
@@ -713,6 +1118,88 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype4": {
+		"name": "Inputsinputtype4",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive4 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource4": {
+		"name": "Inputsinputfeedbacksource4",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype4=='feedback' and me.par.Inputsactive4 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom4": {
+		"name": "Inputsinputcustom4",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype4=='custom' and me.par.Inputsactive4 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype4=='feedback' and me.par.Inputsactive4 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname4": {
 		"name": "Inputsinputname4",
 		"label": "Name",
@@ -790,6 +1277,88 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype5": {
+		"name": "Inputsinputtype5",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive5 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource5": {
+		"name": "Inputsinputfeedbacksource5",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype5=='feedback' and me.par.Inputsactive5 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom5": {
+		"name": "Inputsinputcustom5",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype5=='custom' and me.par.Inputsactive5 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype5=='feedback' and me.par.Inputsactive5 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname5": {
 		"name": "Inputsinputname5",
@@ -869,6 +1438,88 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype6": {
+		"name": "Inputsinputtype6",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive6 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource6": {
+		"name": "Inputsinputfeedbacksource6",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype6=='feedback' and me.par.Inputsactive6 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom6": {
+		"name": "Inputsinputcustom6",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype6=='custom' and me.par.Inputsactive6 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype6=='feedback' and me.par.Inputsactive6 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname6": {
 		"name": "Inputsinputname6",
 		"label": "Name",
@@ -947,6 +1598,88 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype7": {
+		"name": "Inputsinputtype7",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive7 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource7": {
+		"name": "Inputsinputfeedbacksource7",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype7=='feedback' and me.par.Inputsactive7 == 1",
+		"help": "",
+		"menuNames": [
+			"Color",
+			"Test"
+		],
+		"menuLabels": [
+			"Color",
+			"Test"
+		],
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom7": {
+		"name": "Inputsinputcustom7",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype7=='custom' and me.par.Inputsactive7 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype7=='feedback' and me.par.Inputsactive7 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputname7": {
 		"name": "Inputsinputname7",
 		"label": "Name",
@@ -1024,6 +1757,90 @@
 		"val": false,
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputtype8": {
+		"name": "Inputsinputtype8",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "direct",
+		"enable": false,
+		"startSection": true,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsactive8 == 1",
+		"help": "",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "direct",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource8": {
+		"name": "Inputsinputfeedbacksource8",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"default": "name1",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype8=='feedback' and me.par.Inputsactive8 == 1",
+		"help": "",
+		"menuNames": [
+			"name1",
+			"name2",
+			"name3"
+		],
+		"menuLabels": [
+			"Label 1",
+			"Label 2",
+			"Label 3"
+		],
+		"mode": "CONSTANT",
+		"val": "name1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom8": {
+		"name": "Inputsinputcustom8",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"default": "",
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype8=='custom' and me.par.Inputsactive8 == 1",
+		"help": "",
+		"mode": "CONSTANT",
+		"val": "",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"default": false,
+		"enable": false,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "me.par.Inputsinputtype8=='feedback' and me.par.Inputsactive8 == 1",
+		"help": "",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname8": {
 		"name": "Inputsinputname8",
@@ -1698,5 +2515,5 @@
 	"UNIFORMS_CODE": "vec2 Translate; // default=0\nvec2 Scale; // default=[0.3,0.1]\nvec3 Color; // mode=c default=[0.3,0.5,1]\nfloat Alpha; // default=0\nfloat Blur; // default=0\nfloat RoundTL; // default=0\nfloat RoundTR; // default=0\nfloat RoundBL; // default=0\nfloat RoundBR; // default=0",
 	"FUNCTIONS_CODE": "float sdRoundedBox( in vec2 p, in vec2 b, in vec4 r )\n{\n    r.xy = (p.x>0.0)?r.xy : r.zw;\n    r.x  = (p.y>0.0)?r.x  : r.y;\n    vec2 q = abs(p)-b+r.x;\n    return min(max(q.x,q.y),0.0) + length(max(q,0.0)) - r.x;\n}",
 	"OUTPUTS_CODE": "vec4 color;",
-	"MAIN_CODE": "vec2 uvs = vec2((vUV.s-.5) * uRes.x/uRes.y, vUV.t-.5); \nfloat maxRadius = min(Scale.x,Scale.y);\nvec4 corners = vec4(RoundTR*maxRadius,RoundBR*maxRadius,RoundTL*maxRadius,RoundBL*maxRadius); \nfloat box = sdRoundedBox(uvs, Scale, corners);\nfloat blur = 1/max(uRes.x, uRes.y)+(Blur*min(Scale.x,Scale.y));\nbox = 1-smoothstep(-blur, blur, box);\ncolor = TDOutputSwizzle(vec4(Color * box,Alpha));"
+	"MAIN_CODE": "vec2 uvs = vec2((vUV.s-.5) * uTDOutputInfo.res.z/uTDOutputInfo.res.w, vUV.t-.5); \nfloat maxRadius = min(Scale.x,Scale.y);\nvec4 corners = vec4(RoundTR*maxRadius,RoundBR*maxRadius,RoundTL*maxRadius,RoundBL*maxRadius); \nfloat box = sdRoundedBox(uvs, Scale, corners);\nfloat blur = 1/max(uTDOutputInfo.res.z, uTDOutputInfo.res.w)+(Blur*min(Scale.x,Scale.y));\nbox = 1-smoothstep(-blur, blur, box);\ncolor = TDOutputSwizzle(vec4(Color * box,Alpha));"
 }
