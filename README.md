@@ -58,6 +58,8 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 - **[CTRL]** + **Enter** : Execute
 - **Escape** : Close viewer
 - **[CTRL]** + **E** : Open VS Code
+- **[CTRL]** + **R** : Reset all feedback inputs
+- **[CTRL]** + **F** : Toggle display of Viewer pane
 - **[CTRL]** + **P** : Toggle display of Parameter pane
 - **[CTRL]** + **0** : Toggle display of Viewer pane tabs (in Parameter pane)
 - **[CTRL]** + **9** : Toggle display of [READ-ONLY] Full code output
