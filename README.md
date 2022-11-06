@@ -27,7 +27,6 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 - Outputs are generated and activated by declaration in your code but you can modify it manually in Outputs Tab
 - Inputs as texture buffer are manually settable via Inputs Tab and referenced by integer as GLSL TOP do it.
 - Ability to activate Auto-focus in parameter pane, to display parm of any 'Current' node. For easy tweaking other OPs parameters, keeping main viewer active.
-- Screen resolution is the only pre-declared 2D uniform, called 'uRes'
 - Built-in feedback system
 
 ## **Current limitations**
@@ -45,6 +44,10 @@ Some 'starter' presets are provided as proof of concept, including the last imp
 - [TD Limitation] Panels are not resized properly as long as you visualize it directly in node UI. But you can open viewer then everything in UI is updating properly
 - [TD Limitation] Parameter pane don’t always display updates when you load preset, you may have to reload the viewer
 - [TD Limitation] Execute code by pressing [CTRL] + Enter will lose text cursor position
+
+
+## **Pre-declared uniforms**
+<img width="412" alt="image" src="https://user-images.githubusercontent.com/97438154/200163727-00521e09-4aa1-487c-9480-379bd02851ef.png">
 
 ## **Keyboard shortcuts**
 
