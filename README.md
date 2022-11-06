@@ -1,4 +1,4 @@
-<img width="1920" alt="image" src="https://user-images.githubusercontent.com/97438154/194752652-c05127ac-6bf9-4197-bc13-9e4326845634.png">
+![Screenshot 2022-11-06 104558](https://user-images.githubusercontent.com/97438154/200164113-0d0fffe0-a95f-4f5b-89e7-9aef37c9a401.jpg)
 
 # Pixel Wrangle
 
