@@ -1,0 +1,986 @@
+{
+	"Centerweight": {
+		"name": "Centerweight",
+		"label": "CenterWeight",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			-3.333
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			-10.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			-3.333
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Vertexneighbors": {
+		"name": "Vertexneighbors",
+		"label": "VertexNeighbors",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.1666
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.1666
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Curlscale": {
+		"name": "Curlscale",
+		"label": "CurlScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			-0.9
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			-1.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			-0.9
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Laplacianscale": {
+		"name": "Laplacianscale",
+		"label": "LaplacianScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.05
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.05
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Laplaciandivscale": {
+		"name": "Laplaciandivscale",
+		"label": "LaplacianDivScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			-0.8
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			-1.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			-0.6349999904632568
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": false
+	},
+	"Divscale": {
+		"name": "Divscale",
+		"label": "DivScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			-0.05
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			-1.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			-0.05
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Divupdatescale": {
+		"name": "Divupdatescale",
+		"label": "DivUpdateScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			-0.04
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			-1.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			-0.04
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Divsmooth": {
+		"name": "Divsmooth",
+		"label": "DivSmooth",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.3
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.3
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Advectdistscale": {
+		"name": "Advectdistscale",
+		"label": "AdvectDistScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			6.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			1.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			6.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Power": {
+		"name": "Power",
+		"label": "Power",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			1.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			1.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Amp": {
+		"name": "Amp",
+		"label": "Amp",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			1.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			2.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			1.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Updatesmooth": {
+		"name": "Updatesmooth",
+		"label": "UpdateSmooth",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.9
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			2.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.9
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Diagweight": {
+		"name": "Diagweight",
+		"label": "DiagWeight",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.6
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.6
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Edgeneighbors": {
+		"name": "Edgeneighbors",
+		"label": "EdgeNeighbors",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.666
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.666
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Inputsplay": {
+		"name": "Inputsplay",
+		"label": "Play",
+		"page": "Inputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsactive1": {
+		"name": "Inputsactive1",
+		"label": "Active",
+		"page": "Inputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputtype1": {
+		"name": "Inputsinputtype1",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource1": {
+		"name": "Inputsinputfeedbacksource1",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Image",
+			"Normals"
+		],
+		"menuLabels": [
+			"Image",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Normals",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset1": {
+		"name": "Inputsinputfeedbackreset1",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Init",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource2": {
+		"name": "Inputsinputfeedbacksource2",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Image",
+			"Normals"
+		],
+		"menuLabels": [
+			"Image",
+			"Normals"
+		],
+		"mode": "CONSTANT",
+		"val": "Normals",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i2",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset3": {
+		"name": "Inputsinputfeedbackreset3",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i3",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname4": {
+		"name": "Inputsinputname4",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i4",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname5": {
+		"name": "Inputsinputname5",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i5",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname6": {
+		"name": "Inputsinputname6",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i6",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname7": {
+		"name": "Inputsinputname7",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i7",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname8": {
+		"name": "Inputsinputname8",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i8",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsactive1": {
+		"name": "Outputsactive1",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname1": {
+		"name": "Outputsoutputname1",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Image",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsactive2": {
+		"name": "Outputsactive2",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname2": {
+		"name": "Outputsoutputname2",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Normals",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname3": {
+		"name": "Outputsoutputname3",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Testout",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname4": {
+		"name": "Outputsoutputname4",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o4",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname5": {
+		"name": "Outputsoutputname5",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o5",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname6": {
+		"name": "Outputsoutputname6",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o6",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname7": {
+		"name": "Outputsoutputname7",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o7",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname8": {
+		"name": "Outputsoutputname8",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o8",
+		"expr": null,
+		"bindExpr": null
+	},
+	"UNIFORMS_CODE": "float CenterWeight;\t\t\t\t// min=-10 max=10 default=-3.333\nfloat EdgeNeighbors;\t\t\t// min=0 max=1 default=0.666\nfloat VertexNeighbors;\t\t\t// min=0 max=1 default=0.1666\nfloat CurlScale;\t\t\t\t// min=-1 max=1 default=-0.9\nfloat LaplacianScale;\t\t\t// min=0 max=1 default=0.05\nfloat LaplacianDivScale;\t\t// min=-1 max=1 default=-0.8\nfloat DivScale;\t\t\t\t\t// min=-1 max=1 default=-0.05\nfloat DivUpdateScale;\t\t\t// min=-1 max=1 default=-0.04\nfloat DivSmooth;\t\t\t\t// min=0 max=1 default=0.3\nfloat AdvectDistScale;\t\t\t// min=1 max=10 default=6\nfloat Power;\t\t\t\t\t// min=0 max=10 default=1\nfloat Amp;\t\t\t\t\t\t// min=0 max=2 default=1\nfloat UpdateSmooth;\t\t\t\t// min=0 max=2 default=0.9\nfloat DiagWeight;\t\t\t\t// min=0 max=1 default=0.6",
+	"FUNCTIONS_CODE": "vec2 normz(vec2 x) {\n\treturn x == vec2(0.0, 0.0) ? vec2(0.0, 0.0) : normalize(x);\n}\n\n// reverse advection\nvec3 advect(vec2 ab, vec2 vUv, vec2 step, float sc) {\n    \n    vec2 aUv = vUv - ab * sc * step;\n    \n    const float _G0 = 0.25; // center weight\n    const float _G1 = 0.125; // edge-neighbors\n    const float _G2 = 0.0625; // vertex-neighbors\n    \n    // 3x3 neighborhood coordinates\n    float step_x = step.x;\n    float step_y = step.y;\n    vec2 n  = vec2(0.0, step_y);\n    vec2 ne = vec2(step_x, step_y);\n    vec2 e  = vec2(step_x, 0.0);\n    vec2 se = vec2(step_x, -step_y);\n    vec2 s  = vec2(0.0, -step_y);\n    vec2 sw = vec2(-step_x, -step_y);\n    vec2 w  = vec2(-step_x, 0.0);\n    vec2 nw = vec2(-step_x, step_y);\n\n    vec3 uv =    texture(sTD2DInputs[0], fract(aUv)).xyz;\n    vec3 uv_n =  texture(sTD2DInputs[0], fract(aUv+n)).xyz;\n    vec3 uv_e =  texture(sTD2DInputs[0], fract(aUv+e)).xyz;\n    vec3 uv_s =  texture(sTD2DInputs[0], fract(aUv+s)).xyz;\n    vec3 uv_w =  texture(sTD2DInputs[0], fract(aUv+w)).xyz;\n    vec3 uv_nw = texture(sTD2DInputs[0], fract(aUv+nw)).xyz;\n    vec3 uv_sw = texture(sTD2DInputs[0], fract(aUv+sw)).xyz;\n    vec3 uv_ne = texture(sTD2DInputs[0], fract(aUv+ne)).xyz;\n    vec3 uv_se = texture(sTD2DInputs[0], fract(aUv+se)).xyz;\n    \n    return _G0*uv + _G1*(uv_n + uv_e + uv_w + uv_s) + _G2*(uv_nw + uv_sw + uv_ne + uv_se);\n}",
+	"OUTPUTS_CODE": "vec4 image;\nvec4 normals;",
+	"MAIN_CODE": "float _K0 = CenterWeight;       // center weight\nfloat _K1 = EdgeNeighbors;      // edge-neighbors\nfloat _K2 = VertexNeighbors;    // vertex-neighbors\nfloat cs = CurlScale;           // curl scale\nfloat ls = LaplacianScale;      // laplacian scale\nfloat ps = LaplacianDivScale;   // laplacian of divergence scale\nfloat ds = DivScale;            // divergence scale\nfloat dp = DivUpdateScale;      // divergence update scale\nfloat pl = DivSmooth;           // divergence smoothing\nfloat ad = AdvectDistScale;     // advection distance scale\nfloat pwr = Power;              // power when deriving rotation angle from curl\nfloat amp = Amp;                // self-amplification\nfloat upd = UpdateSmooth;       // update smoothing\nfloat sq2 = DiagWeight;         // diagonal weight\n\nvec2 vUv = vUV.st;\nvec2 texel = uTDOutputInfo.res.xy;\n\n// 3x3 neighborhood coordinates\nfloat step_x = texel.x;\nfloat step_y = texel.y;\nvec2 n  = vec2(0.0, step_y);\nvec2 ne = vec2(step_x, step_y);\nvec2 e  = vec2(step_x, 0.0);\nvec2 se = vec2(step_x, -step_y);\nvec2 s  = vec2(0.0, -step_y);\nvec2 sw = vec2(-step_x, -step_y);\nvec2 w  = vec2(-step_x, 0.0);\nvec2 nw = vec2(-step_x, step_y);\n\nvec3 uv =    texture(sTD2DInputs[0], fract(vUv)).xyz;\nvec3 uv_n =  texture(sTD2DInputs[0], fract(vUv+n)).xyz;\nvec3 uv_e =  texture(sTD2DInputs[0], fract(vUv+e)).xyz;\nvec3 uv_s =  texture(sTD2DInputs[0], fract(vUv+s)).xyz;\nvec3 uv_w =  texture(sTD2DInputs[0], fract(vUv+w)).xyz;\nvec3 uv_nw = texture(sTD2DInputs[0], fract(vUv+nw)).xyz;\nvec3 uv_sw = texture(sTD2DInputs[0], fract(vUv+sw)).xyz;\nvec3 uv_ne = texture(sTD2DInputs[0], fract(vUv+ne)).xyz;\nvec3 uv_se = texture(sTD2DInputs[0], fract(vUv+se)).xyz;\n\n// uv.x and uv.y are the x and y components, uv.z is divergence \n\n// laplacian of all components\nvec3 lapl  = _K0*uv + _K1*(uv_n + uv_e + uv_w + uv_s) + _K2*(uv_nw + uv_sw + uv_ne + uv_se);\nfloat sp = ps * lapl.z;\n\n// calculate curl\n// vectors point clockwise about the center point\nfloat curl = uv_n.x - uv_s.x - uv_e.y + uv_w.y + sq2 * (uv_nw.x + uv_nw.y + uv_ne.x - uv_ne.y + uv_sw.y - uv_sw.x - uv_se.y - uv_se.x);\n\n// compute angle of rotation from curl\nfloat sc = cs * sign(curl) * pow(abs(curl), pwr);\n\n// calculate divergence\n// vectors point inwards towards the center point\nfloat div  = uv_s.y - uv_n.y - uv_e.x + uv_w.x + sq2 * (uv_nw.x - uv_nw.y - uv_ne.x - uv_ne.y + uv_sw.x + uv_sw.y + uv_se.y - uv_se.x);\nfloat sd = uv.z + dp * div + pl * lapl.z;\n\nvec2 norm = normz(uv.xy);\n\nvec3 ab = advect(vec2(uv.x, uv.y), vUv, texel, ad);\n\n// temp values for the update rule\nfloat ta = amp * ab.x + ls * lapl.x + norm.x * sp + uv.x * ds * sd;\nfloat tb = amp * ab.y + ls * lapl.y + norm.y * sp + uv.y * ds * sd;\n\n// rotate\nfloat a = ta * cos(sc) - tb * sin(sc);\nfloat b = ta * sin(sc) + tb * cos(sc);\n\n\n// ============\n// N Buffer\n// ============\nvec3 abd = upd * uv + (1.0 - upd) * vec3(a,b,sd);\n\nvec2 mousepos = vUV.st - MousePos.xy;\nfloat mousedist = smoothstep(1,0,pow(length(mousepos*8), .25));\n\nif (MouseClicks.x > 0.0) {\n    abd.xy += (mousedist*100) * mousepos;\n}\n\nabd.z = clamp(abd.z, -1.0, 1.0);\nabd.xy = clamp(length(abd.xy) > 1.0 ? normz(abd.xy) : abd.xy, -1.0, 1.0);\nnormals = vec4(abd, 0.0);\n\nnormals = TDOutputSwizzle(vec4(abd,1));\n\n\n// ============\n// Color Buffer\n// ============\nvec2 uv2 = vUV.st;\nvec3 c2 = texture(sTD2DInputs[0], uv2).xyz;\nvec3 norm2 = normalize(c2);\n\nvec3 div2 = vec3(0.1) * norm2.z;    \nvec3 rbcol2 = 0.5 + 0.6 * cross(norm2.xyz, vec3(0.5, -0.4, 0.5));\n\nimage = vec4(rbcol2 + div2, 0.0);\n"
+}

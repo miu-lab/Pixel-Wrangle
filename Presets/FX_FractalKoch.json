@@ -1,0 +1,588 @@
+{
+	"Iterations": {
+		"name": "Iterations",
+		"label": "Iterations",
+		"page": "Controls",
+		"style": "Int",
+		"size": 1,
+		"default": [
+			5
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			1.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			5
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Scale": {
+		"name": "Scale",
+		"label": "Scale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			2.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.1
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			2.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Divisor": {
+		"name": "Divisor",
+		"label": "Divisor",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			2.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			2.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Zoom": {
+		"name": "Zoom",
+		"label": "Zoom",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.75
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			2.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.75
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Contourscale": {
+		"name": "Contourscale",
+		"label": "ContourScale",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			2.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			2.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Inputsplay": {
+		"name": "Inputsplay",
+		"label": "Play",
+		"page": "Inputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": false,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsactive1": {
+		"name": "Inputsactive1",
+		"label": "Active",
+		"page": "Inputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource1": {
+		"name": "Inputsinputfeedbacksource1",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Color"
+		],
+		"menuLabels": [
+			"Color"
+		],
+		"mode": "CONSTANT",
+		"val": "1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom1": {
+		"name": "Inputsinputcustom1",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"mode": "CONSTANT",
+		"val": "text1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset1": {
+		"name": "Inputsinputfeedbackreset1",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Texture",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputtype2": {
+		"name": "Inputsinputtype2",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource2": {
+		"name": "Inputsinputfeedbacksource2",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Color"
+		],
+		"menuLabels": [
+			"Color"
+		],
+		"mode": "CONSTANT",
+		"val": "1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom2": {
+		"name": "Inputsinputcustom2",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"mode": "CONSTANT",
+		"val": "TEST_NODE",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i2",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputcustom3": {
+		"name": "Inputsinputcustom3",
+		"label": "TOP",
+		"page": "Inputs",
+		"style": "TOP",
+		"mode": "CONSTANT",
+		"val": "noise1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset3": {
+		"name": "Inputsinputfeedbackreset3",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i3",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname4": {
+		"name": "Inputsinputname4",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i4",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname5": {
+		"name": "Inputsinputname5",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i5",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname6": {
+		"name": "Inputsinputname6",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i6",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname7": {
+		"name": "Inputsinputname7",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i7",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
+	"Inputsinputname8": {
+		"name": "Inputsinputname8",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i8",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsactive1": {
+		"name": "Outputsactive1",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname1": {
+		"name": "Outputsoutputname1",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Color",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname2": {
+		"name": "Outputsoutputname2",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o2",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname3": {
+		"name": "Outputsoutputname3",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o3",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname4": {
+		"name": "Outputsoutputname4",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o4",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname5": {
+		"name": "Outputsoutputname5",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o5",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname6": {
+		"name": "Outputsoutputname6",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o6",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname7": {
+		"name": "Outputsoutputname7",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o7",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsoutputname8": {
+		"name": "Outputsoutputname8",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "o8",
+		"expr": null,
+		"bindExpr": null
+	},
+	"UNIFORMS_CODE": "float Iterations; // min=1 max=10 default=5\nfloat Scale; // min=0.1 max=10 default=2\nfloat Divisor; // min=0 max=10 default=2\nfloat Zoom; // min=0 max=2 default=0.75\nfloat ContourScale; // min=0 max=10 default=2",
+	"FUNCTIONS_CODE": "const float PI = 3.14159265359;\n\nvec2 N(float angle){\n    return vec2(sin(angle), cos(angle));\n}\n\nvec3 Koch(vec2 p, float scale, int iterations, float angle, float zoom){\n    p *= zoom;\n    p.x = abs(p.x);\n    p.y += tan((5./6.) * PI)*.5;\n    vec2 n = N((5./6.) * PI);\n    float d = dot(p-vec2(.5,0.),n);\n    p -= n*max(0., d)*2;\n\n    n = N((angle/3.) * PI);\n    p.x += .5;\n    for(int i = 0;i < iterations;i ++) {\n        p *= 3.;\n        scale *= 3;\n        p.x -= 1.5;\n\n        p.x = abs(p.x);\n        p.x -= .5;\n        p -= n * min(0, dot(p, n)) * 2;\n    }\n    return vec3(p/scale,scale);\n}",
+	"OUTPUTS_CODE": "vec4 color;",
+	"MAIN_CODE": "vec2 uv = (vUV.st - .5) / vec2((uTDOutputInfo.res.x / uTDOutputInfo.res.y), 1);\nvec3 col = vec3(0);\nvec3 koch = Koch(uv, 1/Scale, int(Iterations), Divisor, 1/Zoom);\nfloat d = length(koch.xy-vec2(clamp(koch.x,-1,1),0));\n\ncol += texture(sTD2DInputs[0], koch.xy).rgb;\ncol = max(col, vec3(1-smoothstep(0,(1/uTDOutputInfo.res.w)*Scale*ContourScale,d)));\ncolor = TDOutputSwizzle(vec4(col, 1));"
+}
