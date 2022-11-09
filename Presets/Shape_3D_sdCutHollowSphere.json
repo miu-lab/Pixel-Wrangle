@@ -137,16 +137,6 @@
 		],
 		"isDefault": true
 	},
-	"Inputsplay": {
-		"name": "Inputsplay",
-		"label": "Play",
-		"page": "Inputs",
-		"style": "Toggle",
-		"mode": "CONSTANT",
-		"val": false,
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsinputfeedbacksource1": {
 		"name": "Inputsinputfeedbacksource1",
 		"label": "Feedback Source",

@@ -85,22 +85,6 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbacksource1": {
-		"name": "Inputsinputfeedbacksource1",
-		"label": "Feedback Source",
-		"page": "Inputs",
-		"style": "Menu",
-		"menuNames": [
-			"Image"
-		],
-		"menuLabels": [
-			"Image"
-		],
-		"mode": "CONSTANT",
-		"val": "1",
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsinputcustom1": {
 		"name": "Inputsinputcustom1",
 		"label": "TOP",
@@ -157,13 +141,15 @@
 		"page": "Inputs",
 		"style": "Menu",
 		"menuNames": [
-			"Image"
+			"Image",
+			"o2"
 		],
 		"menuLabels": [
-			"Image"
+			"Image",
+			"o2"
 		],
 		"mode": "CONSTANT",
-		"val": "1",
+		"val": "o2",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -197,6 +183,44 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputtype3": {
+		"name": "Inputsinputtype3",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbacksource3": {
+		"name": "Inputsinputfeedbacksource3",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Image",
+			"o2"
+		],
+		"menuLabels": [
+			"Image",
+			"o2"
+		],
+		"mode": "CONSTANT",
+		"val": "o2",
+		"expr": null,
+		"bindExpr": null
+	},
 	"Inputsinputcustom3": {
 		"name": "Inputsinputcustom3",
 		"label": "TOP",
@@ -224,6 +248,26 @@
 		"style": "Str",
 		"mode": "CONSTANT",
 		"val": "i3",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputtype4": {
+		"name": "Inputsinputtype4",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -344,6 +388,16 @@
 		"style": "Str",
 		"mode": "CONSTANT",
 		"val": "Image",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsactive2": {
+		"name": "Outputsactive2",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
 		"expr": null,
 		"bindExpr": null
 	},

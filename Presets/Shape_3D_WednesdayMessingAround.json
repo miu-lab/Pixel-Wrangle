@@ -229,16 +229,6 @@
 		],
 		"isDefault": true
 	},
-	"Inputsplay": {
-		"name": "Inputsplay",
-		"label": "Play",
-		"page": "Inputs",
-		"style": "Toggle",
-		"mode": "CONSTANT",
-		"val": false,
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsinputfeedbackreset1": {
 		"name": "Inputsinputfeedbackreset1",
 		"label": "Reset",
