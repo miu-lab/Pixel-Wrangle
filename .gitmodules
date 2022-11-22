@@ -1,0 +1,6 @@
+[submodule "Functions/lygia"]
+	path = Functions/lygia
+	url = https://github.com/patriciogonzalezvivo/lygia
+[submodule "doc/TD-Pixel-Wrangle.wiki"]
+	path = doc/TD-Pixel-Wrangle.wiki
+	url = https://github.com/miu-lab/TD-Pixel-Wrangle.wiki.git
