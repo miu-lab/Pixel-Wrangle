@@ -20,10 +20,10 @@
 			1.0
 		],
 		"normMin": [
-			0.1
+			0.001
 		],
 		"normMax": [
-			64.0
+			1.0
 		],
 		"clampMin": [
 			false
@@ -35,7 +35,7 @@
 			"CONSTANT"
 		],
 		"val": [
-			0.10000000149011612
+			0.0010000000474974513
 		],
 		"expr": [
 			null
@@ -45,15 +45,51 @@
 		],
 		"isDefault": false
 	},
-	"Inputsplay": {
-		"name": "Inputsplay",
-		"label": "Play",
-		"page": "Inputs",
-		"style": "Toggle",
-		"mode": "CONSTANT",
-		"val": false,
-		"expr": null,
-		"bindExpr": null
+	"Lod": {
+		"name": "Lod",
+		"label": "LOD",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.0
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": null,
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			10.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.0
+		],
+		"expr": [
+			"math.pow((me.par.Sigma/64)*64, .5)"
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": false
 	},
 	"Inputsactive1": {
 		"name": "Inputsactive1",
@@ -62,6 +98,16 @@
 		"style": "Toggle",
 		"mode": "CONSTANT",
 		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i1",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -75,16 +121,6 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname1": {
-		"name": "Inputsinputname1",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": "CONSTANT",
-		"val": "i1",
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsactive2": {
 		"name": "Inputsactive2",
 		"label": "Active",
@@ -92,6 +128,16 @@
 		"style": "Toggle",
 		"mode": "CONSTANT",
 		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "i2",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -115,6 +161,16 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Inputsinputfeedbacksource2": {
 		"name": "Inputsinputfeedbacksource2",
 		"label": "Feedback Source",
@@ -133,23 +189,13 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset2": {
-		"name": "Inputsinputfeedbackreset2",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": "BIND",
-		"val": 0,
-		"expr": null,
-		"bindExpr": "me.par.Inputsresetall"
-	},
-	"Inputsinputname2": {
-		"name": "Inputsinputname2",
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
 		"label": "Name",
 		"page": "Inputs",
 		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "i2",
+		"val": "i3",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -183,26 +229,6 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname3": {
-		"name": "Inputsinputname3",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": "CONSTANT",
-		"val": "i3",
-		"expr": null,
-		"bindExpr": null
-	},
-	"Inputsinputfeedbackreset4": {
-		"name": "Inputsinputfeedbackreset4",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": "BIND",
-		"val": 0,
-		"expr": null,
-		"bindExpr": "me.par.Inputsresetall"
-	},
 	"Inputsinputname4": {
 		"name": "Inputsinputname4",
 		"label": "Name",
@@ -213,8 +239,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset5": {
-		"name": "Inputsinputfeedbackreset5",
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -233,8 +259,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset6": {
-		"name": "Inputsinputfeedbackreset6",
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -253,8 +279,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset7": {
-		"name": "Inputsinputfeedbackreset7",
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -273,8 +299,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset8": {
-		"name": "Inputsinputfeedbackreset8",
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -292,6 +318,16 @@
 		"val": "i8",
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Outputsactive1": {
 		"name": "Outputsactive1",
@@ -393,8 +429,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"UNIFORMS_CODE": "float Sigma; // min=0.1 max=64 default=8",
-	"FUNCTIONS_CODE": "// See: https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_ch40.html\nfloat sigma   = Sigma;             // Gaussian sigma\n\nvec4 blur(int index,vec2 loc, vec2 dir, float sigma){\n    vec4 acc   = vec4( 0.0 );\n    int support = int(sigma * 3.0);\n    float norm = 0.0;\n    for (int i = -support; i <= support; i++) {\n        float coeff = exp(-0.5 * float(i) * float(i) / (sigma * sigma));\n        acc += (texture(sTD2DInputs[index], loc + float(i) * dir)) * coeff;\n        norm += coeff;\n    }\n    return acc *= 1.0/norm;\n}",
+	"UNIFORMS_CODE": "float Sigma; // min=0.001 max=1 default=8\nfloat LOD; // min=0 max=10 default=0 ",
+	"FUNCTIONS_CODE": "// See: https://developer.nvidia.com/gpugems/GPUGems3/gpugems3_ch40.html\nfloat sigma   = Sigma * 64;             // Gaussian sigma\n\nvec4 blur(int index,vec2 loc, vec2 dir, float sigma){\n    vec4 acc   = vec4( 0.0 );\n    int support = int(sigma);\n    float norm = 0.0;\n    for (int i = -support; i <= support; i++) {\n        float coeff = exp(-0.5 * float(i) * float(i) / (sigma * sigma));\n        acc += textureLod(sTD2DInputs[index], loc + float(i) * dir, LOD) * coeff;\n        norm += coeff;\n    }\n    return acc *= 1.0/norm;\n}",
 	"OUTPUTS_CODE": "vec4 image;\nvec4 temp;",
 	"MAIN_CODE": "vec2 loc   = vUV.st;         // center pixel cooordinate\nvec2 hdir   = vec2( 1.0 / uTD2DInfos[0].res.z, 0.0 ); // horiz=(1.0, 0.0), vert=(0.0, 1.0)\nvec2 vdir   = vec2( 0.0, 1.0 / uTD2DInfos[0].res.w ); // horiz=(1.0, 0.0), vert=(0.0, 1.0)\n\nvec4 hblur = blur(0, loc, hdir, sigma);\nvec4 vblur = blur(1, loc, vdir, sigma);\n\n// Output to screen\ntemp = hblur;\nimage = vblur;"
 }

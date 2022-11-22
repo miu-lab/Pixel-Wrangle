@@ -45,16 +45,6 @@
 		],
 		"isDefault": false
 	},
-	"Inputsplay": {
-		"name": "Inputsplay",
-		"label": "Play",
-		"page": "Inputs",
-		"style": "Toggle",
-		"mode": "CONSTANT",
-		"val": false,
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsactive1": {
 		"name": "Inputsactive1",
 		"label": "Active",
@@ -62,6 +52,16 @@
 		"style": "Toggle",
 		"mode": "CONSTANT",
 		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "initColor",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -105,13 +105,13 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname1": {
-		"name": "Inputsinputname1",
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
 		"label": "Name",
 		"page": "Inputs",
 		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "initColor",
+		"val": "i2",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -135,24 +135,6 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbacksource2": {
-		"name": "Inputsinputfeedbacksource2",
-		"label": "Feedback Source",
-		"page": "Inputs",
-		"style": "Menu",
-		"menuNames": [
-			"Image",
-			"o2"
-		],
-		"menuLabels": [
-			"Image",
-			"o2"
-		],
-		"mode": "CONSTANT",
-		"val": "o2",
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsinputcustom2": {
 		"name": "Inputsinputcustom2",
 		"label": "TOP",
@@ -173,13 +155,29 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname2": {
-		"name": "Inputsinputname2",
+	"Inputsinputfeedbacksource2": {
+		"name": "Inputsinputfeedbacksource2",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Image"
+		],
+		"menuLabels": [
+			"Image"
+		],
+		"mode": "CONSTANT",
+		"val": "1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
 		"label": "Name",
 		"page": "Inputs",
 		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "i2",
+		"val": "i3",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -203,24 +201,6 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbacksource3": {
-		"name": "Inputsinputfeedbacksource3",
-		"label": "Feedback Source",
-		"page": "Inputs",
-		"style": "Menu",
-		"menuNames": [
-			"Image",
-			"o2"
-		],
-		"menuLabels": [
-			"Image",
-			"o2"
-		],
-		"mode": "CONSTANT",
-		"val": "o2",
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsinputcustom3": {
 		"name": "Inputsinputcustom3",
 		"label": "TOP",
@@ -241,13 +221,29 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname3": {
-		"name": "Inputsinputname3",
+	"Inputsinputfeedbacksource3": {
+		"name": "Inputsinputfeedbacksource3",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Image"
+		],
+		"menuLabels": [
+			"Image"
+		],
+		"mode": "CONSTANT",
+		"val": "1",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname4": {
+		"name": "Inputsinputname4",
 		"label": "Name",
 		"page": "Inputs",
 		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "i3",
+		"val": "i4",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -281,26 +277,6 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname4": {
-		"name": "Inputsinputname4",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": "CONSTANT",
-		"val": "i4",
-		"expr": null,
-		"bindExpr": null
-	},
-	"Inputsinputfeedbackreset5": {
-		"name": "Inputsinputfeedbackreset5",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": "BIND",
-		"val": 0,
-		"expr": null,
-		"bindExpr": "me.par.Inputsresetall"
-	},
 	"Inputsinputname5": {
 		"name": "Inputsinputname5",
 		"label": "Name",
@@ -311,8 +287,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset6": {
-		"name": "Inputsinputfeedbackreset6",
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -331,8 +307,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset7": {
-		"name": "Inputsinputfeedbackreset7",
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -351,8 +327,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset8": {
-		"name": "Inputsinputfeedbackreset8",
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -371,6 +347,16 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
+	},
 	"Outputsactive1": {
 		"name": "Outputsactive1",
 		"label": "Active",
@@ -388,16 +374,6 @@
 		"style": "Str",
 		"mode": "CONSTANT",
 		"val": "Image",
-		"expr": null,
-		"bindExpr": null
-	},
-	"Outputsactive2": {
-		"name": "Outputsactive2",
-		"label": "Active",
-		"page": "Outputs",
-		"style": "Toggle",
-		"mode": "CONSTANT",
-		"val": true,
 		"expr": null,
 		"bindExpr": null
 	},
@@ -474,5 +450,5 @@
 	"UNIFORMS_CODE": "float Radius; // default=0.2 min=0.001 max=1",
 	"FUNCTIONS_CODE": "#define RATIO uTDOutputInfo.res.z / uTDOutputInfo.res.w\n#define T(i,j) texture(sTD2DInputs[0], (vUV.st + vec2(i*uTD2DInfos[0].res.x ,j*uTD2DInfos[0].res.y))).r \n#define N(i,j)  + float( T(i,j) > 0.)",
 	"OUTPUTS_CODE": "vec4 image;",
-	"MAIN_CODE": "vec4 col = vec4(0.0);\nvec2 uv = vUV.st;\nfloat v = texture(sTD2DInputs[0], uv).r;\nfloat dist = distance(vec2(uv.s * RATIO, uv.t),vec2(MousePos.s * RATIO, MousePos.t));\nfloat n =     N(-1,-1) + N(-1, 0) + N(-1, 1)\n            + N( 0,-1)            + N( 0, 1)\n            + N( 1,-1) + N( 1, 0) + N( 1, 1);\nv += (1.0-float(v > 0.0)) * float(n == 3.0);\nv *= float(n == 2.0) + float(n == 3.0);\ncol = vec4(vec3(v), 1);\ncol += vec4(vec3((1-step(Radius,dist)) * MouseClicks.x),1);\n    \nimage += TDOutputSwizzle(col);"
+	"MAIN_CODE": "vec4 col = vec4(0.0);\nvec2 uv = vUV.st;\nfloat v = texture(sTD2DInputs[0], uv).r;\nfloat dist = distance(vec2(uv.s * RATIO, uv.t),vec2(MousePos.s * RATIO, MousePos.t));\nvec4 pointer = vec4(vec3((1-step(Radius,dist)) * MouseClicks.x),1);\nfloat n =     N(-1,-1) + N(-1, 0) + N(-1, 1)\n            + N( 0,-1)            + N( 0, 1)\n            + N( 1,-1) + N( 1, 0) + N( 1, 1);\nv += (1.0-float(v > 0.0)) * float(n == 3.0);\nv *= float(n == 2.0) + float(n == 3.0);\ncol = vec4(vec3(v), 1);\ncol += pointer;\n    \n// image += TDOutputSwizzle(col);\nimage = TDOutputSwizzle(vec4(col));"
 }

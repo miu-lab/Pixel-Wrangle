@@ -105,9 +105,9 @@
 			"CONSTANT"
 		],
 		"val": [
-			0.5,
-			0.2,
-			0.2,
+			1.31,
+			0.1,
+			0.001,
 			0.2
 		],
 		"expr": [
@@ -160,7 +160,7 @@
 			"CONSTANT"
 		],
 		"val": [
-			0.9700000286102295
+			0.96
 		],
 		"expr": [
 			null
@@ -168,7 +168,7 @@
 		"bindExpr": [
 			null
 		],
-		"isDefault": false
+		"isDefault": true
 	},
 	"Ulifedamping": {
 		"name": "Ulifedamping",
@@ -206,7 +206,7 @@
 			"CONSTANT"
 		],
 		"val": [
-			0.006
+			0.004900000058114529
 		],
 		"expr": [
 			null
@@ -215,16 +215,6 @@
 			null
 		],
 		"isDefault": false
-	},
-	"Inputsplay": {
-		"name": "Inputsplay",
-		"label": "Play",
-		"page": "Inputs",
-		"style": "Toggle",
-		"mode": "CONSTANT",
-		"val": false,
-		"expr": null,
-		"bindExpr": null
 	},
 	"Inputsactive1": {
 		"name": "Inputsactive1",
@@ -236,21 +226,23 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbacksource1": {
-		"name": "Inputsinputfeedbacksource1",
-		"label": "Feedback Source",
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
 		"page": "Inputs",
-		"style": "Menu",
-		"menuNames": [
-			"Position",
-			"Velocity"
-		],
-		"menuLabels": [
-			"Position",
-			"Velocity"
-		],
+		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "Velocity",
+		"val": "initP",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputscolor1": {
+		"name": "Inputscolor1",
+		"label": "Color",
+		"page": "Inputs",
+		"style": "RGB",
+		"mode": "CONSTANT",
+		"val": 0.2,
 		"expr": null,
 		"bindExpr": null
 	},
@@ -274,13 +266,23 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname1": {
-		"name": "Inputsinputname1",
-		"label": "Name",
+	"Inputsinputfeedbacksource1": {
+		"name": "Inputsinputfeedbacksource1",
+		"label": "Feedback Source",
 		"page": "Inputs",
-		"style": "Str",
+		"style": "Menu",
+		"menuNames": [
+			"Position",
+			"Velocity",
+			"Attributes"
+		],
+		"menuLabels": [
+			"Position",
+			"Velocity",
+			"Attributes"
+		],
 		"mode": "CONSTANT",
-		"val": "initColor",
+		"val": "Velocity",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -291,6 +293,30 @@
 		"style": "Toggle",
 		"mode": "CONSTANT",
 		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "P",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputscolor2": {
+		"name": "Inputscolor2",
+		"label": "Color",
+		"page": "Inputs",
+		"style": "RGB",
+		"mode": "CONSTANT",
+		"val": [
+			1.0,
+			0.0,
+			0.0
+		],
 		"expr": null,
 		"bindExpr": null
 	},
@@ -324,13 +350,25 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname2": {
-		"name": "Inputsinputname2",
-		"label": "Name",
+	"Inputsinputfeedbackinitsourcetype2": {
+		"name": "Inputsinputfeedbackinitsourcetype2",
+		"label": "Feedback Init Type",
 		"page": "Inputs",
-		"style": "Str",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"output",
+			"builtin",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Output",
+			"Built-in",
+			"Custom"
+		],
 		"mode": "CONSTANT",
-		"val": "i2",
+		"val": "builtin",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -341,6 +379,16 @@
 		"style": "Toggle",
 		"mode": "CONSTANT",
 		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": "CONSTANT",
+		"val": "Vel",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -364,24 +412,6 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbacksource3": {
-		"name": "Inputsinputfeedbacksource3",
-		"label": "Feedback Source",
-		"page": "Inputs",
-		"style": "Menu",
-		"menuNames": [
-			"Position",
-			"Velocity"
-		],
-		"menuLabels": [
-			"Position",
-			"Velocity"
-		],
-		"mode": "CONSTANT",
-		"val": "Velocity",
-		"expr": null,
-		"bindExpr": null
-	},
 	"Inputsinputfeedbackreset3": {
 		"name": "Inputsinputfeedbackreset3",
 		"label": "Reset",
@@ -392,13 +422,99 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname3": {
-		"name": "Inputsinputname3",
+	"Inputsinputfeedbacksource3": {
+		"name": "Inputsinputfeedbacksource3",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"Position",
+			"Velocity",
+			"Attributes"
+		],
+		"menuLabels": [
+			"Position",
+			"Velocity",
+			"Attributes"
+		],
+		"mode": "CONSTANT",
+		"val": "Velocity",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputfeedbackinitsourcetype3": {
+		"name": "Inputsinputfeedbackinitsourcetype3",
+		"label": "Feedback Init Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"output",
+			"builtin",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Output",
+			"Built-in",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "builtin",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsactive4": {
+		"name": "Inputsactive4",
+		"label": "Active",
+		"page": "Inputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputname4": {
+		"name": "Inputsinputname4",
 		"label": "Name",
 		"page": "Inputs",
 		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "i3",
+		"val": "Life",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputscolor4": {
+		"name": "Inputscolor4",
+		"label": "Color",
+		"page": "Inputs",
+		"style": "RGB",
+		"mode": "CONSTANT",
+		"val": [
+			0.0,
+			0.7333333,
+			1.0
+		],
+		"expr": null,
+		"bindExpr": null
+	},
+	"Inputsinputtype4": {
+		"name": "Inputsinputtype4",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"menuNames": [
+			"direct",
+			"feedback",
+			"custom"
+		],
+		"menuLabels": [
+			"Direct",
+			"Feedback",
+			"Custom"
+		],
+		"mode": "CONSTANT",
+		"val": "feedback",
 		"expr": null,
 		"bindExpr": null
 	},
@@ -412,25 +528,25 @@
 		"expr": null,
 		"bindExpr": "me.par.Inputsresetall"
 	},
-	"Inputsinputname4": {
-		"name": "Inputsinputname4",
-		"label": "Name",
+	"Inputsinputfeedbacksource4": {
+		"name": "Inputsinputfeedbacksource4",
+		"label": "Feedback Source",
 		"page": "Inputs",
-		"style": "Str",
+		"style": "Menu",
+		"menuNames": [
+			"Position",
+			"Velocity",
+			"Attributes"
+		],
+		"menuLabels": [
+			"Position",
+			"Velocity",
+			"Attributes"
+		],
 		"mode": "CONSTANT",
-		"val": "i4",
+		"val": "Attributes",
 		"expr": null,
 		"bindExpr": null
-	},
-	"Inputsinputfeedbackreset5": {
-		"name": "Inputsinputfeedbackreset5",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": "BIND",
-		"val": 0,
-		"expr": null,
-		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Inputsinputname5": {
 		"name": "Inputsinputname5",
@@ -442,8 +558,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset6": {
-		"name": "Inputsinputfeedbackreset6",
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -462,8 +578,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset7": {
-		"name": "Inputsinputfeedbackreset7",
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -482,8 +598,8 @@
 		"expr": null,
 		"bindExpr": null
 	},
-	"Inputsinputfeedbackreset8": {
-		"name": "Inputsinputfeedbackreset8",
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
 		"label": "Reset",
 		"page": "Inputs",
 		"style": "Pulse",
@@ -501,6 +617,16 @@
 		"val": "i8",
 		"expr": null,
 		"bindExpr": null
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": "BIND",
+		"val": 0,
+		"expr": null,
+		"bindExpr": "me.par.Inputsresetall"
 	},
 	"Outputsactive1": {
 		"name": "Outputsactive1",
@@ -542,13 +668,51 @@
 		"expr": null,
 		"bindExpr": null
 	},
+	"Outputscolor2": {
+		"name": "Outputscolor2",
+		"label": "Color",
+		"page": "Outputs",
+		"style": "RGB",
+		"mode": "CONSTANT",
+		"val": [
+			0.9137255,
+			1.0,
+			0.0
+		],
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputsactive3": {
+		"name": "Outputsactive3",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": "CONSTANT",
+		"val": true,
+		"expr": null,
+		"bindExpr": null
+	},
 	"Outputsoutputname3": {
 		"name": "Outputsoutputname3",
 		"label": "Name",
 		"page": "Outputs",
 		"style": "Str",
 		"mode": "CONSTANT",
-		"val": "o3",
+		"val": "Attributes",
+		"expr": null,
+		"bindExpr": null
+	},
+	"Outputscolor3": {
+		"name": "Outputscolor3",
+		"label": "Color",
+		"page": "Outputs",
+		"style": "RGB",
+		"mode": "CONSTANT",
+		"val": [
+			0.0,
+			0.7333333,
+			1.0
+		],
 		"expr": null,
 		"bindExpr": null
 	},
@@ -604,6 +768,6 @@
 	},
 	"UNIFORMS_CODE": "float uDelta;\nvec4 uNoiseFactor;\nfloat uVelDamping; // default=0.96\nfloat uLifeDamping; // default=0.005 max=0.1",
 	"FUNCTIONS_CODE": "// from : https://github.com/cabbibo/glsl-curl-noise\n\nvec3 TDSimplexNoiseVec3(vec3 x) {\n\n\tfloat s = TDSimplexNoise(vec3(x));\n\tfloat s1 = TDSimplexNoise(vec3(x.y - 19.1, x.z + 33.4, x.x + 47.2));\n\tfloat s2 = TDSimplexNoise(vec3(x.z + 74.2, x.x - 124.5, x.y + 99.4));\n\tvec3 c = vec3(s, s1, s2);\n\treturn c;\n\n}\n\nvec3 curlNoise(vec3 p) {\n\n\tconst float e = .1;\n\tvec3 dx = vec3(e, 0.0, 0.0);\n\tvec3 dy = vec3(0.0, e, 0.0);\n\tvec3 dz = vec3(0.0, 0.0, e);\n\n\tvec3 p_x0 = TDSimplexNoiseVec3(p - dx);\n\tvec3 p_x1 = TDSimplexNoiseVec3(p + dx);\n\tvec3 p_y0 = TDSimplexNoiseVec3(p - dy);\n\tvec3 p_y1 = TDSimplexNoiseVec3(p + dy);\n\tvec3 p_z0 = TDSimplexNoiseVec3(p - dz);\n\tvec3 p_z1 = TDSimplexNoiseVec3(p + dz);\n\n\tfloat x = p_y1.z - p_y0.z - p_z1.y + p_z0.y;\n\tfloat y = p_z1.x - p_z0.x - p_x1.z + p_x0.z;\n\tfloat z = p_x1.y - p_x0.y - p_y1.x + p_y0.x;\n\n\tconst float divisor = 1.0 / (2.0 * e);\n\treturn normalize(vec3(x, y, z) * divisor);\n\n}\n\nfloat parabola(float x, float k) {\n\treturn pow(4.0 * x * (1.0 - x), k);\n}",
-	"OUTPUTS_CODE": "vec4 Position;\nvec4 Velocity;",
-	"MAIN_CODE": "/* \nTouchdesigner Curl Noise tutorial - by Bruno Imbrizi - https://www.youtube.com/watch?v=DkSwEY-m9GA\n*/\n\nvec4 i = texture(sTD2DInputs[0], vUV.st, 0); // Init Buffer -> [P.x,P.y,P.z, life]\nvec4 p = texture(sTD2DInputs[1], vUV.st, 0); // Init Position (feedback) -> [P.x,P.y,P.z, life]\nvec4 v = texture(sTD2DInputs[2], vUV.st, 0); // Init Velocity (feedback) -> [V.x,V.y,V.z, size]\n\nvec3 pos = p.rgb;\nvec3 vel = v.rgb;\nvec3 ini = i.rgb;\n\n// POSITION\n\nfloat life = p.a;\nlife -= uLifeDamping;\n\nif(life <= uLifeDamping) {\n    life = 1.0;\n    pos = ini;\n}\n\npos += vel;\nPosition = TDOutputSwizzle(vec4(pos, life));\n\n// VELOCITY\n\nvec3 noise = uDelta * uNoiseFactor.x * curlNoise(pos * uNoiseFactor.y + Time * uNoiseFactor.z);\nvel += noise * uNoiseFactor.w;\nvel *= uVelDamping;\n\nfloat size = parabola(1.0 - life, 2); \n\nVelocity = TDOutputSwizzle(vec4(vel, size));\n"
+	"OUTPUTS_CODE": "vec4 Position;\nvec4 Velocity;\nvec4 Attributes;",
+	"MAIN_CODE": "/* \nTouchdesigner Curl Noise tutorial - by Bruno Imbrizi - https://www.youtube.com/watch?v=DkSwEY-m9GA\n*/\n\n// Init position from first input\nvec3 initPos = (texture(sTD2DInputs[0], vUV.st, 0).xyz-.5); // Init Buffer -> [P.x,P.y,P.z]\n\n// Get Attributes buffers\nvec3 oldP = texture(sTD2DInputs[1], vUV.st, 0).xyz;\nvec3 oldV = texture(sTD2DInputs[2], vUV.st, 0).xyz;\nvec2 oldAttrs = texture(sTD2DInputs[3], vUV.st, 0).xy;\n\n\n// POSITION\n\n// Get attributes from previous frame\nvec3 pos = oldP;\nvec3 vel = oldV;\nfloat life = oldAttrs.x;\nfloat oldSize = oldAttrs.y;\n\n// Update life\nlife -= uLifeDamping;\n\n// Reset Position to initPos when particle died\nif(life <= uLifeDamping) {\n    life = 1.0;\n    pos = initPos;\n}\n\n// Move particles\npos += vel;\n\n// Write out new particle attributes\nPosition = TDOutputSwizzle(vec4(pos, life));\nAttributes = TDOutputSwizzle(vec4(life,oldSize,0,0));\n\n\n// VELOCITY\n\n// Sample Noise from current position\nvec3 noise = uDelta * uNoiseFactor.x * curlNoise(pos * uNoiseFactor.y + Time * uNoiseFactor.z);\n\n// Add noise to vel\nvel += noise * uNoiseFactor.w;\n\n// Apply vel absorption factor\nvel *= uVelDamping;\n\n// Write out new particle vel\nVelocity = TDOutputSwizzle(vec4(vel,life));\n\n\n// SIZE & LIFE\n\n// Set size by applying smooth parabola to current life attribute\nfloat newSize = parabola(1.0 - life, 1); \n\n// Write out new particle attributes\nAttributes = TDOutputSwizzle(vec4(life,newSize,0,0));\n"
 }
