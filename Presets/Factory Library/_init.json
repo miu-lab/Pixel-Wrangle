@@ -1,0 +1,646 @@
+{
+	"Inputsactive1": {
+		"name": "Inputsactive1",
+		"label": "Active",
+		"page": "Inputs",
+		"style": "Toggle",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			true
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i1"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsfallback1": {
+		"name": "Inputsfallback1",
+		"label": "Fallback",
+		"page": "Inputs",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"banana"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset1": {
+		"name": "Inputsinputfeedbackreset1",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputfeedbacksource1": {
+		"name": "Inputsinputfeedbacksource1",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"1"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i2"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputfeedbacksource2": {
+		"name": "Inputsinputfeedbacksource2",
+		"label": "Feedback Source",
+		"page": "Inputs",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"1"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i3"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset3": {
+		"name": "Inputsinputfeedbackreset3",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname4": {
+		"name": "Inputsinputname4",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i4"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputtype4": {
+		"name": "Inputsinputtype4",
+		"label": "Type",
+		"page": "Inputs",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"feedback"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname5": {
+		"name": "Inputsinputname5",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i5"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname6": {
+		"name": "Inputsinputname6",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i6"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname7": {
+		"name": "Inputsinputname7",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i7"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname8": {
+		"name": "Inputsinputname8",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i8"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Outputsactive1": {
+		"name": "Outputsactive1",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			true
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname1": {
+		"name": "Outputsoutputname1",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"Image"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname2": {
+		"name": "Outputsoutputname2",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"Other"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname3": {
+		"name": "Outputsoutputname3",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o3"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname4": {
+		"name": "Outputsoutputname4",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o4"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname5": {
+		"name": "Outputsoutputname5",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o5"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname6": {
+		"name": "Outputsoutputname6",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o6"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname7": {
+		"name": "Outputsoutputname7",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o7"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname8": {
+		"name": "Outputsoutputname8",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o8"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Glmode": {
+		"name": "Glmode",
+		"label": "Mode",
+		"page": "GLSL",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"vertexpixel"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Glautodispatchsize": {
+		"name": "Glautodispatchsize",
+		"label": "Auto Dispatch Size",
+		"page": "GLSL",
+		"style": "Toggle",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			true
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Gllocalsize": {
+		"name": "Gllocalsize",
+		"label": "Local Size",
+		"page": "GLSL",
+		"style": "Int",
+		"size": 3,
+		"mode": [
+			"CONSTANT",
+			"CONSTANT",
+			"CONSTANT"
+		],
+		"val": [
+			8,
+			8,
+			1
+		],
+		"expr": [
+			null,
+			null,
+			null
+		],
+		"bindExpr": [
+			null,
+			null,
+			null
+		]
+	},
+	"Glcustomdepth": {
+		"name": "Glcustomdepth",
+		"label": "Depth",
+		"page": "GLSL",
+		"style": "Int",
+		"size": 1,
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			1
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Glinputextenduv": {
+		"name": "Glinputextenduv",
+		"label": "Input Extend Mode UV",
+		"page": "GLSL",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"mirror"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"UNIFORMS_CODE": "\n\n",
+	"FUNCTIONS_CODE": "",
+	"OUTPUTS_CODE": "vec4 IMAGE;",
+	"MAIN_CODE": "vec4 color = vec4(_UVNCR,0,1);\n//color = tx(i0, _UVN, 0);\nIMAGE = td(color);"
+}

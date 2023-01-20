@@ -1,1 +1,6 @@
 settings.json
+Functions/dist/**/*
+Functions/src/**/*
+Toe/Backup
+doc/**/*
+.vs

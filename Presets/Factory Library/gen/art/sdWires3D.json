@@ -1,0 +1,786 @@
+{
+	"Bars": {
+		"name": "Bars",
+		"label": "Bars",
+		"page": "Controls",
+		"style": "Int",
+		"size": 1,
+		"default": [
+			4
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "True",
+		"help": "",
+		"min": [
+			1.0
+		],
+		"max": [
+			24.0
+		],
+		"normMin": [
+			1.0
+		],
+		"normMax": [
+			24.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			4
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Twist": {
+		"name": "Twist",
+		"label": "Twist",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.25
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "True",
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			2.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			2.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.25
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Dist": {
+		"name": "Dist",
+		"label": "Dist",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.25
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "True",
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			2.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			2.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			2.0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": false
+	},
+	"Rounding": {
+		"name": "Rounding",
+		"label": "Rounding",
+		"page": "Controls",
+		"style": "Float",
+		"size": 1,
+		"default": [
+			0.125
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "True",
+		"help": "",
+		"min": [
+			0.0
+		],
+		"max": [
+			1.0
+		],
+		"normMin": [
+			0.0
+		],
+		"normMax": [
+			1.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			0.438
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": false
+	},
+	"Iterations": {
+		"name": "Iterations",
+		"label": "Iterations",
+		"page": "Controls",
+		"style": "Int",
+		"size": 1,
+		"default": [
+			100
+		],
+		"enable": true,
+		"startSection": false,
+		"readOnly": false,
+		"enableExpr": "True",
+		"help": "",
+		"min": [
+			40.0
+		],
+		"max": [
+			256.0
+		],
+		"normMin": [
+			40.0
+		],
+		"normMax": [
+			256.0
+		],
+		"clampMin": [
+			false
+		],
+		"clampMax": [
+			false
+		],
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			100
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		],
+		"isDefault": true
+	},
+	"Inputsinputname1": {
+		"name": "Inputsinputname1",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i1"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset1": {
+		"name": "Inputsinputfeedbackreset1",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname2": {
+		"name": "Inputsinputname2",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i2"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset2": {
+		"name": "Inputsinputfeedbackreset2",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname3": {
+		"name": "Inputsinputname3",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i3"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset3": {
+		"name": "Inputsinputfeedbackreset3",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname4": {
+		"name": "Inputsinputname4",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i4"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset4": {
+		"name": "Inputsinputfeedbackreset4",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname5": {
+		"name": "Inputsinputname5",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i5"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset5": {
+		"name": "Inputsinputfeedbackreset5",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname6": {
+		"name": "Inputsinputname6",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i6"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset6": {
+		"name": "Inputsinputfeedbackreset6",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname7": {
+		"name": "Inputsinputname7",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i7"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset7": {
+		"name": "Inputsinputfeedbackreset7",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Inputsinputname8": {
+		"name": "Inputsinputname8",
+		"label": "Name",
+		"page": "Inputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"i8"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Inputsinputfeedbackreset8": {
+		"name": "Inputsinputfeedbackreset8",
+		"label": "Reset",
+		"page": "Inputs",
+		"style": "Pulse",
+		"mode": [
+			"BIND"
+		],
+		"val": [
+			0
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			"me.par.Inputsresetall"
+		]
+	},
+	"Outputsactive1": {
+		"name": "Outputsactive1",
+		"label": "Active",
+		"page": "Outputs",
+		"style": "Toggle",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			true
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname1": {
+		"name": "Outputsoutputname1",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"Color"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname2": {
+		"name": "Outputsoutputname2",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o2"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname3": {
+		"name": "Outputsoutputname3",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o3"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname4": {
+		"name": "Outputsoutputname4",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o4"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname5": {
+		"name": "Outputsoutputname5",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o5"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname6": {
+		"name": "Outputsoutputname6",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o6"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname7": {
+		"name": "Outputsoutputname7",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o7"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Outputsoutputname8": {
+		"name": "Outputsoutputname8",
+		"label": "Name",
+		"page": "Outputs",
+		"style": "Str",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"o8"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Glmode": {
+		"name": "Glmode",
+		"label": "Mode",
+		"page": "GLSL",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"vertexpixel"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Glautodispatchsize": {
+		"name": "Glautodispatchsize",
+		"label": "Auto Dispatch Size",
+		"page": "GLSL",
+		"style": "Toggle",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			true
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Gllocalsize": {
+		"name": "Gllocalsize",
+		"label": "Local Size",
+		"page": "GLSL",
+		"style": "Int",
+		"size": 3,
+		"mode": [
+			"CONSTANT",
+			"CONSTANT",
+			"CONSTANT"
+		],
+		"val": [
+			8,
+			8,
+			1
+		],
+		"expr": [
+			null,
+			null,
+			null
+		],
+		"bindExpr": [
+			null,
+			null,
+			null
+		]
+	},
+	"Glcustomdepth": {
+		"name": "Glcustomdepth",
+		"label": "Depth",
+		"page": "GLSL",
+		"style": "Int",
+		"size": 1,
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			1
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"Glinputextenduv": {
+		"name": "Glinputextenduv",
+		"label": "Input Extend Mode UV",
+		"page": "GLSL",
+		"style": "Menu",
+		"mode": [
+			"CONSTANT"
+		],
+		"val": [
+			"mirror"
+		],
+		"expr": [
+			null
+		],
+		"bindExpr": [
+			null
+		]
+	},
+	"UNIFORMS_CODE": "int Bars; // min=1;max=24;default=4\nfloat Twist; // min=0;max=2;default=0.25\nfloat Dist; // min=0;max=2;default=0.25\nfloat Rounding; // min=0;max=1;default=0.125\nint Iterations; // min=40;max=256;default=100",
+	"FUNCTIONS_CODE": "// https://www.shadertoy.com/view/NtcyDn\n// CC0: Wednesday messing around\n// Tinkered a bit with an earlier shader\n// Thought while similar it turned out distinct enough to share\n\n#define SKYDOME\n#define PERIOD        2.0\n\n#define PI            3.141592654\n#define ROT(a)        mat2(cos(a), sin(a), -sin(a), cos(a))\n\nint bars = Bars;\nconst mat2 trans = ROT(PI / 9.0);\nfloat twist = Twist;\nfloat dist = Dist;\nfloat rounding = Rounding;\n\nconst float raymarchFactor = .5;\n\n#define TAU         (2.0*PI)\n#define TIME        Time.x\n#define RESOLUTION  _RES\n\n#define MAX_RAY_LENGTH  20.0\nint MAX_RAY_MARCHES = Iterations;\n#define TOLERANCE       0.005\n#define NORM_OFF        0.005\n\nint g_hit;\nint g_period;\n\n// License: WTFPL, author: sam hocevar, found: https://stackoverflow.com/a/17897228/418488\nconst vec4 hsv2rgb_K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);\nvec3 hsv2rgb(vec3 c) {\n    vec3 p = abs(fract(c.xxx + hsv2rgb_K.xyz) * 6.0 - hsv2rgb_K.www);\n    return c.z * mix(hsv2rgb_K.xxx, clamp(p - hsv2rgb_K.xxx, 0.0, 1.0), c.y);\n}\n// License: WTFPL, author: sam hocevar, found: https://stackoverflow.com/a/17897228/418488\n//  Macro version of above to enable compile-time constants\n#define HSV2RGB(c)  (c.z * mix(hsv2rgb_K.xxx, clamp(abs(fract(c.xxx + hsv2rgb_K.xyz) * 6.0 - hsv2rgb_K.www) - hsv2rgb_K.xxx, 0.0, 1.0), c.y))\n\nvec3 band_color(float ny) {\n    vec3 hsv = vec3(0.0);\n    float ramp = 1.0 / abs(ny);\n    if(abs(ny) < 4.0) {\n        hsv = vec3(0.0, 0.0, 0.);\n    } else if(ny > 0.0) {\n        hsv = vec3(0.88, 2.5 * ramp, 0.8);\n    } else {\n        hsv = vec3(0.53, 4.0 * ramp, 0.8);\n    }\n\n    return hsv2rgb(hsv);\n}\n\n// License: MIT, author: Inigo Quilez, found: https://iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm\nfloat box(vec2 p, vec2 b, vec4 r) {\n    r.xy = (p.x > 0.0) ? r.xy : r.zw;\n    r.x = (p.y > 0.0) ? r.x : r.y;\n    vec2 q = abs(p) - b + r.x;\n    return min(max(q.x, q.y), 0.0) + length(max(q, 0.0)) - r.x;\n}\n\nfloat fadeIn(float x) {\n    return mix(-0.1, 1.0, smoothstep(-0.9, -0.5, -cos(-0.1 * x + TAU * TIME / PERIOD)));\n}\n\nfloat df_bars1(vec3 p) {\n    p.y += dist * sin(0.5 * p.x + 0.5 * p.z + TIME);\n    vec2 bp = p.zy;\n\n    float d = 1E6;\n\n    float bs = 0.25 * fadeIn(p.x);\n    vec2 bsz = vec2(bs);\n    vec4 brd = vec4(bs * rounding);\n\n    for(int i = 0; i < bars; ++i) {\n        float ii = float(i);\n        vec2 pp = bp;\n        float a = -TIME + 0.5 * ii;\n        float b = ii + p.x - 2.0 * TIME;\n        pp.y += sin(a);\n        mat2 rot = ROT(-PI / 4.0 * cos(a + twist * b));\n        pp.x -= bsz.x * sqrt(2.0) * ii;\n        pp *= rot;\n        float dd = box(pp, bsz, brd);\n        if(dd < d) {\n            g_hit = i;\n            d = dd;\n        }\n    }\n\n    return d;\n}\n\nfloat df_bars2(vec3 p) {\n    p.y += 0.5 * dist * sin(-0.9 * p.x + TIME);\n    vec2 p2 = p.yz;\n    p2 *= ROT(TIME + p.x);\n    vec2 s2 = sign(p2);\n    p2 = abs(p2);\n    p2 -= 0.3;\n    g_hit = 3 + int(s2.y + 2.0 * s2.x) - 1;\n    float bs = 0.25 * fadeIn(p.x);\n    vec2 bsz = vec2(bs);\n    vec4 brd = vec4(bs * rounding);\n    return length(p2) - bs;\n}\n\nfloat df_bars3(vec3 p) {\n    const float r = 0.25;\n    p.y += 0.5 * dist * sin(-0.9 * p.x + TIME);\n    mat2 rot = ROT(TIME + p.x);\n    vec2 p2 = p.yz;\n    vec2 s2 = vec2(0.0);\n\n    p2 *= rot;\n    s2 += 2.0 * sign(p2);\n    p2 = abs(p2);\n    p2 -= 2.0 * r;\n\n    p2 *= rot;\n    s2 += 1.0 * sign(p2);\n    p2 = abs(p2);\n    p2 -= 1.0 * r;\n\n    g_hit = 3 + int(s2.y + 2.0 * s2.x) - 1;\n\n    float bs = (0.9 * r) * fadeIn(p.x);\n    vec2 bsz = vec2(bs);\n    vec4 brd = vec4(bs * rounding);\n    float d0 = length(p2) - bs;\n    float d1 = box(p2, bsz, brd);\n    float d = d0;\n    return d;\n}\n\nfloat df_bars4(vec3 p) {\n    p.y += 0.5 * dist * sin(-0.9 * p.x + TIME);\n    vec2 p2 = p.yz;\n    p2 *= ROT(TIME + p.x);\n    vec2 s2 = sign(p2);\n    p2 = abs(p2);\n    p2 -= 0.3;\n    g_hit = 3 + int(s2.y + 2.0 * s2.x) - 1;\n\n    float bs = 0.25 * fadeIn(p.x);\n\n    vec2 bsz = vec2(bs);\n    vec4 brd = vec4(bs * rounding);\n    return box(p2, bsz, brd);\n}\n\nfloat df(vec3 p) {\n    p.xy *= trans;\n    switch(g_period) {\n        case 0:\n            return df_bars1(p);\n        case 1:\n            return df_bars2(p);\n        case 2:\n            return df_bars3(p);\n        case 3:\n            return df_bars4(p);\n        default:\n            return length(p) - 0.5;\n    }\n}\n\nfloat rayMarch(vec3 ro, vec3 rd, float ti) {\n    float t = ti;\n    int i = 0;\n    vec2 dti = vec2(1e10, 0.0);\n    for(i = 0; i < MAX_RAY_MARCHES; i++) {\n        float d = df(ro + rd * t);\n        if(d < TOLERANCE || t > MAX_RAY_LENGTH)\n            break;\n        if(d < dti.x) {\n            dti = vec2(d, t);\n        }\n        t += raymarchFactor * d;\n    }\n    if(i == MAX_RAY_MARCHES) {\n        t = dti.y;\n    }\n    return t;\n}\n\nvec3 normal(vec3 pos) {\n    vec2 eps = vec2(NORM_OFF, 0.0);\n    vec3 nor;\n    nor.x = df(pos + eps.xyy) - df(pos - eps.xyy);\n    nor.y = df(pos + eps.yxy) - df(pos - eps.yxy);\n    nor.z = df(pos + eps.yyx) - df(pos - eps.yyx);\n    return normalize(nor);\n}\n\nconst vec3 lightPos = vec3(2.0, 3.0, -5.0);\nconst vec3 lightCol = vec3(HSV2RGB(vec3(0.53, 0.5, 1.0)));\nconst vec3 overCol = vec3(HSV2RGB(vec3(0.5333, 0.949, 0.498)));\n\nvec3 skyColor(vec3 ro, vec3 rd) {\n    vec3 ld = normalize(lightPos - ro);\n    float dif = max(dot(ld, rd), 0.0);\n\n    vec3 col = vec3(0.0);\n\n    if((rd.y > abs(rd.x) * 1.0) && (rd.y > abs(rd.z * 0.25))) {\n        col = 2.0 * overCol * rd.y;\n    }\n    float rb = length(max(abs(rd.xz / max(0.0, rd.y)) - vec2(0.9, 4.0), 0.0)) - 0.1;\n\n    col += overCol * pow(clamp(1.0 - rb * 0.5, 0.0, 1.0), 6.0);\n    col += lightCol * pow(dif, 8.0);\n    col += 4.0 * lightCol * pow(dif, 40.0);\n    return col;\n}\n\nvec3 effect(vec2 p) {\n    vec3 ro = vec3(0.0, 0.0, -5.0);\n    vec3 la = vec3(0.0, 0.0, 0.0);\n    vec3 ww = normalize(la - ro);\n    vec3 uu = normalize(cross(vec3(0.0, 1.0, 0.0), ww));\n    vec3 vv = normalize(cross(ww, uu));\n    const float fov = 3.0;\n    vec3 rd = normalize(-p.x * uu + p.y * vv + fov * ww);\n\n    g_hit = -1;\n    float t = rayMarch(ro, rd, .0);\n    int hit = g_hit;\n\n    vec3 col = vec3(1.0);\n    vec3 bcol = band_color(-4.0 * float(hit - (bars - 1) / 2));\n    bcol *= bcol;\n    if(t < MAX_RAY_LENGTH) {\n        vec3 p = ro + rd * t;\n        vec3 n = normal(p);\n        vec3 r = reflect(rd, n);\n        vec3 ld = normalize(lightPos - p);\n\n        float dif = max(dot(ld, n), 0.0);\n        col = bcol * mix(0.5, 1.0, dif);\n#ifdef SKYDOME    \n        vec3 rs = skyColor(p, r);\n        float fre = 1.0 + dot(rd, n);\n        fre *= fre;\n        float rf = mix(0.05, 1.0, fre);\n        col += rf * rs;\n    // Just some fine-tuning, don't judge me\n        col += smoothstep(0.5, 1.0, fre) * max(n.y, 0.0);\n#else   \n        float spe = pow(max(dot(ld, r), 0.0), 30.0);\n        col += spe;\n#endif    \n    }\n\n    return col;\n}",
+	"OUTPUTS_CODE": "vec4 color;",
+	"MAIN_CODE": "vec2 q = vec2(_UVN) * 2;\nvec2 p = -2. + 2. * q;\np *= _RATIO2D;\ng_period = int(mod(1.0 + floor(TIME / PERIOD), 2.0));\n\nvec3 col = effect(p);\ncol -= vec3(0.2, 0.3, 0.2);\ncol = clamp(col, 0.0, 1.0);\ncol = sqrt(col);\ncolor = td(vec4(col, 1.0));\n\n"
+}
