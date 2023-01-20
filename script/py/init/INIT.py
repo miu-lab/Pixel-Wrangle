@@ -1,4 +1,5 @@
 from LOAD_SETTINGS import *
+from pathlib import Path
 import os
 glCodeContainer = op(f"{parent.Comp.path}/BUILD_GLSL_CODE")
 glPath = glCodeContainer.path
@@ -42,7 +43,17 @@ def resetKeys(opTable):
     return
 
 
+def createUserDirectories():
+	Path(parent.Comp.par.Codeuserpresetpath.eval()).mkdir(parents=True, exist_ok=True)
+	Path(parent.Comp.par.Codeuserfunctionpath.eval()).mkdir(parents=True, exist_ok=True)
+	if Path(parent.Comp.par.Codeuserpath.eval()+'/Macros.glsl').exists == True:
+		pass
+	else:
+		with open(str(Path(parent.Comp.par.Codeuserpath.eval()+'/Macros.glsl')), 'w') as f:
+			f.write('/* USER MACROS */\n')
+
 def onCreate():
+    createUserDirectories()
     op('Preset_Manager/POP_PRESET').par.Close.pulse(1, frames=4)
     op('Function_Manager/POP_FUNCTION').par.Close.pulse(1, frames=4)
     op(f"{glPath}/UNIFORMS_AS_TEXT").par.syncfile = 0
@@ -71,6 +82,7 @@ def onCreate():
 
 
 def onStart():
+    createUserDirectories()
     op('Preset_Manager/POP_PRESET').par.Close.pulse(1, frames=4)
     op('Function_Manager/POP_FUNCTION').par.Close.pulse(1, frames=4)
     op(f"{glPath}/UNIFORMS_AS_TEXT").par.syncfile = 0
