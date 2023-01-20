@@ -18,3 +18,13 @@
 This project is heavily inspired by the VEX Wranglers in the Houdini ecosystem.
 
 You can find the official "work-in-progress" documentation at the following [link](https://miu-lab.github.io/Pixel-Wrangle-doc) (available in both English and French)
+
+# Quick Install
+
+- Clone the repo with all the submodules at root of your Palette folder located in Documents/Derivative
+
+```bash
+git clone -b dev --recurse-submodules https://github.com/miu-lab/Pixel-Wrangle.git
+```
+
+- Update your Palette
