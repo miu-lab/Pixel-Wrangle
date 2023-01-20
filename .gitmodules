@@ -1,6 +1,0 @@
-[submodule "Functions/src/lygia"]
-	path = Functions/src/lygia
-	url = https://github.com/patriciogonzalezvivo/lygia
-[submodule "doc"]
-	path = doc
-	url = https://github.com/miu-lab/Pixel-Wrangle-doc

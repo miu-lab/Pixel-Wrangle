@@ -1,6 +1,6 @@
 settings.json
 Functions/dist/**/*
-Functions/src/**/*
+Functions/src/lygia/**/*
 Toe/Backup
 doc/**/*
 .vs
