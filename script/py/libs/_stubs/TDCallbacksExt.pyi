@@ -16,7 +16,7 @@
 # _END_HEADER_
 
 # callbacks extension
-
+from _stubs import *
 import traceback
 import reprlib
 

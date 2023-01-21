@@ -1,3 +1,4 @@
+from _stubs import *
 import os.path
 
 def file(path):

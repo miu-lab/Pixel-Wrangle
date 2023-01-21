@@ -17,7 +17,7 @@
 # _END_HEADER_
 
 # TDStoreTools
-
+from _stubs import *
 from collections.abc import MutableSet, MutableMapping, MutableSequence
 from abc import ABCMeta, abstractmethod
 from numbers import Number

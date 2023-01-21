@@ -1,4 +1,5 @@
 # t3kt/td-components/logs.py
+from _stubs import *
 print('loading logs.py...')
 
 from typing import Any, Callable, Dict, Iterable, Union, List, Optional

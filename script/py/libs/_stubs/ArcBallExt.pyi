@@ -1,3 +1,4 @@
+from _stubs import *
 class ArcBallExt():
 	"""
 	The ArcBallExt Class helps with interactively controlling a Camera COMP

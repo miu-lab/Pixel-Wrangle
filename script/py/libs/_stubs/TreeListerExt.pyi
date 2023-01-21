@@ -7,7 +7,7 @@ can be accessed externally, e.g. op('yourComp').PromotedFunction().
 
 For more info, see: http://www.derivative.ca/wiki099/index.php?title=Extensions
 """
-
+from _stubs import *
 from collections import namedtuple
 from TDStoreTools import StorageManager
 TDF = op.TDModules.mod.TDFunctions

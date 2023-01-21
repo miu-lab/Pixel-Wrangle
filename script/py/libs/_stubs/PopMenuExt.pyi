@@ -16,7 +16,7 @@
 # _END_HEADER_
 
 # PopMenuExt
-
+from _stubs import *
 TDFunctions = op.TDModules.mod.TDFunctions
 
 # Note that selection style is currently locked to "Click" because of Windows

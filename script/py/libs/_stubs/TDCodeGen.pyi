@@ -14,7 +14,7 @@
 # Version: 099.2017.30440.28Sep
 #
 # _END_HEADER_
-
+from _stubs import *
 """TDCodeGen
 
 Helpers for automatically generated Python code. Heavily based on the ast 

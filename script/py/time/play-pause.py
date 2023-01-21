@@ -10,9 +10,10 @@ def onValueChange(par, prev):
 		target.par.value0x = seconds
 		target.par.value0y = frames 
 		target.par.value0z = step
+		return
 	else:
-		 target.par.value0x.expr = 'absTime.seconds'
-		 target.par.value0y.expr = 'absTime.frame'
-		 target.par.value0z.expr = 'absTime.stepSeconds'
-	
+		target.par.value0x.expr = 'absTime.seconds'
+		target.par.value0y.expr = 'absTime.frame'
+		target.par.value0z.expr = 'absTime.stepSeconds'
+
 	return
