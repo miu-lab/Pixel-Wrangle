@@ -43,13 +43,14 @@ if(extjson.exists() == True):
 else:
 	extensionsPath.mkdir(parents=True, exist_ok=True)
 	original = str(Path(str(pwPath) + '/vscode/extensions.json'))
-	target = str(Path(str(extensionsPath) + '/extensions.json'))
+	Path(str(targetFolder) + '/.vscode').mkdir(parents=True, exist_ok=True)
+	target = str(Path(str(targetFolder) + '/.vscode/extensions.json'))
 	copyfile(original, target)
 
 if(settingsjson.exists() == True):
 	pass
 else:
-	# Init settings
+	# Init settingstt
 	Path(str(userDataPath) + '/User').mkdir(parents=True, exist_ok=True)
 	original = str(Path(str(pwPath) + '/vscode/settings.json'))
 	target = str(Path(str(settingsjson)))
