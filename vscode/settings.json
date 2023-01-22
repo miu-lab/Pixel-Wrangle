@@ -1,0 +1,109 @@
+{
+  "window.menuBarVisibility": "compact",
+  "workbench.startupEditor": "none", // On ne veut pas une page d'accueil chargée
+  "editor.minimap.enabled": false,
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorWidth": 3,
+  "breadcrumbs.enabled": false,
+
+  // -- Sidebar
+  "workbench.tree.indent": 15, // Indente plus pour plus de clarté dans la sidebar
+  "workbench.tree.renderIndentGuides": "always",
+
+  // -- Code
+  "editor.occurrencesHighlight": false,
+  "editor.renderWhitespace": "trailing", // On ne veut pas laisser d'espace en fin de ligne
+
+  // Thème
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', 'Operator Mono Lig', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 16,
+  "editor.lineHeight": 28,
+  "workbench.colorTheme": "Tokyo Night",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorCustomizations": {
+    "[Tokyo Night]": {
+      "editor.selectionBackground": "#3D59A1",
+      "editor.selectionHighlightBackground": "#3D59A1"
+    }
+  },
+  "workbench.statusBar.visible": false,
+
+  // Ergonomie
+  "editor.wordWrap": "on",
+  "editor.suggest.insertMode": "replace",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "editor.linkedEditing": true,
+  "explorer.autoReveal": false,
+  "explorer.confirmDragAndDrop": false,
+  "workbench.editor.enablePreview": false,
+  "emmet.triggerExpansionOnTab": true,
+
+  // Fichiers
+  "files.autoSave": "afterDelay",
+  "files.defaultLanguage": "markdown",
+  "files.exclude": {
+    "**/.idea": true
+  },
+  // Languages
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+
+  // Extensions
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "shadered.executablePath": "C:\\Program Files\\SHADERed\\SHADERed.exe",
+
+  // GLSL Extension
+  "webgl-glsl-editor.codeInjection": true,
+  "webgl-glsl-editor.codeInjectionSource": [
+    "#extension GL_EXT_nonuniform_qualifier : enable",
+    "#extension GL_GOOGLE_include_directive : enable",
+    "struct TDTexInfo{   vec4 res;   vec4 depth;   };",
+    "uniform sampler2D sTD2DInputs[1];",
+    "uniform TD2DInfoBlock {  TDTexInfo uTD2DInfos[1]; };",
+    "uniform TDOutputInfoBlock {  TDTexInfo uTDOutputInfo; };",
+    "uniform int uTDPass;",
+    "uniform int uTDCurrentDepth;",
+    "uniform sampler2D sTDNoiseMap;",
+    "uniform sampler1D sTDSineLookup;",
+    "uniform sampler2D sTDWhite2D;",
+    "uniform sampler3D sTDWhite3D;",
+    "uniform sampler2DArray sTDWhite2DArray;",
+    "uniform samplerCube sTDWhiteCube;",
+    "vec4 TDDither(vec4 color);",
+    "float TDPerlinNoise(vec2 v);",
+    "float TDPerlinNoise(vec3 v);",
+    "float TDPerlinNoise(vec4 v);",
+    "float TDSimplexNoise(vec2 v);",
+    "float TDSimplexNoise(vec3 v);",
+    "float TDSimplexNoise(vec4 v);",
+    "vec3 TDHSVToRGB(vec3 c);",
+    "vec3 TDRGBToHSV(vec3 c);",
+    "float TDSineLookup(float v);",
+    "mat3 TDRotateToVector(vec3 forward, vec3 to);",
+    "mat3 TDRotateOnAxis(float radians, vec3 axis);",
+    "mat3 TDRotateX(float radians);",
+    "mat3 TDRotateY(float radians);",
+    "mat3 TDRotateZ(float radians);",
+    "mat3 TDScale(float x, float y, float z);",
+    "mat4 TDTranslate(float x, float y, float z);",
+    "mat3 TDCreateTBNMatrix(vec3 N, vec3 T, float handedness);",
+    "vec3 TDEquirectangularToCubeMap(vec2 mapCoord);",
+    "vec2 TDCubeMapToEquirectangular(vec3 envMapCoord);",
+    "vec2 TDCubeMapToEquirectangular(vec3 envMapCoord, out float mipMapBias);",
+    "vec2 TDTexGenSphere(vec3 envMapCoord);",
+    "vec4 TDOutputSwizzle(vec4 v);",
+    "uvec4 TDOutputSwizzle(uvec4 v);",
+    "in vec3 vUV;",
+    "vec4 MousePos;",
+    "vec3 MouseClicks;"
+  ],
+  "[glsl]": {
+    "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
+  },
+  "glsl-canvas.useCompactFormatter": false,
+  "explorer.confirmDelete": false,
+  "workbench.activityBar.visible": false
+}
