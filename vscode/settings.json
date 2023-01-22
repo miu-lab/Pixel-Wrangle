@@ -105,5 +105,5 @@
   },
   "glsl-canvas.useCompactFormatter": false,
   "explorer.confirmDelete": false,
-  "workbench.activityBar.visible": false
+  "security.workspace.trust.enabled": false
 }
