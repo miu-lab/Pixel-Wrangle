@@ -7,11 +7,14 @@ def onProjectPostSave():
 	targetFolder = path.join(tempFolder, project.name.split(".")[0], project.name.split(".")[1], str(f"{nComp.name}_{nComp.id}"))
 	
 	# Update VSCode process targetting the new folder if vscode window is already open, else pass
-	if vscodeInstance.poll() == 0:
+	try:
+		if vscodeInstance.poll() == 0:
+			pass
+		else:
+			vscodeInstance.kill()
+			vscodeInstance = openVSCode(targetFolder)
+	except:
 		pass
-	else:
-		vscodeInstance.kill()
-		vscodeInstance = openVSCode(targetFolder)
 
 	try:
 		makedirs(targetFolder)
