@@ -4,7 +4,8 @@ from utils import *
 def onProjectPostSave():
 	from utils import vscodeInstance
 	tempFolder = path.normpath(f"{homePath}\\.cache")
-	targetFolder = path.join(tempFolder, project.name.split(".")[0], project.name.split(".")[1], str(f"{nComp.name}_{nComp.id}"))
+	projectname = project.name.split(".")[0]
+	targetFolder = path.join(tempFolder, f"{projectname}_{getID(project.folder)}", project.name.split(".")[1], str(f"{nComp.name}_{nComp.id}"))
 	
 	# Update VSCode process targetting the new folder if vscode window is already open, else pass
 	try:

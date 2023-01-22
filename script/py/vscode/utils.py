@@ -5,6 +5,15 @@ from shutil import copyfile
 from os import path, makedirs
 from pprint import pprint
 
+# from stackoverflow.com/questions/22974499/generate-id-from-string-in-python
+def getID(string: str, last_idx: int = 6) -> str:
+    import hashlib
+    m = hashlib.md5()
+    string = string.encode('utf-8')
+    m.update(string)
+    unqiue_name: str = str(int(m.hexdigest(), 16))[0:last_idx]
+    return unqiue_name
+
 homePath = Path(parent.Comp.par.Codeuserpath.eval())
 pwPath = Path(parent.Comp.par.Codelibrarypath.eval())
 envPath = '.vscode'
