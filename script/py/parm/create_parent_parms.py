@@ -15,8 +15,31 @@ def updateParm(src: dict, pNames):
     elif exist and src["name"] not in pNames:
         exist.destroy()
     else:
-        addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                                 ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
+        mode = None
+        try:
+            mode = exist.mode
+            if mode == ParMode.CONSTANT:
+                val = exist.val
+                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
+                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
+                exist.val = val
+            elif mode == ParMode.EXPRESSION:
+                expr = exist.expr
+                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
+                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
+                exist.expr = expr 
+            elif mode == ParMode.BIND:
+                bindExpr = exist.bindExpr 
+                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
+                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
+                exist.bindExpr = bindExpr
+            else:
+                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
+                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
+        except:
+            addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
+                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
+
     return
 
 
