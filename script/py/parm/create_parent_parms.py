@@ -1,47 +1,39 @@
+from pprint import pprint
 from _stubs import *
 from re import sub
 from ast import literal_eval
 from TDFunctions import getCustomPage
-from TDJSON import addParameterFromJSONDict
+from TDJSON import addParameterFromJSONDict, parameterToJSONPar, pageToJSONDict
+
 
 # CUSTOM FUNCTIONS
 
 
-def updateParm(src: dict, pNames):
-    exist = parent.Comp.par[src["name"]]
-    if exist == None and src["name"] in pNames:
-        addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                                 ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
-    elif exist and src["name"] not in pNames:
-        exist.destroy()
+def addParFromJSON(target, src, replace=True, setValues=True, ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False):
+    return addParameterFromJSONDict(target, src, replace, setValues,
+                                 ignoreAttrErrors, fixParNames, setBuiltIns)
+
+def updateParm(src: dict, pNames, JSONpage):
+    p = parent.Comp.parGroup[src["name"]]
+    updatedPage = JSONpage
+    
+    ## if Parameter already exist
+    if src["name"] in JSONpage:
+        
+        # Delete unused
+        if src["name"] not in pNames:
+            p.destroy()
+            updatedPage.pop(src["name"])
+        
+        # Preserve old settings
+        else:
+            oldp = updatedPage[src["name"]]
+            oldp['defaultExpr'] = ''
+            addParFromJSON(parent.Comp, oldp)
+    
+    ## elif Parameter does not exist
     else:
-        mode = None
-        try:
-            mode = exist.mode
-            if mode == ParMode.CONSTANT:
-                val = exist.val
-                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
-                exist.val = val
-            elif mode == ParMode.EXPRESSION:
-                expr = exist.expr
-                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
-                exist.expr = expr 
-            elif mode == ParMode.BIND:
-                bindExpr = exist.bindExpr 
-                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
-                exist.bindExpr = bindExpr
-            else:
-                addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
-        except:
-            addParameterFromJSONDict(parent.Comp, src, replace=True, setValues=True,
-                            ignoreAttrErrors=True, fixParNames=False, setBuiltIns=False)
-
-    return
-
+        addParFromJSON(parent.Comp, src)
 
 # OPERATORS
 source = op('BUILTIN_PARMS')
@@ -53,14 +45,18 @@ StringTypes = ("SOP", "PanelCOMP", "Python", "TOP", "MAT",
 
 
 def onTableChange(dat: DAT):
-
+    page = None
+    pageJSONDict = {}
+    
     # GET TARGET PAGE
     if getCustomPage(target, 'Controls'):
         page = getCustomPage(target, 'Controls')
+        pageJSONDict = pageToJSONDict(page, extraAttrs='*', forceAttrLists=True)
 
     # IF NONE CREATE IT
     else:
         page = target.appendCustomPage('Controls')
+        pageJSONDict = pageToJSONDict(page, extraAttrs='*', forceAttrLists=True)
 
     # SORT PAGES
     target.sortCustomPages('Controls', 'Code', 'Inputs',
@@ -74,7 +70,7 @@ def onTableChange(dat: DAT):
     # GET NAMES
     pNames = []
     for i, _ in enumerate(plist):
-        pNames.append(dat[i, "name"].val)
+        pNames.append(dat[i+1, "name"].val)
 
     # GET CURRENT UI PARMS
     curPars = page.pars
@@ -162,8 +158,9 @@ def onTableChange(dat: DAT):
             "val": default,
 
         }
+        
 
         # TRY ACCESS CURRENT PARM BY NAME
-        updateParm(pSettings, pNames)
+        updateParm(pSettings, pNames, pageJSONDict)
 
     return
