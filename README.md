@@ -1,4 +1,4 @@
-![thumb](https://user-images.githubusercontent.com/97438154/213440174-e47382e6-5281-4fab-b82c-a77fd6babb52.png)
+![image](https://user-images.githubusercontent.com/97438154/226935988-b20ef615-6295-4836-828b-64a16d27c9f7.png)
 
 # Pixel Wrangle
 
@@ -13,7 +13,7 @@
 - Minimal CPU overhead
 - Easy use, creation, and management of your own libraries of presets and functions
 - One-click auto-parsing and importing of third-party libraries (Lygia is fully integrated)
-- One-click export of your shader as a standard GLSL network, eliminating framework dependency
+- One-click export of your shader as a standard GLSL network, eliminating framework dependency (called 'Instance')
 
 This project is heavily inspired by the VEX Wranglers in the Houdini ecosystem.
 
@@ -21,9 +21,9 @@ You can find the official "work-in-progress" documentation at the following [lin
 
 # Changelog
 
-## **2023-01-21** -> Pixel-Wrangle - Pre-release - RC1
+## **2023-03-22** -> Pixel-Wrangle - Pre-release - RC2
 
-**Please note that this is the first release candidate and it may contain unknown bugs. Use it for your projects at your own risk.**
+**Please note that release candidate may contain unknown bugs. Use it for your projects at your own risk.**
 
 *Tests were run on a Windows system, an AMD CPU, an RTX 3XXX GPU, and the latest version of TouchDesigner 2022.* If you encounter any critical bugs, please let us know in the issues section of the repository.
 
@@ -31,43 +31,42 @@ The [documentation](https://miu-lab.github.io/Pixel-Wrangle-doc/) is currently i
 
 ## Features
 
-- Compute shaders, 2D array buffers, and 3D are all supported, with 100% functional parity with GLSLMultiTOP.
-- All GLSL TOP parameter types are now supported, with an additional "Header" type parameter to aid in parameter layout in the Controls page.
-- All parameter properties are available for customizing appearance.
-- Ability to save your own functions/snippets to build your custom GLSL library.
-- External library auto-parser to convert any arbitrary GLSL library (in the "Functions/dist" folder of the Pixel-Wrangle root) to a TD-compatible GLSL library (correcting paths and old syntaxes).
-- One-click to parse and import all external libraries in your project (with static path resolving).
-- One-click to export your shader in a new PanelCOMP (removing the Pixel-Wrangle dependency).
-- The UI has been completely rebuilt, allowing you to customize the main background color, text size, text font, and text line height.
-- Built-in mouse interactions are available everywhere while hovering a viewer and holding the [CTRL] key.
-- A variety of macros have been added for common operations.
-- Fuzzy search (and path-based) to find relevant functions and presets.
+- Added Instance manager Panel (browse all Pixel Wrangle exported instances in the project, reload in editor with double click, open parameters, viewers, network)
+- Added instance linking (Track currently selected instance and load it automatically in the main UI to edit)
+- Added macros allowing to switch between Compute and Vertex/Pixel shader modes on the fly without editing code (see help/readWrite preset for usage)
+- Added miu_lab utilities functions for basic raymarching (ray and light structs, shadow, ao, normals, uniform fog)
+- Added miu_lab noise functions (FBM, FastNoiseLite)
+- Added raymarching presets based on miu_lab utilities functions
+- Added pin instance CTRL L - pin parameter/viewer - code CTRL SHIFT L
+- Added layout mode in viewer to check all buffers in single viewer
 
 ## Improvements
 
-- All Pixel-Wrangle related data has been moved to a USER folder (Documents/Pixel-Wrangle) including vscode environment, cached code panes, saved presets and functions, and macros.
-- The function loader now has preview hints (documentation headers and signatures)
-- Keyboard shortcuts have been updated
-- All parameters have hover-over help when the ALT key is held down
-- Most of the UI elements have help message on hovering
-- Non-default parameters are now always saved with presets (including resolution, bit depth, shader mode, etc.)
-- Integration with Visual Studio Code has been improved and is now more stable
-- The official documentation and Lygia are both integrated as submodules, see the installation instructions for more information.
-- Crashes are now extremely rare.
+- Global UI improvements (add header bar, auto layout parameter pane, layout mode in viewer panes, pins, etc.)
+- Allow single Pixel Wrangle OP manipulate multiple nodes (called 'Instances')
+- Added storage in /storage. Pixel Wrangle is now an external tox that reload at startup
+- Allow drag and drop previously exported instance in UI to reload it using op storage
+- Recalling an instance will keep all parameter values as they are tuned in the instance
+- When Pixel Wrangle is linked to an instance : Feed instance inputs as inputs fallback in main UI
+- Improved autofocus current OP in parameter pane (contextual edit viewer, node type hints : blue = Pixel Wrangle Master, green = Pixel Wrangle instance, grey= regular OP)
+- Edit node name in parameter pane
+- Move build lib and export icons in header
+- Move resolution, mode, etc. icons on the right
+- Updated Macros and presets to use the new write() function macro
+- Updated help presets
 
-## Known bugs
+## Bug Fixes
 
-- Loading presets is still buggy, you may need to load them twice.
-- Most keybindings are slightly sticky (but still usable).
-- Releasing the [CTRL] key after an interaction in the parameter pane viewer will reset the mouse position to the last main viewer position.
-- Navigation in the presets and functions browser with arrow keys does not allow you to press and hold to scroll through the list, and the left arrow key collapses all opened directories (so, it is recommended to use your mouse instead).
-- Some cacheTOP in subnet may cook unnecessarily after loading a preset. Toggling the time dependency generally solves the problem.
+- Include lygia readme and license in imported libraries
+- Fixed pane w/h min size
+- Fixed string expression properties in IO tab
+- Fixed some sticky keyboard shortcuts
 
 ## **Quick Install**
 
 ### Requirements
 
-- [TouchDesigner 2022.29530 or later](https://derivative.ca/download)
+- [TouchDesigner 2022.32120 or later](https://derivative.ca/download)
 - [Git](https://git-scm.com/downloads)
 
 ### Installation

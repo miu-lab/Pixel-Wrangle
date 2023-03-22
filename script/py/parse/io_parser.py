@@ -101,28 +101,6 @@ stringProps = {
 allProps = {**commonProps, **pythonProps, **numberProps,
             **toggleProps, **matrixProps, **stringProps}
 
-
-def getParmList(dat: DAT):
-
-    # Init
-    rawText = None
-    rawLines = []
-
-    # DAT is a scriptDAT type (multi inputs)
-    if dat.type == "script":
-        rawText = dat.inputs[0].text
-
-    # DAT is standard DAT
-    else:
-        rawText = dat.text
-
-    # Split lines and write out to result
-    rawLines = removeEmpty(rawText.splitlines())
-    result = setParmProps(rawLines)
-
-    return result
-
-
 def setParmProps(stringList: str):
     result = []
     # For each line
@@ -226,7 +204,6 @@ def cleanStrProps(strProp, ISCOMMENTLINEPARM=False):
 
     # Leave spaces in str properties
     preservedSpaceProps = ("help", "label", "expr", "bindExpr", "enableExpr")
-
     # GLSL compatible parm
     if not ISCOMMENTLINEPARM:
         prop = [x.strip() for x in strProp.split("//")[1].split(";")]
@@ -236,8 +213,11 @@ def cleanStrProps(strProp, ISCOMMENTLINEPARM=False):
         prop = [x.strip() for x in strProp.split("//---")[1].split(";")]
 
     # Conditionnal remove space
+
+
     prop = [x.translate(
         str.maketrans('', '', string.whitespace)) if not x.startswith(preservedSpaceProps) else x for x in prop]
+    
 
     return prop
 
@@ -249,7 +229,7 @@ def checkParmType(line: str):
 
     # Remove Start and split each specified prop
     specifiedProps = currentLine.split(";")
-
+    
     # If const offset string check after const keyword and check type
     if specifiedProps[0].startswith("const"):
         for key, value in validTypePattern.items():
@@ -356,28 +336,28 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
         parmKeysVals["arraysamples"] = None
         parmKeysVals["arraytype"] = None
 
-    # Vector Types
-    if "vec" in parmTypeName:
-        parmKeysVals["typesize"] = int(parmTypeName[-1])
-        parmKeysVals["default"] = [
-            float(parmAllKeysDefault["default"])] * parmKeysVals["typesize"]
-        if parmKeysVals["typesize"] == 3:
-            parmKeysVals["style"] = "RGB"
-        elif parmKeysVals["typesize"] == 4:
-            parmKeysVals["style"] = "RGBA"
+	    # Vector Types
+        if "vec" in parmTypeName:
+            parmKeysVals["typesize"] = int(parmTypeName[-1])
+            parmKeysVals["default"] = [
+                float(parmAllKeysDefault["default"])] * parmKeysVals["typesize"]
+            if parmKeysVals["typesize"] == 3:
+                parmKeysVals["style"] = "RGB"
+            elif parmKeysVals["typesize"] == 4:
+                parmKeysVals["style"] = "RGBA"
 
-    # Int types
-    if parmTypeName.startswith(("int", "ivec", "bvec", "uvec")):
-        parmKeysVals["style"] = "Int"
+        # Int types
+        if parmTypeName.startswith(("int", "ivec", "bvec", "uvec")):
+            parmKeysVals["style"] = "Int"
 
-    # Matrix types
-    if parmVTypeName.startswith("mat"):
-        parmKeysVals["style"] = "CHOP"
+        # Matrix types
+        if parmVTypeName.startswith("mat"):
+            parmKeysVals["style"] = "CHOP"
 
-    # Atomic types
-    if parmGLTypeName != "ac":
-        parmKeysVals["acinitval"] = None
-        parmKeysVals["acinittype"] = None
+        # Atomic types
+        if parmGLTypeName != "ac":
+            parmKeysVals["acinitval"] = None
+            parmKeysVals["acinittype"] = None
 
     # OVERRIDE PROPERTIES
     # FOR EACH SPECIFIED PROPS
@@ -437,8 +417,8 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                         parmKeysVals[propName] = propVal
                     except:
                         try:
-                            propVal = [float(propVal)] * \
-                                parmKeysVals["typesize"]
+                            propVal = [float(propVal)]
+                            parmKeysVals["typesize"]
                             parmKeysVals[propName] = propVal
                         except:
                             propVal = [
@@ -488,3 +468,23 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                     continue
 
     return {parmFinalName: {**parmAllKeysDefault, **parmKeysVals}}
+
+def getParmList(dat: DAT):
+
+    # Init
+    rawText = None
+    rawLines = []
+
+    # DAT is a scriptDAT type (multi inputs)
+    if dat.type == "script":
+        rawText = dat.inputs[0].text
+
+    # DAT is standard DAT
+    else:
+        rawText = dat.text
+
+    # Split lines and write out to result
+    rawLines = removeEmpty(rawText.splitlines())
+    result = setParmProps(rawLines)
+
+    return result

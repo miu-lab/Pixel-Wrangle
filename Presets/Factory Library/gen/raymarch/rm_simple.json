@@ -1,0 +1,1731 @@
+{
+	"codetabs": {
+		"inputs": "//--- label=Camera\nvec3 Ucamera;      // label=Camera Origin;section=1; style=Float\n\n//--- label=Lighting; section=1\nvec3 Ulight;       // label=Light Position; section=1; style=Float\nvec3 Ulightcolor;  // label=Light Color\n\n//--- label=Render; section=1\nint Pass; // menu=['Position', 'Normal', 'AO']; section=1\n\n//--- label=Box; section=1\nvec3 Boxpos;       // label=Position;section=1; style=Float\nvec3 Boxscale;     // label=Scale; style=Float\n\n//--- label=Sphere; section=1\nvec3 Spherepos;    // label=Position;section=1; style=Float\nfloat Spherescale; // label=Scale",
+		"function": "#include </libs/lygia/lighting/raymarch/camera_glsl>\n#include </libs/lygia/sdf/opRound_glsl>\n#include </libs/lygia/sdf_glsl>\n#include </libs/lygia/math/rotate3d_glsl>\n\n#define MAP_FNC mapD\n\nfloat mapD(in vec3 pos) {\n    float d = 0;\n    d = boxSDF(pos - Boxpos, vec3(Boxscale));\n    d = opRound(d, .001);\n    d = opSubtraction(sphereSDF(pos - Spherepos, Spherescale), d, .001);\n    return d;\n}\n\nfloat rayM(vec3 ro, vec3 rd, float mindist, float maxdist, out vec3 P) {\n    vec3 pos = ro;\n\n    float d = 0;\n    float scene = 0;\n\n    for(int i = 0; i < 2000; i++) {\n        pos = ro + rd * d;\n        scene = MAP_FNC(pos);\n        d += scene;\n        P = pos;\n        if(scene < mindist || d > maxdist)\n            break;\n    }\n    return d;\n}\n\nvec3 getN( in vec3 pos, vec2 pixelSize )\n{\n   vec2 offset = vec2(1.0, -1.0) * pixelSize;\n   return normalize( offset.xyy * MAP_FNC( pos + offset.xyy ) +\n                     offset.yyx * MAP_FNC( pos + offset.yyx ) +\n                     offset.yxy * MAP_FNC( pos + offset.yxy ) +\n                     offset.xxx * MAP_FNC( pos + offset.xxx ) );\n}",
+		"outputs": "vec4 IMAGE;",
+		"main": "/* Init */\n\nvec3 color  = vec3(0.0);                          // Init Color w/ Black\nvec2 uv     = _UVNCR;                                     // Get Normalized-Centered-Ratio Coords\nvec2 res    = _RES.xy;                                    // Floating Point Resolution\nvec2 mouse  = MouseDeltaLMB.zw;                           // Relative Mouse Pos\nfloat wheel = MouseWheel.x;                               // Mouse Wheel Position\nfloat t     = Time.x;                                     // Time in seconds\n\n\n\n\n/* Camera */\nvec3 camOrigin = Ucamera;                                 // Camera Origin Position\n\n/* =====================================\nSet camRot Matrix : \n- Rotate along Y axis\n- Rotation factor is Relative Mouse X \n===================================== */\nmat3 camRot = rotate3d(vec3(0,1,0), (-mouse.x * _PI));\n\ncamOrigin += vec3(0, mouse.y * -16, -wheel);              // Translate Y Relative Mouse Y, Translate Z by MouseWheel\ncamOrigin *= camRot;                                      // Apply matrix to our Camera\n\nmat3 ca = raymarchCamera(camOrigin, vec3(0));             // Use Lygia Camera Model\n\n\n\n/* Raymarch */\n\nvec3 rd = ca * normalize( vec3( uv , 3 ) ); \n\n/* ===============================================================================\nWe set vec3 rd (for Ray Direction) by defining a vector that points to our Image plane.\nWhere : \nX and Y are our screen coordinates\nZ is the distance of our Image plane from the Camera Position. It's also called FOV for Field of View.\nThen, normalize it to keep only directionnal information. \nIt will avoid space deformation by keeping all vector as unit vectors (length = 1) \n=============================================================================== */\n\n/* Init Output vectors */\nvec3 P = vec3(0);\nvec3 N = vec3(0);\n\n/* Compute SDF */\nrayM(camOrigin, rd, 0.000001, 50, P);\n\n/* Get Normals */ \nN = getN(P, vec2(1) / _RES);\n\n/* Write Output*/\nwrite(IMAGE, vec4(N, 0));"
+	},
+	"pars": {
+		"Hcamera": {
+			"name": "Hcamera",
+			"label": "Camera",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Ucamera": {
+			"name": "Ucamera",
+			"label": "Camera Origin",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0,
+				10.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Hlighting": {
+			"name": "Hlighting",
+			"label": "Lighting",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Ulight": {
+			"name": "Ulight",
+			"label": "Light Position",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": true
+		},
+		"Ulightcolor": {
+			"name": "Ulightcolor",
+			"label": "Light Color",
+			"page": "Controls",
+			"style": "RGB",
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.289000004529953,
+				0.289000004529953,
+				0.289000004529953
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Hrender": {
+			"name": "Hrender",
+			"label": "Render",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Pass": {
+			"name": "Pass",
+			"label": "Pass",
+			"page": "Controls",
+			"style": "Menu",
+			"default": [
+				"position"
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"menuNames": [
+				"position",
+				"normal",
+				"ao"
+			],
+			"menuLabels": [
+				"Position",
+				"Normal",
+				"AO"
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"normal"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Hbox": {
+			"name": "Hbox",
+			"label": "Box",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Boxpos": {
+			"name": "Boxpos",
+			"label": "Position",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": true
+		},
+		"Boxscale": {
+			"name": "Boxscale",
+			"label": "Scale",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.29999999999999993,
+				0.3,
+				0.3
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Hsphere": {
+			"name": "Hsphere",
+			"label": "Sphere",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Spherepos": {
+			"name": "Spherepos",
+			"label": "Position",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": true
+		},
+		"Spherescale": {
+			"name": "Spherescale",
+			"label": "Scale",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.460999995470047
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Inputstimeh": {
+			"name": "Inputstimeh",
+			"label": "Time",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputspanelh": {
+			"name": "Inputspanelh",
+			"label": "Panel Source",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputspanel": {
+			"name": "Inputspanel",
+			"label": "Panel",
+			"page": "Inputs",
+			"style": "PanelCOMP",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputssmooth": {
+			"name": "Inputssmooth",
+			"label": "Smooth Mouse",
+			"page": "Inputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputssmoothlag": {
+			"name": "Inputssmoothlag",
+			"label": "Lag",
+			"page": "Inputs",
+			"style": "Float",
+			"size": 1,
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.3
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsglobalh": {
+			"name": "Inputsglobalh",
+			"label": "Global",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname1": {
+			"name": "Inputsinputname1",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i1"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsfallback1": {
+			"name": "Inputsfallback1",
+			"label": "Fallback",
+			"page": "Inputs",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"banana"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset1": {
+			"name": "Inputsinputfeedbackreset1",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname2": {
+			"name": "Inputsinputname2",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i2"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset2": {
+			"name": "Inputsinputfeedbackreset2",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname3": {
+			"name": "Inputsinputname3",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i3"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset3": {
+			"name": "Inputsinputfeedbackreset3",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname4": {
+			"name": "Inputsinputname4",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i4"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputtype4": {
+			"name": "Inputsinputtype4",
+			"label": "Type",
+			"page": "Inputs",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"feedback"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset4": {
+			"name": "Inputsinputfeedbackreset4",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname5": {
+			"name": "Inputsinputname5",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i5"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset5": {
+			"name": "Inputsinputfeedbackreset5",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname6": {
+			"name": "Inputsinputname6",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i6"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset6": {
+			"name": "Inputsinputfeedbackreset6",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname7": {
+			"name": "Inputsinputname7",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i7"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset7": {
+			"name": "Inputsinputfeedbackreset7",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname8": {
+			"name": "Inputsinputname8",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i8"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset8": {
+			"name": "Inputsinputfeedbackreset8",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Outputsactive1": {
+			"name": "Outputsactive1",
+			"label": "Active",
+			"page": "Outputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname1": {
+			"name": "Outputsoutputname1",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Image"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsactive2": {
+			"name": "Outputsactive2",
+			"label": "Active",
+			"page": "Outputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname2": {
+			"name": "Outputsoutputname2",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Test"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname3": {
+			"name": "Outputsoutputname3",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o3"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname4": {
+			"name": "Outputsoutputname4",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o4"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname5": {
+			"name": "Outputsoutputname5",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o5"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname6": {
+			"name": "Outputsoutputname6",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o6"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname7": {
+			"name": "Outputsoutputname7",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o7"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname8": {
+			"name": "Outputsoutputname8",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o8"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glversionh": {
+			"name": "Glversionh",
+			"label": "Version",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glpreprocess": {
+			"name": "Glpreprocess",
+			"label": "Preprocess Directives",
+			"page": "GLSL",
+			"style": "DAT",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glmodeh": {
+			"name": "Glmodeh",
+			"label": "Mode",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glmode": {
+			"name": "Glmode",
+			"label": "Mode",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"compute"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glvertexdat": {
+			"name": "Glvertexdat",
+			"label": "Vertex Shader",
+			"page": "GLSL",
+			"style": "DAT",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glautodispatchsize": {
+			"name": "Glautodispatchsize",
+			"label": "Auto Dispatch Size",
+			"page": "GLSL",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Gllocalsize": {
+			"name": "Gllocalsize",
+			"label": "Local Size",
+			"page": "GLSL",
+			"style": "Int",
+			"size": 3,
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				8,
+				8,
+				1
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			]
+		},
+		"Gloutputaccess": {
+			"name": "Gloutputaccess",
+			"label": "Output Access",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"readwrite"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glcustomdepth": {
+			"name": "Glcustomdepth",
+			"label": "Depth",
+			"page": "GLSL",
+			"style": "Int",
+			"size": 1,
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				1
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Gluvh": {
+			"name": "Gluvh",
+			"label": "UV",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glinputextenduv": {
+			"name": "Glinputextenduv",
+			"label": "Input Extend Mode UV",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"mirror"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsresolutionh": {
+			"name": "Globalsresolutionh",
+			"label": "Resolution",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsresolution": {
+			"name": "Globalsresolution",
+			"label": "Resolution",
+			"page": "Globals",
+			"style": "Int",
+			"size": 2,
+			"mode": [
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				1000,
+				2000
+			],
+			"expr": [
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null
+			]
+		},
+		"Globalsaspecth": {
+			"name": "Globalsaspecth",
+			"label": "Aspect",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsfilteringh": {
+			"name": "Globalsfilteringh",
+			"label": "Filtering",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsinputfiltertype": {
+			"name": "Globalsinputfiltertype",
+			"label": "Input Filtering",
+			"page": "Globals",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"nearest"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsfiltertype": {
+			"name": "Globalsfiltertype",
+			"label": "Viewer Filtering",
+			"page": "Globals",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"mipmap"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalspassesh": {
+			"name": "Globalspassesh",
+			"label": "Passes",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalspixelformath": {
+			"name": "Globalspixelformath",
+			"label": "Pixel format",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsmaskh": {
+			"name": "Globalsmaskh",
+			"label": "Mask",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		}
+	}
+}

@@ -16,7 +16,7 @@ def buildPreset(fromComp):
     globalPage = TDFunctions.getCustomPage(fromComp, "Globals")
 
     # Build Parms Settings
-    extraKeys = ["mode", "val", "expr", "bindExpr", "isDefault"]
+    extraKeys = ["mode", "val", "expr", "bindExpr", "isDefault", "page", "style", "name"]
 
     controlsParDict = TDJSON.pageToJSONDict(
         controlsPage, forceAttrLists=True, extraAttrs=extraKeys
@@ -28,18 +28,20 @@ def buildPreset(fromComp):
     glslParDict = TDJSON.pageToJSONDict(
         glslPage, forceAttrLists=True, extraAttrs=extraKeys)
     globalParDict = TDJSON.pageToJSONDict(
-        glslPage, forceAttrLists=True, extraAttrs=extraKeys)
+        globalPage, forceAttrLists=True, extraAttrs=extraKeys)
 
     # Get Code Pages
-    functionsText = op("GET_FUNCTIONS").text
-    uniformsText = op("GET_UNIFORMS").text
-    outputsText = op("GET_OUTPUTS").text
-    mainText = op("GET_MAIN").text
+    functionsText = iop.function.text
+    uniformsText = iop.uniform.text
+    outputsText = iop.outputs.text
+    mainText = iop.code.text
 
     # Init dict containers
     dicts = {"ctrls": controlsParDict, "in": inputsParDict,
              "out": outputsParDict, "gl": glslParDict, "global": globalParDict}
     currentPreset = {}
+    currentPreset["codetabs"] = {}
+    currentPreset['pars'] = {}
 
     # Keys to keep for static parameters
     inOutSavedkeys = [
@@ -58,37 +60,33 @@ def buildPreset(fromComp):
 
         if pageKey == "ctrls":
             for parmKey, parmValue in pageDict.items():
-                currentPreset[parmKey] = parmValue
+                currentPreset['pars'][parmKey] = parmValue
 
         if pageKey in ["in", "out", "gl", "global"]:
             for parmKey, parmValue in pageDict.items():
                 if parmValue["isDefault"] == True and parmKey != 'Glmode':
                     continue
                 else:
-                    # Keep only non-default parms
-                    toRemoveKeys = [
-                        x for x in list(parmValue.keys()) if x not in inOutSavedkeys
-                    ]
-                    [parmValue.pop(x, None) for x in toRemoveKeys]
-                    currentPreset[parmKey] = parmValue
+                    if parmKey.startswith(('Inputsinputfeedbacksource', 'Inputsinputfeedbacksource')):
+                        # Keep only non-default parms
+                        toRemoveKeys = [
+                            x for x in list(parmValue.keys()) if x not in inOutSavedkeys + ['menuNames', 'menuLabels']
+                        ]
+                        
+                    else:
+                        toRemoveKeys = [
+                            x for x in list(parmValue.keys()) if x not in inOutSavedkeys
+                        ]
+                [parmValue.pop(x, None) for x in toRemoveKeys]
+                currentPreset['pars'][parmKey] = parmValue
 
     # Merge Code blocks to preset
-    currentPreset["UNIFORMS_CODE"] = uniformsText
-    currentPreset["FUNCTIONS_CODE"] = functionsText
-    currentPreset["OUTPUTS_CODE"] = outputsText
-    currentPreset["MAIN_CODE"] = mainText
+    currentPreset['codetabs']["inputs"] = uniformsText
+    currentPreset['codetabs']["function"] = functionsText
+    currentPreset['codetabs']["outputs"] = outputsText
+    currentPreset['codetabs']["main"] = mainText
 
     return currentPreset
-
-
-# def onSelect(info):
-#     if info['button'] == 'Save':
-#         name = info["enteredText"]
-#         currentPreset = buildPreset(comp)
-#         with open(f"{comp.par.Codeuserpresetpath}/{name}.json", "w") as f:
-#             f.write(TDJSON.jsonToText(currentPreset))
-#     else:
-#         pass
 
 def onSelect(info):
     if info['button'] == 'Save':

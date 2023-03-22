@@ -1,7 +1,6 @@
 from _stubs import *
 import itertools
 import TDFunctions
-from pprint import pprint
 from pathlib import PurePosixPath, Path
 from re import sub
 tarN = op(me.par.dat)
@@ -64,7 +63,6 @@ def correctGLSL(filePath):
 				output.append(line)
 			else:
 				output.append(line)
-		pprint(output)
 		return "".join(output)
 
 
@@ -120,7 +118,6 @@ def onTableChange(dat):
 		uniquePathList = getUniquePathList(dat)
 		rootFolder = createFolderStructure(uniquePathList)
 		pathList = createFiles(rootFolder, dat)
-		pprint(len(pathList))
 		table.par.rows = len(pathList)
 		updateTable(table, pathList)
 	return

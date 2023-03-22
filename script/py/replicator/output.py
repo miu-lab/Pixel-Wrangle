@@ -19,14 +19,14 @@ def onReplicate(comp, allOps, newOps, template, master):
 		selectn.bypass = False
 		cachen.bypass = False
 		digit = template[c.digits, 0].val[-1:]
-		c.color = parent().parGroup['Outputscolor' + str(digit)]
+		c.color = parent.Comp.parGroup['Outputscolor' + str(digit)]
 		c.inputConnectors[0].connect(op(iWireName + str(c.digits)).outputConnectors[0])
 		c.bypass = False
 		if template[c.digits, 'hide'] == 1 and c.type != 'nullTOP':
 			c.changeType(nullTOP)
 		elif c.type != 'outTOP':
 			n = c.changeType(outTOP)
-			n.par.label.expr = f"parent().par.Outputsoutputname{digit}"
+			n.par.label.expr = f"parent.Comp.par.Outputsoutputname{digit}"
 		pass
 
 	return

@@ -1,37 +1,40 @@
+from pprint import pprint
+from copy import deepcopy
 from LOAD_SETTINGS import *
 from pathlib import Path
+from PRESET_UTILS import buildPreset	
+
 import os
+
+sourcesn = [iop.uniform,
+            iop.outputs,
+            iop.code,
+            iop.function]
+
 glCodeContainer = op(f"{parent.Comp.path}/BUILD_GLSL_CODE")
 glPath = glCodeContainer.path
+opid = parent.Comp.id
 
-sourcesn = [op(f"{glPath}/UNIFORMS_AS_TEXT"),
-            op(f"{glPath}/OUTPUTS"),
-            op(f"{glPath}/CODE"),
-            op(f"{glPath}/FUNCTIONS")]
-
-
-def initTempFilePath(sourcesn):
-
-    fileNames = ["inputs", "outputs", "main", "functions"]
-    tempFolder = os.path.normpath(f"{var('TEMP')}\\touchtmp")
-
-    targetFolder = os.path.join(
-        tempFolder, project.name.split(".")[0], str(nComp.id))
-
-    try:
-        os.makedirs(targetFolder)
+def initStorage():
+    try: 
+        op.pwstorage.valid
     except:
-        pass
+            parent = op('/').create(baseCOMP, 'storage')
+            tarn = parent.create(baseCOMP, 'Pixel_Wrangle')
+            tarn.par.opshortcut = 'pwstorage'
 
-    for i, source in enumerate(sourcesn):
-        ext = source.par.extension
-        filePath = f'{targetFolder}/{fileNames[i]}.glsl'
-        source.par.syncfile = 0
-        with open(filePath, 'w') as f:
-            f.write(source.text)
-        source.par.file = filePath
-        source.par.syncfile = 1
+def initStorageOP(comp=parent.Comp):
+    lastState = buildPreset(comp)
+    op.pwstorage.store(comp.path, {'opid':comp.id, 'lastState':lastState, 'connections' : {'inputs' : [], 'outputs': []}})
 
+def savePresetInStorage(comp=parent.Comp):
+    opid = comp.id
+    oppath = comp.path
+    inputs = [{'index': x.index, 'op':x.connections[0].owner.path if len(x.connections) >= 1 else None} for x in comp.inputConnectors]
+    outputs = [{'index': x.index, 'op':x.connections[0].owner.path if len(x.connections) >= 1 else None} for x in comp.outputConnectors]
+
+    lastState = buildPreset(comp)
+    op.pwstorage.store(oppath, {'opid':opid, 'lastState':lastState, 'connections' : {'inputs' : inputs, 'outputs': outputs}})
 
 def resetKeys(opTable):
     rows = n.rows()
@@ -39,8 +42,20 @@ def resetKeys(opTable):
     for i, row in enumerate(rows):
         oppath = n[i+1, "path"].val
         curOP = op(oppath)
-        curOP.par.clear.pulse(1, frames=4)
+        curOP.par.clear.pulse(1, frames=1)
     return
+
+def retrieveConnections(inputs, outputs):
+    if len(inputs)>0:
+        for i in inputs:
+            index = i['index']
+            tarn = i['op']
+            parent.Comp.inputCOMPConnectors[index].connect(op(tarn))
+    if len(outputs)>0:
+        for o in outputs:
+            index = o['index']
+            tarn = o['op']
+            parent.Comp.outputCOMPConnectors[index].connect(op(tarn))
 
 
 def createUserDirectories():
@@ -53,14 +68,9 @@ def createUserDirectories():
 			f.write('/* USER MACROS */\n')
 
 def onCreate():
+    initStorage()
+    initStorageOP()
     createUserDirectories()
-    op('Preset_Manager/POP_PRESET').par.Close.pulse(1, frames=4)
-    op('Function_Manager/POP_FUNCTION').par.Close.pulse(1, frames=4)
-    op(f"{glPath}/UNIFORMS_AS_TEXT").par.syncfile = 0
-    op(f"{glPath}/OUTPUTS").par.syncfile = 0
-    op(f"{glPath}/CODE").par.syncfile = 0
-    op(f"{glPath}/FUNCTIONS").par.syncfile = 0
-    initTempFilePath(sourcesn)
     resetKeys = op("RESET_KEYS")
     resetKeys.run(delayFrames=10)
 
@@ -82,17 +92,30 @@ def onCreate():
 
 
 def onStart():
+    from LOAD_PRESET import loadPreset
+    initStorage()
+    preset = op.pwstorage.fetch(parent.Comp.path)
+    try:
+        loadPreset(preset['lastState'])
+    except:
+        pass
     createUserDirectories()
-    op('Preset_Manager/POP_PRESET').par.Close.pulse(1, frames=4)
-    op('Function_Manager/POP_FUNCTION').par.Close.pulse(1, frames=4)
-    op(f"{glPath}/UNIFORMS_AS_TEXT").par.syncfile = 0
-    op(f"{glPath}/OUTPUTS").par.syncfile = 0
-    op(f"{glPath}/CODE").par.syncfile = 0
-    op(f"{glPath}/FUNCTIONS").par.syncfile = 0
-    initTempFilePath(sourcesn)
-
     resetKeys = op("RESET_KEYS")
     resetKeys.run(delayFrames=10)
     resetPanel = op('RESET_PANEL')
     op(f"{parent.Comp}/KEYBOARDS_SHORTCUTS/panel5").bypass = True
-    resetPanel.run(delayFrames=10)
+    resetPanel.run(delayFrames=15)
+    run('parent.Comp.op("ON_CODE_CHANGE").par.active = 1', delayMilliSeconds=150)
+    op('UPDATE_GLSL_PARMS').run(delayFrames=60)
+    # op('UPDATE_CONNECTORS').run(preset, fromOP=parent.Comp.op('INPUT_REPLICATOR'), delayFrames=63)
+    pass
+    
+def onProjectPreSave():
+    from LOAD_PRESET import loadPreset
+    initStorage()
+    savePresetInStorage(parent.Comp)
+    
+def onExit():
+    initStorage()
+    savePresetInStorage(parent.Comp)
+

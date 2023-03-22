@@ -1,1067 +1,1678 @@
 {
-	"Translate": {
-		"name": "Translate",
-		"label": "Translate",
-		"page": "Controls",
-		"style": "Float",
-		"size": 2,
-		"default": [
-			0.0,
-			0.0
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0,
-			0.0
-		],
-		"max": [
-			1.0,
-			1.0
-		],
-		"normMin": [
-			0.0,
-			0.0
-		],
-		"normMax": [
-			1.0,
-			1.0
-		],
-		"clampMin": [
-			false,
-			false
-		],
-		"clampMax": [
-			false,
-			false
-		],
-		"mode": [
-			"CONSTANT",
-			"CONSTANT"
-		],
-		"val": [
-			0.0,
-			0.0
-		],
-		"expr": [
-			null,
-			null
-		],
-		"bindExpr": [
-			null,
-			null
-		],
-		"isDefault": true
+	"codetabs": {
+		"inputs": "//--- label=Global Properties; section=1\nvec2 Translate; // default=[0,0]; section=1\nvec2 Scale;     // default=[0.3,0.3]\nfloat Blur;     // default=0\n\n//--- label=Corner Radii; section=1\nfloat Roundtl; // max=.5; label=Top L; section=1\nfloat Roundtr; // max=.5; label=Top R\nfloat Roundbl; // max=.5; label=Bottom L\nfloat Roundbr; // max=.5; label=Bottom R\n\n//--- label=Color; section=1\nvec3 Color; // default=[0,0.7,1]; section=1\nfloat Alpha;// default=0\nvec3 Colorbg; // default=[0,0,0]; label=Background Color; section=1\nfloat Alphabg; // default=0; label=Background Alpha",
+		"function": "float sdRoundedBox( in vec2 p, in vec2 b, in vec4 r ){\n    r.xy = (p.x>0.0)?r.xy : r.zw;\n    r.x  = (p.y>0.0)?r.x  : r.y;\n    vec2 q = abs(p)-b+r.x;\n    return min(max(q.x,q.y),0.0) + length(max(q,0.0)) - r.x;\n}",
+		"outputs": "vec4 IMAGE;",
+		"main": "vec2 boxScale = Scale/2;\nfloat maxR = min(boxScale.x,boxScale.y); // Max Corner Radius\n\nvec4 corners = clamp(vec4(Roundtr,Roundbr,Roundtl,Roundbl), 0, maxR); \n\nfloat box = sdRoundedBox(_UVNCR - Translate, boxScale, corners);\nfloat blur = Blur * maxR;\nbox = 1-smoothstep(-blur, 0, box);\nfloat a = mix(Alphabg, Alpha, box);\nvec3  c = mix(Colorbg, Color, box);\nwrite(IMAGE, vec4(c, a));"
 	},
-	"Scale": {
-		"name": "Scale",
-		"label": "Scale",
-		"page": "Controls",
-		"style": "Float",
-		"size": 2,
-		"default": [
-			0.4,
-			0.2
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0,
-			0.0
-		],
-		"max": [
-			1.0,
-			1.0
-		],
-		"normMin": [
-			0.0,
-			0.0
-		],
-		"normMax": [
-			1.0,
-			1.0
-		],
-		"clampMin": [
-			false,
-			false
-		],
-		"clampMax": [
-			false,
-			false
-		],
-		"mode": [
-			"CONSTANT",
-			"CONSTANT"
-		],
-		"val": [
-			0.4,
-			0.2
-		],
-		"expr": [
-			null,
-			null
-		],
-		"bindExpr": [
-			null,
-			null
-		],
-		"isDefault": true
-	},
-	"Color": {
-		"name": "Color",
-		"label": "Color",
-		"page": "Controls",
-		"style": "RGB",
-		"default": [
-			0.0,
-			0.7,
-			1.0
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0,
-			0.0,
-			0.0
-		],
-		"max": [
-			1.0,
-			1.0,
-			1.0
-		],
-		"normMin": [
-			0.0,
-			0.0,
-			0.0
-		],
-		"normMax": [
-			1.0,
-			1.0,
-			1.0
-		],
-		"clampMin": [
-			false,
-			false,
-			false
-		],
-		"clampMax": [
-			false,
-			false,
-			false
-		],
-		"mode": [
-			"CONSTANT",
-			"CONSTANT",
-			"CONSTANT"
-		],
-		"val": [
-			0.0,
-			0.7,
-			1.0
-		],
-		"expr": [
-			null,
-			null,
-			null
-		],
-		"bindExpr": [
-			null,
-			null,
-			null
-		],
-		"isDefault": true
-	},
-	"Alpha": {
-		"name": "Alpha",
-		"label": "Alpha",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			0.0
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			0.0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		],
-		"isDefault": true
-	},
-	"Blur": {
-		"name": "Blur",
-		"label": "Blur",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			0.0
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			0.0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		],
-		"isDefault": true
-	},
-	"Roundtl": {
-		"name": "Roundtl",
-		"label": "Roundtl",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			0.1
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			0.1
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		],
-		"isDefault": true
-	},
-	"Roundtr": {
-		"name": "Roundtr",
-		"label": "Roundtr",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			1.0
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			1.0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		],
-		"isDefault": true
-	},
-	"Roundbl": {
-		"name": "Roundbl",
-		"label": "Roundbl",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			1.0
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			1.0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		],
-		"isDefault": true
-	},
-	"Roundbr": {
-		"name": "Roundbr",
-		"label": "Roundbr",
-		"page": "Controls",
-		"style": "Float",
-		"size": 1,
-		"default": [
-			0.1
-		],
-		"enable": true,
-		"startSection": false,
-		"readOnly": false,
-		"enableExpr": "True",
-		"help": "",
-		"min": [
-			0.0
-		],
-		"max": [
-			1.0
-		],
-		"normMin": [
-			0.0
-		],
-		"normMax": [
-			1.0
-		],
-		"clampMin": [
-			false
-		],
-		"clampMax": [
-			false
-		],
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			0.1
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		],
-		"isDefault": true
-	},
-	"Inputsinputname1": {
-		"name": "Inputsinputname1",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i1"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset1": {
-		"name": "Inputsinputfeedbackreset1",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputfeedbacksource1": {
-		"name": "Inputsinputfeedbacksource1",
-		"label": "Feedback Source",
-		"page": "Inputs",
-		"style": "Menu",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"1"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputname2": {
-		"name": "Inputsinputname2",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i2"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset2": {
-		"name": "Inputsinputfeedbackreset2",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputfeedbacksource2": {
-		"name": "Inputsinputfeedbacksource2",
-		"label": "Feedback Source",
-		"page": "Inputs",
-		"style": "Menu",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"1"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputname3": {
-		"name": "Inputsinputname3",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i3"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset3": {
-		"name": "Inputsinputfeedbackreset3",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputname4": {
-		"name": "Inputsinputname4",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i4"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputtype4": {
-		"name": "Inputsinputtype4",
-		"label": "Type",
-		"page": "Inputs",
-		"style": "Menu",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"feedback"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset4": {
-		"name": "Inputsinputfeedbackreset4",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputname5": {
-		"name": "Inputsinputname5",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i5"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset5": {
-		"name": "Inputsinputfeedbackreset5",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputname6": {
-		"name": "Inputsinputname6",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i6"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset6": {
-		"name": "Inputsinputfeedbackreset6",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputname7": {
-		"name": "Inputsinputname7",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i7"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset7": {
-		"name": "Inputsinputfeedbackreset7",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Inputsinputname8": {
-		"name": "Inputsinputname8",
-		"label": "Name",
-		"page": "Inputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"i8"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Inputsinputfeedbackreset8": {
-		"name": "Inputsinputfeedbackreset8",
-		"label": "Reset",
-		"page": "Inputs",
-		"style": "Pulse",
-		"mode": [
-			"BIND"
-		],
-		"val": [
-			0
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			"me.par.Inputsresetall"
-		]
-	},
-	"Outputsactive1": {
-		"name": "Outputsactive1",
-		"label": "Active",
-		"page": "Outputs",
-		"style": "Toggle",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			true
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname1": {
-		"name": "Outputsoutputname1",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"Color"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname2": {
-		"name": "Outputsoutputname2",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"Other"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname3": {
-		"name": "Outputsoutputname3",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"o3"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname4": {
-		"name": "Outputsoutputname4",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"o4"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname5": {
-		"name": "Outputsoutputname5",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"o5"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname6": {
-		"name": "Outputsoutputname6",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"o6"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname7": {
-		"name": "Outputsoutputname7",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"o7"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Outputsoutputname8": {
-		"name": "Outputsoutputname8",
-		"label": "Name",
-		"page": "Outputs",
-		"style": "Str",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"o8"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Glmode": {
-		"name": "Glmode",
-		"label": "Mode",
-		"page": "GLSL",
-		"style": "Menu",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"vertexpixel"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Glautodispatchsize": {
-		"name": "Glautodispatchsize",
-		"label": "Auto Dispatch Size",
-		"page": "GLSL",
-		"style": "Toggle",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			true
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Gllocalsize": {
-		"name": "Gllocalsize",
-		"label": "Local Size",
-		"page": "GLSL",
-		"style": "Int",
-		"size": 3,
-		"mode": [
-			"CONSTANT",
-			"CONSTANT",
-			"CONSTANT"
-		],
-		"val": [
-			8,
-			8,
-			1
-		],
-		"expr": [
-			null,
-			null,
-			null
-		],
-		"bindExpr": [
-			null,
-			null,
-			null
-		]
-	},
-	"Glcustomdepth": {
-		"name": "Glcustomdepth",
-		"label": "Depth",
-		"page": "GLSL",
-		"style": "Int",
-		"size": 1,
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			1
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"Glinputextenduv": {
-		"name": "Glinputextenduv",
-		"label": "Input Extend Mode UV",
-		"page": "GLSL",
-		"style": "Menu",
-		"mode": [
-			"CONSTANT"
-		],
-		"val": [
-			"mirror"
-		],
-		"expr": [
-			null
-		],
-		"bindExpr": [
-			null
-		]
-	},
-	"UNIFORMS_CODE": "vec2 Translate; // default=[0,0]\nvec2 Scale; // default=[0.4,0.2]\nvec3 Color;// default=[0,0.7,1]\nfloat Alpha;// default=0\nfloat Blur;// default=0\nfloat Roundtl;// default=.1\nfloat Roundtr;// default=1\nfloat Roundbl;// default=1\nfloat Roundbr;// default=.1",
-	"FUNCTIONS_CODE": "float sdRoundedBox( in vec2 p, in vec2 b, in vec4 r )\n{\n    r.xy = (p.x>0.0)?r.xy : r.zw;\n    r.x  = (p.y>0.0)?r.x  : r.y;\n    vec2 q = abs(p)-b+r.x;\n    return min(max(q.x,q.y),0.0) + length(max(q,0.0)) - r.x;\n}",
-	"OUTPUTS_CODE": "vec4 color;",
-	"MAIN_CODE": "vec2 uvs = vec2((vUV.s-.5) * uTDOutputInfo.res.z/uTDOutputInfo.res.w, vUV.t-.5); \nfloat maxRadius = min(Scale.x,Scale.y);\nvec4 corners = vec4(Roundtr*maxRadius,Roundbr*maxRadius,Roundtl*maxRadius,Roundbl*maxRadius); \nfloat box = sdRoundedBox(uvs, Scale, corners);\nfloat blur = 1/max(uTDOutputInfo.res.z, uTDOutputInfo.res.w)+(Blur*min(Scale.x,Scale.y));\nbox = 1-smoothstep(-blur, blur, box);\ncolor = TDOutputSwizzle(vec4(Color * box,Alpha));"
+	"pars": {
+		"Hglobalproperties": {
+			"name": "Hglobalproperties",
+			"label": "Global Properties",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Translate": {
+			"name": "Translate",
+			"label": "Translate",
+			"page": "Controls",
+			"style": "Float",
+			"size": 2,
+			"default": [
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0
+			],
+			"expr": [
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null
+			],
+			"isDefault": true
+		},
+		"Scale": {
+			"name": "Scale",
+			"label": "Scale",
+			"page": "Controls",
+			"style": "Float",
+			"size": 2,
+			"default": [
+				0.3,
+				0.3
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.29999999999999993,
+				0.3
+			],
+			"expr": [
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Blur": {
+			"name": "Blur",
+			"label": "Blur",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Hcornerradii": {
+			"name": "Hcornerradii",
+			"label": "Corner Radii",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				"0"
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Roundtl": {
+			"name": "Roundtl",
+			"label": "Top L",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				0.5
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				0.5
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Roundtr": {
+			"name": "Roundtr",
+			"label": "Top R",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				0.5
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				0.5
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Roundbl": {
+			"name": "Roundbl",
+			"label": "Bottom L",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				0.5
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				0.5
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Roundbr": {
+			"name": "Roundbr",
+			"label": "Bottom R",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				0.5
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				0.5
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Hcolor": {
+			"name": "Hcolor",
+			"label": "Color",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Color": {
+			"name": "Color",
+			"label": "Color",
+			"page": "Controls",
+			"style": "RGB",
+			"default": [
+				0.0,
+				0.7,
+				1.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.7,
+				1.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": true
+		},
+		"Alpha": {
+			"name": "Alpha",
+			"label": "Alpha",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				1.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Colorbg": {
+			"name": "Colorbg",
+			"label": "Background Color",
+			"page": "Controls",
+			"style": "RGB",
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": true
+		},
+		"Alphabg": {
+			"name": "Alphabg",
+			"label": "Background Alpha",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Inputstimeh": {
+			"name": "Inputstimeh",
+			"label": "Time",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsplay": {
+			"name": "Inputsplay",
+			"label": "Play",
+			"page": "Inputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				false
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputspanelh": {
+			"name": "Inputspanelh",
+			"label": "Panel Source",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputspanel": {
+			"name": "Inputspanel",
+			"label": "Panel",
+			"page": "Inputs",
+			"style": "PanelCOMP",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsglobalh": {
+			"name": "Inputsglobalh",
+			"label": "Global",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname1": {
+			"name": "Inputsinputname1",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i1"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset1": {
+			"name": "Inputsinputfeedbackreset1",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputfeedbacksource1": {
+			"name": "Inputsinputfeedbacksource1",
+			"label": "Feedback Source",
+			"page": "Inputs",
+			"style": "Menu",
+			"menuNames": [
+				"IMAGE"
+			],
+			"menuLabels": [
+				"IMAGE"
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"1"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname2": {
+			"name": "Inputsinputname2",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i2"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset2": {
+			"name": "Inputsinputfeedbackreset2",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputfeedbacksource2": {
+			"name": "Inputsinputfeedbacksource2",
+			"label": "Feedback Source",
+			"page": "Inputs",
+			"style": "Menu",
+			"menuNames": [
+				"IMAGE"
+			],
+			"menuLabels": [
+				"IMAGE"
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"1"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname3": {
+			"name": "Inputsinputname3",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i3"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset3": {
+			"name": "Inputsinputfeedbackreset3",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname4": {
+			"name": "Inputsinputname4",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i4"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputtype4": {
+			"name": "Inputsinputtype4",
+			"label": "Type",
+			"page": "Inputs",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"feedback"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset4": {
+			"name": "Inputsinputfeedbackreset4",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname5": {
+			"name": "Inputsinputname5",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i5"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset5": {
+			"name": "Inputsinputfeedbackreset5",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname6": {
+			"name": "Inputsinputname6",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i6"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset6": {
+			"name": "Inputsinputfeedbackreset6",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname7": {
+			"name": "Inputsinputname7",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i7"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset7": {
+			"name": "Inputsinputfeedbackreset7",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname8": {
+			"name": "Inputsinputname8",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i8"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset8": {
+			"name": "Inputsinputfeedbackreset8",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Outputsactive1": {
+			"name": "Outputsactive1",
+			"label": "Active",
+			"page": "Outputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname1": {
+			"name": "Outputsoutputname1",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Image"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname2": {
+			"name": "Outputsoutputname2",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Other"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname3": {
+			"name": "Outputsoutputname3",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o3"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname4": {
+			"name": "Outputsoutputname4",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o4"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname5": {
+			"name": "Outputsoutputname5",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o5"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname6": {
+			"name": "Outputsoutputname6",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o6"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname7": {
+			"name": "Outputsoutputname7",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o7"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname8": {
+			"name": "Outputsoutputname8",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o8"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glversionh": {
+			"name": "Glversionh",
+			"label": "Version",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glpreprocess": {
+			"name": "Glpreprocess",
+			"label": "Preprocess Directives",
+			"page": "GLSL",
+			"style": "DAT",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glmodeh": {
+			"name": "Glmodeh",
+			"label": "Mode",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glmode": {
+			"name": "Glmode",
+			"label": "Mode",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"compute"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glvertexdat": {
+			"name": "Glvertexdat",
+			"label": "Vertex Shader",
+			"page": "GLSL",
+			"style": "DAT",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glautodispatchsize": {
+			"name": "Glautodispatchsize",
+			"label": "Auto Dispatch Size",
+			"page": "GLSL",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Gllocalsize": {
+			"name": "Gllocalsize",
+			"label": "Local Size",
+			"page": "GLSL",
+			"style": "Int",
+			"size": 3,
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				8,
+				8,
+				1
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			]
+		},
+		"Gloutputaccess": {
+			"name": "Gloutputaccess",
+			"label": "Output Access",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"readwrite"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glcustomdepth": {
+			"name": "Glcustomdepth",
+			"label": "Depth",
+			"page": "GLSL",
+			"style": "Int",
+			"size": 1,
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				1
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Gluvh": {
+			"name": "Gluvh",
+			"label": "UV",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glinputextenduv": {
+			"name": "Glinputextenduv",
+			"label": "Input Extend Mode UV",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"mirror"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsresolutionh": {
+			"name": "Globalsresolutionh",
+			"label": "Resolution",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsresolution": {
+			"name": "Globalsresolution",
+			"label": "Resolution",
+			"page": "Globals",
+			"style": "Int",
+			"size": 2,
+			"mode": [
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				2160,
+				1280
+			],
+			"expr": [
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null
+			]
+		},
+		"Globalsaspecth": {
+			"name": "Globalsaspecth",
+			"label": "Aspect",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsfilteringh": {
+			"name": "Globalsfilteringh",
+			"label": "Filtering",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsinputfiltertype": {
+			"name": "Globalsinputfiltertype",
+			"label": "Input Filtering",
+			"page": "Globals",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"nearest"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalspassesh": {
+			"name": "Globalspassesh",
+			"label": "Passes",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalspixelformath": {
+			"name": "Globalspixelformath",
+			"label": "Pixel format",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsmaskh": {
+			"name": "Globalsmaskh",
+			"label": "Mask",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		}
+	}
 }

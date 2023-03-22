@@ -28,11 +28,17 @@ def updateParm(src: dict, pNames, JSONpage):
         # Preserve old settings
         else:
             oldp = updatedPage[src["name"]]
+            for key in list(oldp.keys()):
+                if key not in ['val', 'expr', 'bindExpr', 'style', 'page', 'name']:
+                    del oldp[key]
             oldp['defaultExpr'] = ''
+            oldp = {**src,**oldp}
+
             addParFromJSON(parent.Comp, oldp)
     
     ## elif Parameter does not exist
     else:
+        # print(f'{src["name"]} does not exist, it will be created, here are the properties {src}')
         addParFromJSON(parent.Comp, src)
 
 # OPERATORS
@@ -123,12 +129,21 @@ def onTableChange(dat: DAT):
                 default = ""
             else:
                 pass
-
+        
+        pmode = ParMode.CONSTANT
+        
+        if dat[i, 'expr'].val != "None":
+            pmode = ParMode.EXPRESSION
+        
+        if dat[i, 'bindExpr'].val != "None":
+            pmode = ParMode.BIND
+        
         # SET PARAMETER SETTINGS
 
         pSettings = {
 
             "name": dat[i, 'name'].val,
+            "mode" : pmode,
             "label": dat[i, 'label'].val,
             "order": int(dat[i, 'order'].val),
             "startSection": int(dat[i, 'section'].val) if dat[i, 'section'].val != "None" else 0,
@@ -146,10 +161,10 @@ def onTableChange(dat: DAT):
             "arraytype": dat[i, 'arraytype'].val.lower() if array == 1 else "",
             "size": int(dat[i, 'typesize'].val),
 
-            "enableExpr": dat[i, 'enableExpr'].val if dat[i, 'enableExpr'].val != "None" else "True",
-            "expr": dat[i, 'expr'].val if dat[i, 'expr'].val != "None" else "",
+            "enableExpr": dat[i, 'enableExpr'].val if dat[i, 'enableExpr'].val != "None" else "",
+            "expr": f"{dat[i, 'expr'].val}" if dat[i, 'expr'].val != "None" else "",
             "bindExpr": dat[i, 'bindExpr'].val if dat[i, 'bindExpr'].val != "None" else "",
-
+            
             "min": min,
             "max": max,
             "normMin": min,
@@ -158,9 +173,10 @@ def onTableChange(dat: DAT):
             "val": default,
 
         }
-        
 
-        # TRY ACCESS CURRENT PARM BY NAME
+        # UPDATE PARAMETER UI
         updateParm(pSettings, pNames, pageJSONDict)
+        # [TD BUG] Restore Parameter Mode
+        parent.Comp.parGroup[pSettings['name']].mode = pmode
 
     return

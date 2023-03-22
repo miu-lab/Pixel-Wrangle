@@ -17,6 +17,7 @@ def onRemoveReplicant(comp, replicant):
 	return
 
 def onReplicate(comp, allOps, newOps, template, master):
+	tarOP = op.pwstorage.fetch(parent.Comp.path, {})['connections']['inputs']
 	outs = getOutNodes(outNodesTable)
 
 	inputs = []
@@ -30,7 +31,7 @@ def onReplicate(comp, allOps, newOps, template, master):
 	for i,c in enumerate(allOps):
 		digit = int(template[i+1, 'name'].val[-1:])
 		inOP = None
-		c.color = parent().parGroup['Inputscolor' + str(digit)]
+		c.color = parent.Comp.parGroup['Inputscolor' + str(digit)]
 		inittype = template[i+1, 'inittype'].val
 		
 		# Check OP type
@@ -38,17 +39,17 @@ def onReplicate(comp, allOps, newOps, template, master):
 			if c.type != 'inTOP':
 				n = c.changeType(inTOP)
 				n.par.label.mode = ParMode.EXPRESSION
-				n.par.label.expr = f"parent().par.Inputsinputname{str(digit)}"
+				n.par.label.expr = f"parent.Comp.par.Inputsinputname{str(digit)}"
 			else:
 				n = c
 				n.par.label.mode = ParMode.EXPRESSION
-				n.par.label.expr = f"parent().par.Inputsinputname{str(digit)}"
+				n.par.label.expr = f"parent.Comp.par.Inputsinputname{str(digit)}"
 
 		if template[i+1, 'type'].val == 'feedback':
 			if inittype == 'direct':
 				n = c.changeType(inTOP)
 				n.par.label.mode = ParMode.EXPRESSION
-				n.par.label.expr = f"parent().par.Inputsinputname{str(digit)}"
+				n.par.label.expr = f"parent.Comp.par.Inputsinputname{str(digit)}"
 				# n.inputConnectors[0].connect(op(f"selectInputsactive{digit}").outputConnectors[0])
 				
 			elif inittype == 'builtin':
@@ -67,18 +68,24 @@ def onReplicate(comp, allOps, newOps, template, master):
 				n.par.top.val = f"../{customPath}"
 
 	feedbacksRep.par.recreatemissing.pulse(1, frames=4)
+
 	for i,c in enumerate(newOps):
 		# Init ids, set color and connect to out
 		digit = int(template[i+1, 'name'].val[-1:])
 		index = i
 		c.outputConnectors[0].connect(glsln.inputConnectors[index])
 
-	
 	## Rewiring
+	toRewireOPS = []
 	for i,c in enumerate(allOps):
-		for input in inputs:
-			if c.name == input["name"]:
-				tarOP = input["inputOP"]
-				c.inputConnectors[0].owner.parent().inputConnectors[i].connect(tarOP.outputConnectors[0])
-	
+		for j in tarOP:
+			if j['index'] == i and j['op'] != None:
+				toRewireOPS.append({'source' : c, 'tar': j})
+				break
+
+	for i,c in enumerate(toRewireOPS):
+		fromn = op(c['source'])
+		tarn = op(c['tar']['op'])
+		index = int(c['tar']['index'])
+		fromn.inputConnectors[0].owner.parent().inputConnectors[index].connect(tarn.outputConnectors[0])
 	return

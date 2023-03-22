@@ -1,33 +1,27 @@
 from _stubs import *
 from bound_glsl_utils import *
 
-# UTILS
-
-# GLSL NODE
-target = op(f"{parent.Comp.path}/glsl1")
-# PARM LIST FROM MASTER OP
-source = op("PARMS_TO_BIND")
-curParms = op('get_current')
-
-# PARM LIST FROM CODE DECLARATIONS
-fromCodeParms = op("CODE_DECLARATIONS")
-
-# MASTER UI NODE
-bindMaster = parent.Comp
-bindMasterRelativePath = target.relativePath(bindMaster)
-selectedPage = 'Controls'
-
-# OFFSET PARMS IN TARGET PAGE
-offset = 0
-
-
 def updateParms():
+    # UTILS
 
+    # GLSL NODE
+    target = op(f"{parent.Comp.path}/glsl1")
+    # PARM LIST FROM MASTER OP
+    source = op("PARMS_TO_BIND")
+    curParms = op('get_current')
+
+    # PARM LIST FROM CODE DECLARATIONS
+    fromCodeParms = op("CODE_DECLARATIONS")
+    bindMaster = parent.Comp
+    bindMasterRelativePath = target.relativePath(bindMaster)
+    selectedPage = 'Controls'
+
+    # OFFSET PARMS IN TARGET PAGE
+    offset = 0
     # GET SOURCE LIST
     plist = source.rows()
     namesRow = plist[0]
     plist.pop(0)
-
     # FILTER SOURCE PARMS BY PAGE
     updatedPlist = []
 
@@ -42,7 +36,7 @@ def updateParms():
     parGroups = getParGroups(plist, namesRow)
 
     # Custom Parameters Offsets to leave space to built-ins
-    GLUniParOffset = 10
+    GLUniParOffset = 14
     GLarrayParOffset = 0
     GLmatParOffset = 0
     GLacParOffset = 0

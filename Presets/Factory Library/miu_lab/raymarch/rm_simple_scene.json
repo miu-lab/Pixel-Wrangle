@@ -1,0 +1,2162 @@
+{
+	"codetabs": {
+		"inputs": "//--- label=Raymarcher; section=1\nint Maxiterations;   // label=Iterations; min=16; max=4096; default=2048;section=1\nfloat Quality;       // min=1; max=10; default=4;section=1\nfloat Hitdist;       // label=Hit Distance; min=0.0003; max=0.1; default=0.05;section=1\nfloat Normalsmooth;  // label=Smooth Normals; min=2; max=256; default=16;section=1\nfloat Mindist;       // label=Near Plane; min=0.0001; max=1; default=0.1; section=1\nfloat Maxdist;       // label=Far Plane; min=1; max=1000; default=100\n\n//--- label=Camera; section=1\nvec3 Camorigin;      // label=Translate; default=[0, 0, 10]; style=Float; section=1\nfloat Zoom;          // label=Zoom; min=.1; max=30; default=10\n\n//--- label=Lighting; section=1\nvec3 Ulightp;       // label=Position; section=1; style=Float\nfloat Ulighti;      // label=Light Intensity\n\n//--- label=Material; section=1\nvec3 Matdc;         // label=Diffuse Color; default=[1,0,0]; section=1\nfloat Matds;        // label=Diffuse Shift; default=0.85; min=-1; section=1\nfloat Matdi;        // label=Diffuse Intensity; default=2; max=4; section=1\nfloat Matsi;        // label=Specular Intensity; default=1; section=1\nfloat Matsr;        // label=Specular Roughness; default=0.1;\n\n//--- label=Sphere; section=1\nvec3 Sphereposs;     // label=Position;section=1; style=Float\nfloat Spherescales;  // label=Scale\n",
+		"function": "#include </libs/lygia/color/hueShift_glsl>\n#include </libs/lygia/lighting/atmosphere_glsl>\n#include </libs/lygia/lighting/diffuse_glsl>\n#include </libs/lygia/lighting/raymarch/camera_glsl>\n#include </libs/lygia/lighting/specular_glsl>\n#include </libs/lygia/sdf_glsl>\n#include </libs/lygia/space/rotate_glsl>\n\n// Shading Attributes\nfloat _sd=0, _sd_disp=0, _mask=0;\n\nfloat deformer(vec3 position) {\n\n    float noise = 0;\n    _mask       = 1-smoothstep(.1, .8, length(position));\n    noise       = TDPerlinNoise(position.xz + Time.x/10) * 43;\n    _sd         = (sin((length(position * 64)) + noise + Time.x) * .5 + .5) * pow(_mask, 1);\n    _sd_disp    = _sd * 4;\n    return _sd_disp * length(position);\n\n}\n\nfloat scene(vec3 position) {\n\n    float sphere = sphereSDF(position - Sphereposs, Spherescales);\n    float box = cylinderSDF(position - Sphereposs, vec2(.1,.27));\n    float plane  = position.y;\n    float d      = 0;\n\n    d            = opUnion(plane, sphere, .1);\n    d            = opSubtraction(box, d, .03);\n    d            = d+deformer(position)*.02 * _mask;\n\n    return d;\n\n}\n\n#define MAP_FNC(P) scene(P)\n#include </libs/miu_lab/raymarch/rayCast_glsl>\n#include </libs/miu_lab/raymarch/getAO_glsl>\n#include </libs/miu_lab/raymarch/getSoftShadow_glsl>\n#include </libs/miu_lab/raymarch/getFog_glsl>\n#include </libs/miu_lab/raymarch/structs/PointLightBasic_glsl>\n",
+		"outputs": "vec4 IMAGE;\nvec4 DEBUG;",
+		"main": "// Set Mouse Driven Camera\nvec3 ro             = Camorigin;\nro                 -= vec3(MouseDeltaLMB.z * 16, MouseDeltaLMB.w * 16, MouseWheel.x);\n\n// Init Camera Matrix\nmat3 camMatrix      = raymarchCamera(ro, vec3(0), vec3(0, 1, 0));\n\n// Init Ray Direction\nvec3 rd             = camMatrix * normalize(vec3(_UVNCR, Zoom));\n\n// Raymarch scene\nRayHit ray             = rayCast(ro, rd, Mindist, Maxdist, Hitdist, Maxiterations, Quality, Normalsmooth);\n\n\n// Shading Pass Init\nfloat diff=0, ao=0, spec=0, shadow=1, alpha=1, height=0;\nvec3  mainColor,  material,    reflectDir,\n      atmo,       atmoReflect, texEnvLight,\n      fog,        fogColor;\n\n// Build shading pass\nao                       = getAO(ray.position*3, ray.normal, 1);\n\nmainColor                = mix(Matdc, hueShift(Matdc, Matds), _sd);\nmainColor               *= Matdi;\n\nreflectDir               = reflect(rd, ray.normal);\natmoReflect              = atmosphere(normalize(reflectDir - vec3(0, - 1, 0)), normalize(vec3(.7, 2, 2)));\ntexEnvLight              = texture(iCube[0], reflectDir, 0).rgb;\n\n// Init Lights\n#define N_LIGHT 3\n\nPointLightBasic _L[N_LIGHT]   = {\n  {normalize(Ulightp), Ulighti, 1, 1},\n  {normalize(Ulightp * vec3(-.5,1,-.5)), Ulighti, 1, 1},\n  {normalize(vec3(0,2,0)), Ulighti, 1, 1}\n};\n\n// Build Lighting\nfor(int i = 0;  i<N_LIGHT; i++){\n    float l_diff          = diffuse(normalize(_L[i].position), ray.normal, rd, 1);\n    float l_spec          = specular(_L[i].position, ray.normal, - rd, Matsr);\n    l_diff               *= _L[i].intensity * _L[i].diffContrib;\n    l_spec               *= _L[i].intensity * _L[i].specContrib;\n    diff                 += l_diff;\n    spec                 += l_spec;\n}\n\n\n// Add Shadow\nshadow              = getSoftShadow(ray.position, normalize(Ulightp), .2, .4, 1.2, 32);\nheight              = smoothstep(-.2,.3,ray.position.y);\n\n// Build Final Image\nmaterial                  = mainColor;\nmaterial                 += spec * Matsi;\nmaterial                 += texEnvLight * .05;\nmaterial                 += atmoReflect * .2;\nmaterial                 *= ao;\nmaterial                 *= clamp(shadow, .3, 1);\nmaterial                 *= alpha;\n\nfogColor                  = vec3(.3,.3,1);\nfog                       = getFog(material, pow(ray.distance, 2), fogColor, .01);\n\nmaterial                  = fog;\nmaterial                 *= height;\n\n// Write Outputs\nwrite(IMAGE, vec4(material, 1));\nwrite(DEBUG, vec4(vec3(_sd), 0));\n"
+	},
+	"pars": {
+		"Hraymarcher": {
+			"name": "Hraymarcher",
+			"label": "Raymarcher",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Maxiterations": {
+			"name": "Maxiterations",
+			"label": "Iterations",
+			"page": "Controls",
+			"style": "Int",
+			"size": 1,
+			"default": [
+				2048
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				16.0
+			],
+			"max": [
+				4096.0
+			],
+			"normMin": [
+				16.0
+			],
+			"normMax": [
+				4096.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				1024
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Quality": {
+			"name": "Quality",
+			"label": "Quality",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				4.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				1.0
+			],
+			"max": [
+				10.0
+			],
+			"normMin": [
+				1.0
+			],
+			"normMax": [
+				10.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				2.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Hitdist": {
+			"name": "Hitdist",
+			"label": "Hit Distance",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.05
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0003
+			],
+			"max": [
+				0.1
+			],
+			"normMin": [
+				0.0003
+			],
+			"normMax": [
+				0.1
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.05
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Normalsmooth": {
+			"name": "Normalsmooth",
+			"label": "Smooth Normals",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				16.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				2.0
+			],
+			"max": [
+				256.0
+			],
+			"normMin": [
+				2.0
+			],
+			"normMax": [
+				256.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				2.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Mindist": {
+			"name": "Mindist",
+			"label": "Near Plane",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.1
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0001
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0001
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Maxdist": {
+			"name": "Maxdist",
+			"label": "Far Plane",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				100.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				1.0
+			],
+			"max": [
+				1000.0
+			],
+			"normMin": [
+				1.0
+			],
+			"normMax": [
+				1000.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				60.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Hcamera": {
+			"name": "Hcamera",
+			"label": "Camera",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Camorigin": {
+			"name": "Camorigin",
+			"label": "Translate",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				10.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Zoom": {
+			"name": "Zoom",
+			"label": "Zoom",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				10.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.1
+			],
+			"max": [
+				30.0
+			],
+			"normMin": [
+				0.1
+			],
+			"normMax": [
+				30.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				4.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Hlighting": {
+			"name": "Hlighting",
+			"label": "Lighting",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Ulightp": {
+			"name": "Ulightp",
+			"label": "Position",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				5.0,
+				8.0,
+				-6.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Ulighti": {
+			"name": "Ulighti",
+			"label": "Light Intensity",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				1.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Hmaterial": {
+			"name": "Hmaterial",
+			"label": "Material",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Matdc": {
+			"name": "Matdc",
+			"label": "Diffuse Color",
+			"page": "Controls",
+			"style": "RGB",
+			"default": [
+				1.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.3,
+				0.0,
+				1.0
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Matds": {
+			"name": "Matds",
+			"label": "Diffuse Shift",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.85
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				-1.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				-1.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.699999988079071
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Matdi": {
+			"name": "Matdi",
+			"label": "Diffuse Intensity",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				2.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				4.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				4.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				2.0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": true
+		},
+		"Matsi": {
+			"name": "Matsi",
+			"label": "Specular Intensity",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				1.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.05
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Matsr": {
+			"name": "Matsr",
+			"label": "Specular Roughness",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.1
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.05
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Hsphere": {
+			"name": "Hsphere",
+			"label": "Sphere",
+			"page": "Controls",
+			"style": "Header",
+			"default": [
+				""
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"0"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false,
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			]
+		},
+		"Sphereposs": {
+			"name": "Sphereposs",
+			"label": "Position",
+			"page": "Controls",
+			"style": "Float",
+			"size": 3,
+			"default": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"enable": true,
+			"startSection": true,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"max": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"normMin": [
+				0.0,
+				0.0,
+				0.0
+			],
+			"normMax": [
+				1.0,
+				1.0,
+				1.0
+			],
+			"clampMin": [
+				false,
+				false,
+				false
+			],
+			"clampMax": [
+				false,
+				false,
+				false
+			],
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				0.0,
+				-0.1,
+				0.0
+			],
+			"expr": [
+				null,
+				"op('null1')['TRIGGER_LOW']",
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			],
+			"isDefault": false
+		},
+		"Spherescales": {
+			"name": "Spherescales",
+			"label": "Scale",
+			"page": "Controls",
+			"style": "Float",
+			"size": 1,
+			"default": [
+				0.0
+			],
+			"enable": true,
+			"startSection": false,
+			"readOnly": false,
+			"enableExpr": null,
+			"help": "",
+			"min": [
+				0.0
+			],
+			"max": [
+				1.0
+			],
+			"normMin": [
+				0.0
+			],
+			"normMax": [
+				1.0
+			],
+			"clampMin": [
+				false
+			],
+			"clampMax": [
+				false
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.3
+			],
+			"expr": [
+				".5+op('OUT_CHANS')['TRIGGER_LOW']/4"
+			],
+			"bindExpr": [
+				null
+			],
+			"isDefault": false
+		},
+		"Inputstimeh": {
+			"name": "Inputstimeh",
+			"label": "Time",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputspanelh": {
+			"name": "Inputspanelh",
+			"label": "Panel Source",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputspanel": {
+			"name": "Inputspanel",
+			"label": "Panel",
+			"page": "Inputs",
+			"style": "PanelCOMP",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputssmooth": {
+			"name": "Inputssmooth",
+			"label": "Smooth Mouse",
+			"page": "Inputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputssmoothlag": {
+			"name": "Inputssmoothlag",
+			"label": "Lag",
+			"page": "Inputs",
+			"style": "Float",
+			"size": 1,
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				0.4
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsglobalh": {
+			"name": "Inputsglobalh",
+			"label": "Global",
+			"page": "Inputs",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"None"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsactive1": {
+			"name": "Inputsactive1",
+			"label": "Active",
+			"page": "Inputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname1": {
+			"name": "Inputsinputname1",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"LightMap"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsfallback1": {
+			"name": "Inputsfallback1",
+			"label": "Fallback",
+			"page": "Inputs",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"cubearchi"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset1": {
+			"name": "Inputsinputfeedbackreset1",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputfeedbacksource1": {
+			"name": "Inputsinputfeedbacksource1",
+			"label": "Feedback Source",
+			"page": "Inputs",
+			"style": "Menu",
+			"menuNames": [
+				"IMAGE",
+				"DEBUG"
+			],
+			"menuLabels": [
+				"IMAGE",
+				"DEBUG"
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"DEBUG"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname2": {
+			"name": "Inputsinputname2",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i2"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset2": {
+			"name": "Inputsinputfeedbackreset2",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputfeedbacksource2": {
+			"name": "Inputsinputfeedbacksource2",
+			"label": "Feedback Source",
+			"page": "Inputs",
+			"style": "Menu",
+			"menuNames": [
+				"IMAGE",
+				"DEBUG"
+			],
+			"menuLabels": [
+				"IMAGE",
+				"DEBUG"
+			],
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"DEBUG"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputname3": {
+			"name": "Inputsinputname3",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i3"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset3": {
+			"name": "Inputsinputfeedbackreset3",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname4": {
+			"name": "Inputsinputname4",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i4"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputtype4": {
+			"name": "Inputsinputtype4",
+			"label": "Type",
+			"page": "Inputs",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"feedback"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset4": {
+			"name": "Inputsinputfeedbackreset4",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname5": {
+			"name": "Inputsinputname5",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i5"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset5": {
+			"name": "Inputsinputfeedbackreset5",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname6": {
+			"name": "Inputsinputname6",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i6"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset6": {
+			"name": "Inputsinputfeedbackreset6",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname7": {
+			"name": "Inputsinputname7",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i7"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset7": {
+			"name": "Inputsinputfeedbackreset7",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Inputsinputname8": {
+			"name": "Inputsinputname8",
+			"label": "Name",
+			"page": "Inputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"i8"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Inputsinputfeedbackreset8": {
+			"name": "Inputsinputfeedbackreset8",
+			"label": "Reset",
+			"page": "Inputs",
+			"style": "Pulse",
+			"mode": [
+				"BIND"
+			],
+			"val": [
+				0
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				"me.par.Inputsresetall"
+			]
+		},
+		"Outputsactive1": {
+			"name": "Outputsactive1",
+			"label": "Active",
+			"page": "Outputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname1": {
+			"name": "Outputsoutputname1",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Image"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsactive2": {
+			"name": "Outputsactive2",
+			"label": "Active",
+			"page": "Outputs",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname2": {
+			"name": "Outputsoutputname2",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Debug"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname3": {
+			"name": "Outputsoutputname3",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Diffuse"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname4": {
+			"name": "Outputsoutputname4",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Reflection"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname5": {
+			"name": "Outputsoutputname5",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Sdf"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname6": {
+			"name": "Outputsoutputname6",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Material"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname7": {
+			"name": "Outputsoutputname7",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"Debug"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Outputsoutputname8": {
+			"name": "Outputsoutputname8",
+			"label": "Name",
+			"page": "Outputs",
+			"style": "Str",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"o8"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glversionh": {
+			"name": "Glversionh",
+			"label": "Version",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glpreprocess": {
+			"name": "Glpreprocess",
+			"label": "Preprocess Directives",
+			"page": "GLSL",
+			"style": "DAT",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glmodeh": {
+			"name": "Glmodeh",
+			"label": "Mode",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glmode": {
+			"name": "Glmode",
+			"label": "Mode",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"compute"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glvertexdat": {
+			"name": "Glvertexdat",
+			"label": "Vertex Shader",
+			"page": "GLSL",
+			"style": "DAT",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glautodispatchsize": {
+			"name": "Glautodispatchsize",
+			"label": "Auto Dispatch Size",
+			"page": "GLSL",
+			"style": "Toggle",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				true
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Gllocalsize": {
+			"name": "Gllocalsize",
+			"label": "Local Size",
+			"page": "GLSL",
+			"style": "Int",
+			"size": 3,
+			"mode": [
+				"CONSTANT",
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				8,
+				8,
+				1
+			],
+			"expr": [
+				null,
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null,
+				null
+			]
+		},
+		"Gloutputaccess": {
+			"name": "Gloutputaccess",
+			"label": "Output Access",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"readwrite"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glcustomdepth": {
+			"name": "Glcustomdepth",
+			"label": "Depth",
+			"page": "GLSL",
+			"style": "Int",
+			"size": 1,
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				1
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Gluvh": {
+			"name": "Gluvh",
+			"label": "UV",
+			"page": "GLSL",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Glinputextenduv": {
+			"name": "Glinputextenduv",
+			"label": "Input Extend Mode UV",
+			"page": "GLSL",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"mirror"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsresolutionh": {
+			"name": "Globalsresolutionh",
+			"label": "Resolution",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsresolution": {
+			"name": "Globalsresolution",
+			"label": "Resolution",
+			"page": "Globals",
+			"style": "Int",
+			"size": 2,
+			"mode": [
+				"CONSTANT",
+				"CONSTANT"
+			],
+			"val": [
+				1000,
+				2000
+			],
+			"expr": [
+				null,
+				null
+			],
+			"bindExpr": [
+				null,
+				null
+			]
+		},
+		"Globalsaspecth": {
+			"name": "Globalsaspecth",
+			"label": "Aspect",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsfilteringh": {
+			"name": "Globalsfilteringh",
+			"label": "Filtering",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsinputfiltertype": {
+			"name": "Globalsinputfiltertype",
+			"label": "Input Filtering",
+			"page": "Globals",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"nearest"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsfiltertype": {
+			"name": "Globalsfiltertype",
+			"label": "Viewer Filtering",
+			"page": "Globals",
+			"style": "Menu",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				"mipmap"
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalspassesh": {
+			"name": "Globalspassesh",
+			"label": "Passes",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalspixelformath": {
+			"name": "Globalspixelformath",
+			"label": "Pixel format",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		},
+		"Globalsmaskh": {
+			"name": "Globalsmaskh",
+			"label": "Mask",
+			"page": "Globals",
+			"style": "Header",
+			"mode": [
+				"CONSTANT"
+			],
+			"val": [
+				""
+			],
+			"expr": [
+				null
+			],
+			"bindExpr": [
+				null
+			]
+		}
+	}
+}

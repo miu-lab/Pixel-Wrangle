@@ -1,5 +1,6 @@
 import json
 from platform import system
+
 nComp = parent.Comp
 
 file = f'{parent.Comp.par.Codelibrarypath.eval()}/settings.json'
