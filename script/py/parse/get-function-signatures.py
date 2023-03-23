@@ -1,16 +1,5 @@
-# me - this DAT.
-# 
-# dat - the changed DAT
-# rows - a list of row indices
-# cols - a list of column indices
-# cells - the list of cells that have changed content
-# prev - the list of previous string contents of the changed cells
-# 
-# Make sure the corresponding toggle is enabled in the DAT Execute DAT.
-# 
-# If rows or columns are deleted, sizeChange will be called instead of row/col/cellChange.
-from pprint import pprint
 from re import match
+
 types = ('float','double','int','bool',
 		 'vec2','vec3','vec4',
          'uvec2','uvec3','uvec4',
@@ -31,15 +20,9 @@ def onTableChange(dat):
 	if start + end > -1:
 		descriptionn.write("/*\n\n"+ text[start:end].strip()+"\n\n*/")
 		for line in text.split("\n"):
-			if line.startswith(types) or re.match("^[\w]+\s.*", line):
+			if line.startswith(types) or match("^[\w]+\s.*", line):
 				variantn.write(line.split("{")[0].strip() + "\n\n")
 
-		
-		
-				
-	#clear()
-	# pprint(headLines)
-	
 	return
 
 def onRowChange(dat, rows):

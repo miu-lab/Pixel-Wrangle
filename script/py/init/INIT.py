@@ -1,5 +1,3 @@
-from pprint import pprint
-from copy import deepcopy
 from LOAD_SETTINGS import *
 from pathlib import Path
 from PRESET_UTILS import buildPreset	
@@ -16,12 +14,12 @@ glPath = glCodeContainer.path
 opid = parent.Comp.id
 
 def initStorage():
-    try: 
+    try:
         op.pwstorage.valid
-    except:
-            parent = op('/').create(baseCOMP, 'storage')
-            tarn = parent.create(baseCOMP, 'Pixel_Wrangle')
-            tarn.par.opshortcut = 'pwstorage'
+    except Exception:
+        parent = op('/').create(baseCOMP, 'storage')
+        tarn = parent.create(baseCOMP, 'Pixel_Wrangle')
+        tarn.par.opshortcut = 'pwstorage'
 
 def initStorageOP(comp=parent.Comp):
     lastState = buildPreset(comp)
@@ -59,13 +57,14 @@ def retrieveConnections(inputs, outputs):
 
 
 def createUserDirectories():
-	Path(parent.Comp.par.Codeuserpresetpath.eval()).mkdir(parents=True, exist_ok=True)
-	Path(parent.Comp.par.Codeuserfunctionpath.eval()).mkdir(parents=True, exist_ok=True)
-	if Path(parent.Comp.par.Codeuserpath.eval()+'/Macros.glsl').exists == True:
-		pass
-	else:
-		with open(str(Path(parent.Comp.par.Codeuserpath.eval()+'/Macros.glsl')), 'w') as f:
-			f.write('/* USER MACROS */\n')
+    Path(parent.Comp.par.Codeuserpresetpath.eval()).mkdir(parents=True, exist_ok=True)
+    Path(parent.Comp.par.Codeuserfunctionpath.eval()).mkdir(parents=True, exist_ok=True)
+    if (
+        Path(f'{parent.Comp.par.Codeuserpath.eval()}/Macros.glsl').exists
+        != True
+    ):
+        with open(str(Path(f'{parent.Comp.par.Codeuserpath.eval()}/Macros.glsl')), 'w') as f:
+            f.write('/* USER MACROS */\n')
 
 def onCreate():
     initStorage()
@@ -82,7 +81,7 @@ def onCreate():
         with open(file) as settings:
             vscodePath = json.loads(settings.read())['vscodePath']
             nComp.par.Codeexternaleditorpath = vscodePath
-    except:
+    except Exception:
         with open(file, "w") as settings:
             settings.write(initData)
             nComp.par.Codeexternaleditorpath = json.loads(initData)[
@@ -97,7 +96,7 @@ def onStart():
     preset = op.pwstorage.fetch(parent.Comp.path)
     try:
         loadPreset(preset['lastState'])
-    except:
+    except Exception:
         pass
     createUserDirectories()
     resetKeys = op("RESET_KEYS")
@@ -107,8 +106,6 @@ def onStart():
     resetPanel.run(delayFrames=15)
     run('parent.Comp.op("ON_CODE_CHANGE").par.active = 1', delayMilliSeconds=150)
     op('UPDATE_GLSL_PARMS').run(delayFrames=60)
-    # op('UPDATE_CONNECTORS').run(preset, fromOP=parent.Comp.op('INPUT_REPLICATOR'), delayFrames=63)
-    pass
     
 def onProjectPreSave():
     from LOAD_PRESET import loadPreset

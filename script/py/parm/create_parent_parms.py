@@ -1,4 +1,3 @@
-from pprint import pprint
 from _stubs import *
 from re import sub
 from ast import literal_eval
@@ -14,18 +13,16 @@ def addParFromJSON(target, src, replace=True, setValues=True, ignoreAttrErrors=T
                                  ignoreAttrErrors, fixParNames, setBuiltIns)
 
 def updateParm(src: dict, pNames, JSONpage):
-    p = parent.Comp.parGroup[src["name"]]
     updatedPage = JSONpage
-    
-    ## if Parameter already exist
-    if src["name"] in JSONpage:
-        
+
+    if src["name"] in updatedPage:
+
         # Delete unused
         if src["name"] not in pNames:
+            p = parent.Comp.parGroup[src["name"]]
             p.destroy()
             updatedPage.pop(src["name"])
-        
-        # Preserve old settings
+
         else:
             oldp = updatedPage[src["name"]]
             for key in list(oldp.keys()):
@@ -35,10 +32,8 @@ def updateParm(src: dict, pNames, JSONpage):
             oldp = {**src,**oldp}
 
             addParFromJSON(parent.Comp, oldp)
-    
-    ## elif Parameter does not exist
+
     else:
-        # print(f'{src["name"]} does not exist, it will be created, here are the properties {src}')
         addParFromJSON(parent.Comp, src)
 
 # OPERATORS
@@ -53,16 +48,10 @@ StringTypes = ("SOP", "PanelCOMP", "Python", "TOP", "MAT",
 def onTableChange(dat: DAT):
     page = None
     pageJSONDict = {}
-    
-    # GET TARGET PAGE
-    if getCustomPage(target, 'Controls'):
-        page = getCustomPage(target, 'Controls')
-        pageJSONDict = pageToJSONDict(page, extraAttrs='*', forceAttrLists=True)
 
-    # IF NONE CREATE IT
-    else:
-        page = target.appendCustomPage('Controls')
-        pageJSONDict = pageToJSONDict(page, extraAttrs='*', forceAttrLists=True)
+    # GET TARGET PAGE
+    page = getCustomPage(target, 'Controls') or target.appendCustomPage('Controls')
+    pageJSONDict = pageToJSONDict(page, extraAttrs='*', forceAttrLists=True)
 
     # SORT PAGES
     target.sortCustomPages('Controls', 'Code', 'Inputs',
@@ -73,11 +62,7 @@ def onTableChange(dat: DAT):
     # REMOVE HEADERS
     plist.pop(0)
 
-    # GET NAMES
-    pNames = []
-    for i, _ in enumerate(plist):
-        pNames.append(dat[i+1, "name"].val)
-
+    pNames = [dat[i+1, "name"].val for i, _ in enumerate(plist)]
     # GET CURRENT UI PARMS
     curPars = page.pars
 
@@ -115,29 +100,20 @@ def onTableChange(dat: DAT):
 
         # Vector default string to list
         if dat[i, 'ptype'].val.find("vec") != -1:
-            # Integer Vectors
-            if "i" or "b" or "u" in dat[i, 'ptype'].val:
-                default = [float(x) for x in literal_eval(default)]
-            # Float Vectors
-            else:
-                default = [float(x) for x in literal_eval(default)]
-
+            default = [float(x) for x in literal_eval(default)]
         # IF OP / STRING TYPE, GET CORRESPONFING KEY
         if dat[i, 'style'].val.startswith(StringTypes):
             tarKey = dat[i, 'style'].val.lower()
             if dat[i, tarKey].val == "None":
                 default = ""
-            else:
-                pass
-        
         pmode = ParMode.CONSTANT
-        
+
         if dat[i, 'expr'].val != "None":
             pmode = ParMode.EXPRESSION
-        
+
         if dat[i, 'bindExpr'].val != "None":
             pmode = ParMode.BIND
-        
+
         # SET PARAMETER SETTINGS
 
         pSettings = {
@@ -164,7 +140,7 @@ def onTableChange(dat: DAT):
             "enableExpr": dat[i, 'enableExpr'].val if dat[i, 'enableExpr'].val != "None" else "",
             "expr": f"{dat[i, 'expr'].val}" if dat[i, 'expr'].val != "None" else "",
             "bindExpr": dat[i, 'bindExpr'].val if dat[i, 'bindExpr'].val != "None" else "",
-            
+
             "min": min,
             "max": max,
             "normMin": min,
