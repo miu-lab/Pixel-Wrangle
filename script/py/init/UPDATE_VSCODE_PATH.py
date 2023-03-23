@@ -1,7 +1,7 @@
 from LOAD_SETTINGS import *
 jsonFile = None
 
-def onValueChange(par, prev):
+def onValueChange(par, _):
 	
 	# Read file as Python dict
 	with open(file, 'r') as settings:

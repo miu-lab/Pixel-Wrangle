@@ -1,7 +1,5 @@
 from re import sub
 from _stubs import *
-from json import dumps
-from pprint import pprint
 from inspect import cleandoc
 from pydoc import locate
 from ast import literal_eval
@@ -312,15 +310,15 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
 
     parmAllKeysDefault = {x[0]: x[1]["default"] for x in parmAllProps.items()}
 
-    parmKeysVals = {}
-
-    parmKeysVals["ptype"] = parmTypeName
-    parmKeysVals["vtype"] = parmVTypeName
-    parmKeysVals["gltype"] = parmGLTypeName
-    parmKeysVals["order"] = id
-    parmKeysVals["label"] = parmFullName
-    parmKeysVals["style"] = "Float"
-    parmKeysVals['typesize'] = 1
+    parmKeysVals = {
+        "ptype": parmTypeName,
+        "vtype": parmVTypeName,
+        "gltype": parmGLTypeName,
+        "order": id,
+        "label": parmFullName,
+        "style": "Float",
+        'typesize': 1,
+    }
 
     # Array Type
     if parmFullName.endswith("]"):
@@ -369,8 +367,7 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
             propVal = propRaw[1]
             isValidPropName = None
 
-        # Break if list is empty
-        except:
+        except Exception:
             continue
 
         ## CHECK PROPERTY NAME ##
@@ -379,8 +376,7 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
             isValidPropName = True
             targetProp = parmTypeAvailableProps[propName]
 
-        # Else display detailed error
-        except:
+        except Exception:
             isValidPropName = False
             error = cleandoc(
                 f"""
@@ -398,8 +394,6 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
         ## CHECK PROPERTY VALUE ##
         # If specified property has a valid name
         if isValidPropName:
-            targetPropTypeName = targetProp["type"].__name__
-
             if propName == 'menu':
                 propVal = [str(x) for x in literal_eval(propVal)]
                 parmKeysVals[propName] = propVal
@@ -415,19 +409,19 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                     try:
                         propVal = [float(x) for x in literal_eval(propVal)]
                         parmKeysVals[propName] = propVal
-                    except:
+                    except Exception:
                         try:
                             propVal = [float(propVal)]
                             parmKeysVals["typesize"]
                             parmKeysVals[propName] = propVal
-                        except:
+                        except Exception:
                             propVal = [
                                 float(parmAllKeysDefault["default"])] * parmKeysVals["typesize"]
                             parmKeysVals[propName] = propVal
                 else:
                     try:
                         parmKeysVals[propName] = propVal
-                    except:
+                    except Exception:
                         parmKeysVals[propName] = float(
                             parmAllKeysDefault["default"])
 
@@ -439,20 +433,22 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                     parmKeysVals[key] = propVal
                     parmKeysVals['default'] = propVal
 
-                
+
 
             elif propName == 'acinitval' and propVal == 'chop':
                 parmKeysVals["style"] = "CHOP"
                 parmKeysVals[propName] = propVal
 
             else:
+                targetPropTypeName = targetProp["type"].__name__
+
                 try:
                     c = locate(targetPropTypeName)
                     propVal = c(propVal)
                     parmKeysVals[propName] = propVal
 
                 # Else display detailed error
-                except:
+                except Exception:
                     error = cleandoc(
                         f"""
 
@@ -467,24 +463,14 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                     print(error)
                     continue
 
-    return {parmFinalName: {**parmAllKeysDefault, **parmKeysVals}}
+    return {parmFinalName: parmAllKeysDefault | parmKeysVals}
 
 def getParmList(dat: DAT):
-
     # Init
     rawText = None
     rawLines = []
-
     # DAT is a scriptDAT type (multi inputs)
-    if dat.type == "script":
-        rawText = dat.inputs[0].text
-
-    # DAT is standard DAT
-    else:
-        rawText = dat.text
-
+    rawText = dat.inputs[0].text if dat.type == "script" else dat.text
     # Split lines and write out to result
     rawLines = removeEmpty(rawText.splitlines())
-    result = setParmProps(rawLines)
-
-    return result
+    return setParmProps(rawLines)
