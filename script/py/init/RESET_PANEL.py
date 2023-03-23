@@ -1,3 +1,10 @@
+# Stubs BEGIN
+try:
+	op
+except NameError:
+	from _stubs import *
+# Stubs END
+
 op(f"{parent.Comp}/KEYBOARDS_SHORTCUTS/panel5").bypass = False
 mode = parent.Comp.par.Glmode.val
 if mode == 'compute':

@@ -1,3 +1,9 @@
+# Stubs BEGIN
+try:
+	op
+except NameError:
+	from _stubs import *
+# Stubs END
 import json
 from platform import system
 

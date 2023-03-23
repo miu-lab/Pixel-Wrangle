@@ -1,3 +1,10 @@
+# Stubs BEGIN
+try:
+	op
+except NameError:
+	from _stubs import *
+# Stubs END
+
 def resetKeys(opTable):
 	rows = n.rows()
 	rows.pop(0)
