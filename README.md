@@ -21,46 +21,25 @@ You can find the official "work-in-progress" documentation at the following [lin
 
 # Changelog
 
-## **2023-03-22** -> Pixel-Wrangle - Pre-release - RC2
+## v1.2.0 (Touchdesigner 2023.xx compatible)
 
-**Please note that release candidate may contain unknown bugs. Use it for your projects at your own risk.**
+### BACKWARD COMPATIBILTY
 
-*Tests were run on a Windows system, an AMD CPU, an RTX 3XXX GPU, and the latest version of TouchDesigner 2022.* If you encounter any critical bugs, please let us know in the issues section of the repository.
+Due to major changes in Touchdesigner 2023.xx builds, this version does not support old Touchdesigner builds (before 2023.xx), but you can recall all of your presets and functions created in the previous versions of Pixel Wrangle
 
-The [documentation](https://miu-lab.github.io/Pixel-Wrangle-doc/) is currently in a 'work in progress' state and will be updated soon. It will be available in both French and English.
+### IMPROVEMENTS
 
-## Features
+- Use the new Relative path workflow for TOX components
+- Use Text file in sync mode for all external source code files
 
-- Added Instance manager Panel (browse all Pixel Wrangle exported instances in the project, reload in editor with double click, open parameters, viewers, network)
-- Added instance linking (Track currently selected instance and load it automatically in the main UI to edit)
-- Added macros allowing to switch between Compute and Vertex/Pixel shader modes on the fly without editing code (see help/readWrite preset for usage)
-- Added miu_lab utilities functions for basic raymarching (ray and light structs, shadow, ao, normals, uniform fog)
-- Added miu_lab noise functions (FBM, FastNoiseLite)
-- Added raymarching presets based on miu_lab utilities functions
-- Added pin instance CTRL L - pin parameter/viewer - code CTRL SHIFT L
-- Added layout mode in viewer to check all buffers in single viewer
+### BUGFIXES
 
-## Improvements
+- Remove old workaround cache nodes due to a bug in 2022 builds that cook each frame inside comp even without time dependency
+- Fix script errors due to par name updates in GLSLMultiTOP in 2023 builds
 
-- Global UI improvements (add header bar, auto layout parameter pane, layout mode in viewer panes, pins, etc.)
-- Allow single Pixel Wrangle OP manipulate multiple nodes (called 'Instances')
-- Added storage in /storage. Pixel Wrangle is now an external tox that reload at startup
-- Allow drag and drop previously exported instance in UI to reload it using op storage
-- Recalling an instance will keep all parameter values as they are tuned in the instance
-- When Pixel Wrangle is linked to an instance : Feed instance inputs as inputs fallback in main UI
-- Improved autofocus current OP in parameter pane (contextual edit viewer, node type hints : blue = Pixel Wrangle Master, green = Pixel Wrangle instance, grey= regular OP)
-- Edit node name in parameter pane
-- Move build lib and export icons in header
-- Move resolution, mode, etc. icons on the right
-- Updated Macros and presets to use the new write() function macro
-- Updated help presets
+### DEPENDENCIES
 
-## Bug Fixes
-
-- Include lygia readme and license in imported libraries
-- Fixed pane w/h min size
-- Fixed string expression properties in IO tab
-- Fixed some sticky keyboard shortcuts
+- Lygia updated to the current main branch (1.2.0)
 
 ## **Quick Install**
 
