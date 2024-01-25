@@ -1,103 +1,106 @@
 from re import sub
-from _stubs import *
+
 from inspect import cleandoc
 from pydoc import locate
 from ast import literal_eval
 import string
 
 # Corresponding table of declared types vs ParmTypes
-validTypePattern = {"//---": "header",
-                    "//str:": "str",
-                    "//op:": "op",
-                    "//chop:": "chop",
-                    "//top:": "top",
-                    "//mat:": "mat",
-                    "//comp:": "comp",
-                    "//file:": "file",
-                    "//folder:": "folder",
-                    "float": "float",
-                    "int": "int",
-                    "uint": "int",
-                    "atomic_uint": "int",
-                    "bool": "int",
-                    "vec2": "vec2",
-                    "vec3": "vec3",
-                    "vec4": "vec4",
-                    "ivec2": "ivec2",
-                    "ivec3": "ivec3",
-                    "ivec4": "ivec4",
-                    "uvec2": "ivec2",
-                    "uvec3": "ivec3",
-                    "uvec4": "ivec4",
-                    "bvec2": "ivec2",
-                    "bvec3": "ivec3",
-                    "bvec4": "ivec4",
-                    "mat2": "chop",
-                    "mat3": "chop",
-                    "mat4": "chop",
-                    }
+validTypePattern = {
+    "//---": "header",
+    "//str:": "str",
+    "//op:": "op",
+    "//chop:": "chop",
+    "//top:": "top",
+    "//mat:": "mat",
+    "//comp:": "comp",
+    "//file:": "file",
+    "//folder:": "folder",
+    "float": "float",
+    "int": "int",
+    "uint": "int",
+    "atomic_uint": "int",
+    "bool": "int",
+    "vec2": "vec2",
+    "vec3": "vec3",
+    "vec4": "vec4",
+    "ivec2": "ivec2",
+    "ivec3": "ivec3",
+    "ivec4": "ivec4",
+    "uvec2": "ivec2",
+    "uvec3": "ivec3",
+    "uvec4": "ivec4",
+    "bvec2": "ivec2",
+    "bvec3": "ivec3",
+    "bvec4": "ivec4",
+    "mat2": "chop",
+    "mat3": "chop",
+    "mat4": "chop",
+}
 
 # Props and target types
 commonProps = {
-    "ptype":        {"type": str,  "default": "float"},
-    "vtype":        {"type": str,  "default": "float"},
-    "gltype":       {"type": str,  "default": "uni"},
-    "array":        {"type": int,  "default": 0},
-    "arraytype":    {"type": str,  "default": "uniformarray"},
-    "arraysamples": {"type": int,  "default": 0},
-    "acinittype":   {"type": int,  "default": "0"},
-    "acinitval":    {"type": str,  "default": "val"},
-    "typesize":     {"type": int,  "default": 1},
-    "label":        {"type": str,  "default": "Header"},
-    "section":      {"type": int,  "default": 0},
-    "order":        {"type": int,  "default": 0},
-    "readonly":     {"type": int,  "default": 0},
-    "enable":       {"type": int,  "default": 1},
-    "enableExpr":   {"type": str,  "default": ""},
-    "help":         {"type": str,  "default": ""},
-    "style":         {"type": str, "default": "Float"}
+    "ptype": {"type": str, "default": "float"},
+    "vtype": {"type": str, "default": "float"},
+    "gl_type": {"type": str, "default": "uni"},
+    "array": {"type": int, "default": 0},
+    "arraytype": {"type": str, "default": "uniformarray"},
+    "arraysamples": {"type": int, "default": 0},
+    "acinittype": {"type": int, "default": "0"},
+    "acinitval": {"type": str, "default": "val"},
+    "typesize": {"type": int, "default": 1},
+    "label": {"type": str, "default": "Header"},
+    "section": {"type": int, "default": 0},
+    "order": {"type": int, "default": 0},
+    "readonly": {"type": int, "default": 0},
+    "enable": {"type": int, "default": 1},
+    "enableExpr": {"type": str, "default": ""},
+    "help": {"type": str, "default": ""},
+    "style": {"type": str, "default": "Float"},
 }
 
 pythonProps = {
-    "expr":         {"type": str, "default": ""},
-    "bindExpr":     {"type": str, "default": ""}
+    "expr": {"type": str, "default": ""},
+    "bindExpr": {"type": str, "default": ""},
 }
 
 numberProps = {
-    "chop":         {"type": str, "default": ""},
-    "min":          {"type": float, "default": 0},
-    "max":          {"type": float, "default": 1},
-    "default":      {"type": float,  "default": 0}
+    "chop": {"type": str, "default": ""},
+    "min": {"type": float, "default": 0},
+    "max": {"type": float, "default": 1},
+    "default": {"type": float, "default": 0},
 }
 
 toggleProps = {
-    "menu":         {"type": list, "default": ""},
-    "toggle":       {"type": int,  "default": 0},
-    "pulse":        {"type": int,  "default": 0}
+    "menu": {"type": list, "default": ""},
+    "toggle": {"type": int, "default": 0},
+    "pulse": {"type": int, "default": 0},
 }
 
 matrixProps = {
-    "chop":         {"type": str, "default": ""},
+    "chop": {"type": str, "default": ""},
 }
 
 stringProps = {
-    "file":         {"type": str, "default": ""},
-    "folder":       {"type": str, "default": ""},
-    "str":          {"type": str, "default": ""},
-    "strmenu":      {"type": str, "default": ""},
-    "python":       {"type": str, "default": ""},
-    "comp":         {"type": str, "default": ""},
-    "object":       {"type": str, "default": ""},
-    "panelcomp":    {"type": str, "default": ""},
-    "op":           {"type": str, "default": ""},
-    "top":          {"type": str, "default": ""},
-    "chop":         {"type": str, "default": ""},
-    "dat":          {"type": str, "default": ""},
-    "mat":          {"type": str, "default": ""}
+    "file": {"type": str, "default": ""},
+    "folder": {"type": str, "default": ""},
+    "str": {"type": str, "default": ""},
+    "strmenu": {"type": str, "default": ""},
+    "python": {"type": str, "default": ""},
+    "comp": {"type": str, "default": ""},
+    "object": {"type": str, "default": ""},
+    "panelcomp": {"type": str, "default": ""},
+    "op": {"type": str, "default": ""},
+    "top": {"type": str, "default": ""},
+    "chop": {"type": str, "default": ""},
+    "dat": {"type": str, "default": ""},
+    "mat": {"type": str, "default": ""},
 }
 
-allProps = {**commonProps, **pythonProps, **numberProps,
-            **toggleProps, **matrixProps, **stringProps}
+allProps = (
+    commonProps | pythonProps | numberProps | toggleProps | matrixProps | stringProps
+)
+
 
 def setParmProps(stringList: str):
     result = []
@@ -186,8 +189,17 @@ def setParmProps(stringList: str):
             else:
                 specifiedProps = []
 
-        parmProps = setProps(id, parmFullName, parmName, parmTypeName, parmVTypeName, parmGLtypeName,
-                             specifiedProps, parmTypeAvailableProps, allProps)
+        parmProps = setProps(
+            id,
+            parmFullName,
+            parmName,
+            parmTypeName,
+            parmVTypeName,
+            parmGLtypeName,
+            specifiedProps,
+            parmTypeAvailableProps,
+            allProps,
+        )
         result.append(parmProps)
 
     return result
@@ -195,7 +207,7 @@ def setParmProps(stringList: str):
 
 def cleanName(strName):
     # Replace non compatible chars by _, make lowercase and capitalize first letter
-    return sub(r'\W+|^(?=\d)', '', strName).lower().capitalize()
+    return sub(r"\W+|^(?=\d)", "", strName).lower().capitalize()
 
 
 def cleanStrProps(strProp, ISCOMMENTLINEPARM=False):
@@ -203,31 +215,30 @@ def cleanStrProps(strProp, ISCOMMENTLINEPARM=False):
     # Leave spaces in str properties
     preservedSpaceProps = ("help", "label", "expr", "bindExpr", "enableExpr")
     # GLSL compatible parm
-    if not ISCOMMENTLINEPARM:
-        prop = [x.strip() for x in strProp.split("//")[1].split(";")]
-
-    # other parm types
-    else:
-        prop = [x.strip() for x in strProp.split("//---")[1].split(";")]
-
+    prop = (
+        [x.strip() for x in strProp.split("//---")[1].split(";")]
+        if ISCOMMENTLINEPARM
+        else [x.strip() for x in strProp.split("//")[1].split(";")]
+    )
     # Conditionnal remove space
 
-
-    prop = [x.translate(
-        str.maketrans('', '', string.whitespace)) if not x.startswith(preservedSpaceProps) else x for x in prop]
-    
+    prop = [
+        x
+        if x.startswith(preservedSpaceProps)
+        else x.translate(str.maketrans("", "", string.whitespace))
+        for x in prop
+    ]
 
     return prop
 
 
 def checkParmType(line: str):
     # Remove All spaces
-    currentLine = line.translate(
-        str.maketrans('', '', string.whitespace))
+    currentLine = line.translate(str.maketrans("", "", string.whitespace))
 
     # Remove Start and split each specified prop
     specifiedProps = currentLine.split(";")
-    
+
     # If const offset string check after const keyword and check type
     if specifiedProps[0].startswith("const"):
         for key, value in validTypePattern.items():
@@ -248,34 +259,29 @@ def getAvailablePropsOfParmType(parmType):
 
     # Simple integers, menu, toggle parm types
     if parmType in ["int"]:
-        return {
-            **commonProps,
-            **numberProps,
-            **toggleProps,
-            **pythonProps
-        }
+        return {**commonProps, **numberProps, **toggleProps, **pythonProps}
 
     # Float and vectors parm types
     elif parmType in [
         "float",
-        "vec2", "vec3", "vec4",
-        "ivec2", "ivec3", "ivec4",
-        "uvec2", "uvec3", "uvec4",
-        "bvec2", "bvec3", "bvec4",
+        "vec2",
+        "vec3",
+        "vec4",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "bvec2",
+        "bvec3",
+        "bvec4",
     ]:
-        return {
-            **commonProps,
-            **numberProps,
-            **pythonProps
-        }
+        return {**commonProps, **numberProps, **pythonProps}
 
     # OP, files and strings parm types
     elif parmType in ["chop"]:
-        return {
-            **commonProps,
-            **matrixProps,
-            **pythonProps
-        }
+        return {**commonProps, **matrixProps, **pythonProps}
 
     else:
         return parmTypeAvailableProps
@@ -293,17 +299,29 @@ def removeEmpty(stringList: str):
             continue
 
         # String is comment
-        elif line.strip().startswith(("//", "/*")) and not line.strip().startswith("//---"):
+        elif line.strip().startswith(("//", "/*")) and not line.strip().startswith(
+            "//---"
+        ):
             continue
 
         # String is valid
         else:
-            result.append({"text": line, "id": i+1})
+            result.append({"text": line, "id": i + 1})
 
     return result
 
 
-def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeName: str, parmGLTypeName: str, specifiedProps, parmTypeAvailableProps, parmAllProps):
+def setProps(
+    id,
+    parmFullName: str,
+    parmName: str,
+    parmTypeName: str,
+    parmVTypeName: str,
+    parmGLTypeName: str,
+    specifiedProps,
+    parmTypeAvailableProps,
+    parmAllProps,
+):
 
     # INITIAL PARAMETER SETTINGS
     parmFinalName = parmName
@@ -313,11 +331,11 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
     parmKeysVals = {
         "ptype": parmTypeName,
         "vtype": parmVTypeName,
-        "gltype": parmGLTypeName,
+        "gl_type": parmGLTypeName,
         "order": id,
         "label": parmFullName,
         "style": "Float",
-        'typesize': 1,
+        "typesize": 1,
     }
 
     # Array Type
@@ -325,7 +343,7 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
         parmKeysVals["ptype"] = "chop"
         parmKeysVals["label"] = parmFinalName
         parmKeysVals["array"] = 1
-        arraySamples = int(parmFullName.split('[')[1].split("]")[0])
+        arraySamples = int(parmFullName.split("[")[1].split("]")[0])
         parmKeysVals["arraysamples"] = arraySamples
         parmKeysVals["style"] = "CHOP"
 
@@ -334,11 +352,12 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
         parmKeysVals["arraysamples"] = None
         parmKeysVals["arraytype"] = None
 
-	    # Vector Types
+        # Vector Types
         if "vec" in parmTypeName:
             parmKeysVals["typesize"] = int(parmTypeName[-1])
             parmKeysVals["default"] = [
-                float(parmAllKeysDefault["default"])] * parmKeysVals["typesize"]
+                float(parmAllKeysDefault["default"])
+            ] * parmKeysVals["typesize"]
             if parmKeysVals["typesize"] == 3:
                 parmKeysVals["style"] = "RGB"
             elif parmKeysVals["typesize"] == 4:
@@ -386,7 +405,8 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                 =================================
                 The '{propName}' property does not exist on {parmTypeName.capitalize()} ParmType
                 This property will be ignore
-                """)
+                """
+            )
 
             print(error)
             continue
@@ -394,7 +414,7 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
         ## CHECK PROPERTY VALUE ##
         # If specified property has a valid name
         if isValidPropName:
-            if propName == 'menu':
+            if propName == "menu":
                 propVal = [str(x) for x in literal_eval(propVal)]
                 parmKeysVals[propName] = propVal
                 parmKeysVals["style"] = "Menu"
@@ -404,8 +424,8 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                 parmKeysVals[propName] = propVal
                 parmKeysVals["style"] = "Header"
 
-            elif propName == 'default':
-                if parmKeysVals['typesize'] > 1:
+            elif propName == "default":
+                if parmKeysVals["typesize"] > 1:
                     try:
                         propVal = [float(x) for x in literal_eval(propVal)]
                         parmKeysVals[propName] = propVal
@@ -416,26 +436,47 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                             parmKeysVals[propName] = propVal
                         except Exception:
                             propVal = [
-                                float(parmAllKeysDefault["default"])] * parmKeysVals["typesize"]
+                                float(parmAllKeysDefault["default"])
+                            ] * parmKeysVals["typesize"]
                             parmKeysVals[propName] = propVal
                 else:
                     try:
                         parmKeysVals[propName] = propVal
                     except Exception:
-                        parmKeysVals[propName] = float(
-                            parmAllKeysDefault["default"])
+                        parmKeysVals[propName] = float(parmAllKeysDefault["default"])
 
-            elif parmKeysVals["array"] == 1 and propName == 'arraytype':
+            elif parmKeysVals["array"] == 1 and propName == "arraytype":
                 parmKeysVals["arraytype"] = cleanName(propVal).lower()
 
-            elif propName in ["op", "top", "file", "folder", "dat", "mat", "chop", "comp"] and parmKeysVals['style'].startswith(("SOP", "PanelCOMP", "Python", "TOP", "MAT", "COMP", "CHOP", "File", "Folder", "Str", "StrMenu")):
-                    key = parmKeysVals['style'].lower()
-                    parmKeysVals[key] = propVal
-                    parmKeysVals['default'] = propVal
+            elif propName in [
+                "op",
+                "top",
+                "file",
+                "folder",
+                "dat",
+                "mat",
+                "chop",
+                "comp",
+            ] and parmKeysVals["style"].startswith(
+                (
+                    "SOP",
+                    "PanelCOMP",
+                    "Python",
+                    "TOP",
+                    "MAT",
+                    "COMP",
+                    "CHOP",
+                    "File",
+                    "Folder",
+                    "Str",
+                    "StrMenu",
+                )
+            ):
+                key = parmKeysVals["style"].lower()
+                parmKeysVals[key] = propVal
+                parmKeysVals["default"] = propVal
 
-
-
-            elif propName == 'acinitval' and propVal == 'chop':
+            elif propName == "acinitval" and propVal == "chop":
                 parmKeysVals["style"] = "CHOP"
                 parmKeysVals[propName] = propVal
 
@@ -458,12 +499,14 @@ def setProps(id, parmFullName: str, parmName: str, parmTypeName: str, parmVTypeN
                         The '{propVal}' value on '{propName}' property is wrong type
                         Expected type is {targetProp['type'].__name__}
                         This value will be reset to default : {targetProp['default']}
-                        """)
+                        """
+                    )
 
                     print(error)
                     continue
 
     return {parmFinalName: parmAllKeysDefault | parmKeysVals}
+
 
 def getParmList(dat: DAT):
     # Init

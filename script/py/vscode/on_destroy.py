@@ -1,8 +1,9 @@
-from _stubs import *
+
 from utils import *
 
+
 def onDestroy():
-	for i, source in enumerate(sourcesn):
-		source.par.syncfile = 0
-		source.par.file = ''
-	return
+    for source in sourcesn:
+        source.par.syncfile = 0
+        source.par.file = ""
+    return

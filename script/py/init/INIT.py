@@ -1,118 +1,152 @@
 from LOAD_SETTINGS import *
 from pathlib import Path
-from PRESET_UTILS import buildPreset	
+from PRESET_UTILS import buildPreset
 
 import os
 
-sourcesn = [iop.uniform,
-            iop.outputs,
-            iop.code,
-            iop.function]
+sourcesn = [iop.uniform, iop.outputs, iop.code, iop.function]
 
 glCodeContainer = op(f"{parent.Comp.path}/BUILD_GLSL_CODE")
 glPath = glCodeContainer.path
 opid = parent.Comp.id
 
+
 def initStorage():
     try:
         op.pwstorage.valid
     except Exception:
-        parent = op('/').create(baseCOMP, 'storage')
-        tarn = parent.create(baseCOMP, 'Pixel_Wrangle')
-        tarn.par.opshortcut = 'pwstorage'
+        parent = op("/").create(baseCOMP, "storage")
+        tarn = parent.create(baseCOMP, "Pixel_Wrangle")
+        tarn.par.opshortcut = "pwstorage"
+
 
 def initStorageOP(comp=parent.Comp):
     lastState = buildPreset(comp)
-    op.pwstorage.store(comp.path, {'opid':comp.id, 'lastState':lastState, 'connections' : {'inputs' : [], 'outputs': []}})
+    op.pwstorage.store(
+        comp.path,
+        {
+            "opid": comp.id,
+            "lastState": lastState,
+            "connections": {"inputs": [], "outputs": []},
+        },
+    )
+
 
 def savePresetInStorage(comp=parent.Comp):
     opid = comp.id
     oppath = comp.path
-    inputs = [{'index': x.index, 'op':x.connections[0].owner.path if len(x.connections) >= 1 else None} for x in comp.inputConnectors]
-    outputs = [{'index': x.index, 'op':x.connections[0].owner.path if len(x.connections) >= 1 else None} for x in comp.outputConnectors]
+    inputs = [
+        {
+            "index": x.index,
+            "op": x.connections[0].owner.path if len(x.connections) >= 1 else None,
+        }
+        for x in comp.inputConnectors
+    ]
+    outputs = [
+        {
+            "index": x.index,
+            "op": x.connections[0].owner.path if len(x.connections) >= 1 else None,
+        }
+        for x in comp.outputConnectors
+    ]
 
     lastState = buildPreset(comp)
-    op.pwstorage.store(oppath, {'opid':opid, 'lastState':lastState, 'connections' : {'inputs' : inputs, 'outputs': outputs}})
+    op.pwstorage.store(
+        oppath,
+        {
+            "opid": opid,
+            "lastState": lastState,
+            "connections": {"inputs": inputs, "outputs": outputs},
+        },
+    )
+
 
 def resetKeys(opTable):
     rows = n.rows()
     rows.pop(0)
     for i, row in enumerate(rows):
-        oppath = n[i+1, "path"].val
+        oppath = n[i + 1, "path"].val
         curOP = op(oppath)
         curOP.par.clear.pulse(1, frames=1)
     return
 
+
 def retrieveConnections(inputs, outputs):
-    if len(inputs)>0:
+    if len(inputs) > 0:
         for i in inputs:
-            index = i['index']
-            tarn = i['op']
+            index = i["index"]
+            tarn = i["op"]
             parent.Comp.inputCOMPConnectors[index].connect(op(tarn))
-    if len(outputs)>0:
+    if len(outputs) > 0:
         for o in outputs:
-            index = o['index']
-            tarn = o['op']
+            index = o["index"]
+            tarn = o["op"]
             parent.Comp.outputCOMPConnectors[index].connect(op(tarn))
 
 
 def createUserDirectories():
     Path(parent.Comp.par.Codeuserpresetpath.eval()).mkdir(parents=True, exist_ok=True)
     Path(parent.Comp.par.Codeuserfunctionpath.eval()).mkdir(parents=True, exist_ok=True)
-    if (
-        Path(f'{parent.Comp.par.Codeuserpath.eval()}/Macros.glsl').exists
-        != True
-    ):
-        with open(str(Path(f'{parent.Comp.par.Codeuserpath.eval()}/Macros.glsl')), 'w') as f:
-            f.write('/* USER MACROS */\n')
+    if Path(f"{parent.Comp.par.Codeuserpath.eval()}/Macros.glsl").exists != True:
+        with open(
+            str(Path(f"{parent.Comp.par.Codeuserpath.eval()}/Macros.glsl")), "w"
+        ) as f:
+            f.write("/* USER MACROS */\n")
+
 
 def onCreate():
+    parent(
+    ).par.externaltox = f"{app.userPaletteFolder}/Pixel-Wrangle/Pixel_Wrangle.tox"
+    parent().par.enableexternaltox = 1
     initStorage()
     initStorageOP()
     createUserDirectories()
     resetKeys = op("RESET_KEYS")
-    resetKeys.run(delayFrames=10)
+    resetKeys.run(delayFrames=2)
 
-    resetPanel = op('RESET_PANEL')
+    resetPanel = op("RESET_PANEL")
     op(f"{parent.Comp}/KEYBOARDS_SHORTCUTS/panel5").bypass = True
-    resetPanel.run(delayFrames=10)
+    resetPanel.run(delayFrames=2)
 
     try:
         with open(file) as settings:
-            vscodePath = json.loads(settings.read())['vscodePath']
+            vscodePath = json.loads(settings.read())["vscodePath"]
             nComp.par.Codeexternaleditorpath = vscodePath
     except Exception:
         with open(file, "w") as settings:
             settings.write(initData)
-            nComp.par.Codeexternaleditorpath = json.loads(initData)[
-                'vscodePath']
-
+            nComp.par.Codeexternaleditorpath = json.loads(
+                initData)["vscodePath"]
+    # parent().par.enableexternaltoxpulse.pulse()
     return
 
 
 def onStart():
     from LOAD_PRESET import loadPreset
+
     initStorage()
     preset = op.pwstorage.fetch(parent.Comp.path)
     try:
-        loadPreset(preset['lastState'])
+        loadPreset(preset["lastState"])
     except Exception:
         pass
     createUserDirectories()
     resetKeys = op("RESET_KEYS")
-    resetKeys.run(delayFrames=10)
-    resetPanel = op('RESET_PANEL')
+    resetKeys.run(delayFrames=2)
+    resetPanel = op("RESET_PANEL")
     op(f"{parent.Comp}/KEYBOARDS_SHORTCUTS/panel5").bypass = True
-    resetPanel.run(delayFrames=15)
-    run('parent.Comp.op("ON_CODE_CHANGE").par.active = 1', delayMilliSeconds=150)
-    op('UPDATE_GLSL_PARMS').run(delayFrames=60)
-    
+    resetPanel.run(delayFrames=2)
+    run('parent.Comp.op("ON_CODE_CHANGE").par.active = 1', delayMilliSeconds=100)
+    op("UPDATE_GLSL_PARMS").run(delayFrames=15)
+
+
 def onProjectPreSave():
     from LOAD_PRESET import loadPreset
-    initStorage()
-    savePresetInStorage(parent.Comp)
-    
-def onExit():
+
     initStorage()
     savePresetInStorage(parent.Comp)
 
+
+def onExit():
+    initStorage()
+    savePresetInStorage(parent.Comp)

@@ -1,3 +1,5 @@
 /settings.json
 Functions/dist/**/*
 Toe/Backup
+venv/**/*
+desktop.ini

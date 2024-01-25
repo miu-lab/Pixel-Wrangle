@@ -1,4 +1,3 @@
-from _stubs import *
 from pathlib import Path
 from subprocess import Popen
 from shutil import copyfile
@@ -8,11 +7,12 @@ from pprint import pprint
 # from stackoverflow.com/questions/22974499/generate-id-from-string-in-python
 def getID(string: str, last_idx: int = 6) -> str:
     import hashlib
+
     m = hashlib.md5()
-    string = string.encode('utf-8')
+    string = string.encode("utf-8")
     m.update(string)
-    unqiue_name: str = str(int(m.hexdigest(), 16))[0:last_idx]
-    return unqiue_name
+    unique_name: str = str(int(m.hexdigest(), 16))[:last_idx]
+    return unique_name
 
 homePath = Path(parent.Comp.par.Codeuserpath.eval())
 pwPath = Path(parent.Comp.par.Codelibrarypath.eval())
@@ -23,14 +23,14 @@ userDataPath = homePath.joinpath(envPath).joinpath(userDataFolder)
 extensionsPath = homePath.joinpath(envPath).joinpath(extensionsFolder)
 
 try:
-	userDataPath.mkdir()
-except:
-	pass
-	
+    userDataPath.mkdir()
+except Exception:
+    pass
+
 try:
-	extensionsPath.mkdir()
-except:
-	pass
+    extensionsPath.mkdir()
+except Exception:
+    pass
 
 nComp = parent.Comp
 
@@ -50,8 +50,13 @@ vscodeenvcmd = "--user-data-dir"
 vscodeextcmd = "--extensions-dir"
 vscode = nComp.par.Codeexternaleditorpath.val
 vscodeInstance = ''
+vscode = nComp.par.Codeexternaleditorpath.val
+vscodeInstance = ""
+
 
 def openVSCode(targetFolder):
-	global vscodeInstance
-	vscodeInstance = Popen( [ vscode, vscodeenvcmd, userdata, vscodeextcmd, extensions, targetFolder ] )
-	return vscodeInstance
+    global vscodeInstance
+    vscodeInstance = Popen(
+        [vscode, vscodeenvcmd, userdata, vscodeextcmd, extensions, targetFolder]
+    )
+    return vscodeInstance

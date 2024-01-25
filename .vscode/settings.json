@@ -1,5 +1,7 @@
 {
     "python.analysis.extraPaths": [
-        "./script/py/libs"
-    ]
+        "./script/py/libs",
+        "./script/py/parse/common",
+        "./script/py/parse/glsl_code_analyzer"
+    ],
 }
