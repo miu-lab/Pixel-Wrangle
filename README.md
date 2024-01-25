@@ -45,7 +45,7 @@ Due to major changes in Touchdesigner 2023.xx builds, this version does not supp
 
 ### Requirements
 
-- [TouchDesigner 2022.32120 or later](https://derivative.ca/download)
+- [TouchDesigner 2023.11340 or later](https://derivative.ca/download)
 - [Git](https://git-scm.com/downloads)
 
 ### Installation
